@@ -1,0 +1,21 @@
+<?php
+/**
+ * The trade module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     trade
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+if(!isset($lang->trellis)) $lang->trellis = new stdclass();
+$lang->trellis->id          = '编号';
+
+$lang->trellis->create      = '新建';
+$lang->trellis->edit        = '编辑';
+$lang->trellis->list        = '列表';
+$lang->trellis->name        = '名称';
+$lang->trellis->delete      = '删除';
+$lang->trellis->number      = '格架编号';
+$lang->trellis->store       = '店铺';

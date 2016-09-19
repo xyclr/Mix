@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>首页</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="js/swiper.min.css">
+
+    <style>
+        *{margin: 0; padding: 0;}
+        html,body{position:relative;height:100%;}
+        body{font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;color:#000;margin:0;padding:0;}
+        .swiper-container{width:100%;height:100%;}
+        .swiper-slide{
+            text-align:center;
+            font-size:18px;
+            background:#fff;
+            display:-webkit-box;
+            display:-ms-flexbox;
+            display:-webkit-flex;
+            display:flex;-webkit-box-pack:center;
+            -ms-flex-pack:center;
+            -webkit-justify-content:center;
+            justify-content:center;
+            -webkit-box-align:center;
+            -ms-flex-align:center;
+            -webkit-align-items:center;
+            align-items:center;
+        }
+        .txt{width: 100%; height: 135px; position: absolute; top:60%;z-index: 10; overflow: hidden;}
+        .con{animation:mymove 2s linear 1; -webkit-animation:mymove 2s linear 1; }
+
+
+        .txt p{line-height: 25px; font-size: 14px;text-align: center; color: #000;}
+        .btn {border: 1px solid #000; text-align: center; width: 100px;padding: 8px 0; margin: 0 auto;}
+        .guide{width: 100%; height: 100%;}
+        .main{display: none;position: relative; background:url('image/china.jpg') no-repeat;background-position:50% 50%; background-size:cover; width: 100%; height: 100%;}
+        .wrap1{width: 100px; position: absolute;top:5%;left: 55%;color: #fff;}
+        .wrap2{width: 100px; position: absolute;top:15%;left: 25%;color: #fff;}
+        .wrap3{width: 100px; position: absolute;top:35%;left: 35%;color: #fff;}
+        .wrap4{width: 100px; position: absolute;top:50%;left: 75%;color: #fff;}
+        .wrap5{width: 100px; position: absolute;top:60%;left: 5%;color: #fff;}
+        .wrap6{width: 100px; position: absolute;top:75%;left: 15%;color: #fff;}
+        .wrap7{width: 100px; position: absolute;top:85%;left: 55%;color: #fff;}
+        .wrap8{width: 100px; position: absolute;top:50%;left: 75%;color: #fff;}
+        .main img{width: 30px; height: 50px;}
+        .lay{
+            background-color: #000; opacity: 0.7;border-radius: 0.2rem;padding:0.2rem;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-name: breathe2;
+            -webkit-animation-duration: 1200ms;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+        }
+        .spot {
+            width:1.5rem;height: 2rem;
+            display: inline-block;
+            background: url("image/spot.png") no-repeat;
+            background-size: 100% 100%;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-name: breathe;
+            -webkit-animation-duration: 1200ms;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+        }
+        .spot-box {
+
+        }
+        .cloud-l {
+            position: absolute;
+            left:0;
+            z-index: 2;
+            animation-delay:0.5s;
+            -webkit-animation-delay:0.5s;
+            -webkit-animation: cloudLeft  5s linear forwards;
+            -moz-animation: cloudLeft  5s linear forwards;
+            -ms-animation: cloudLeft  5s linear forwards;
+            animation: cloudLeft  5s linear forwards;
+            transform:translateX(0px);
+        }
+        .cloud-r {
+            position: absolute;
+            right:0;
+            top:0;
+            z-index: 2;
+            animation-delay:0.5s;
+            -webkit-animation-delay:0.5s;
+            -webkit-animation: cloudRight  5s linear forwards;
+            -moz-animation: cloudRight  5s linear forwards;
+            -ms-animation: cloudRight  5s linear forwards;
+            animation: cloudRight  5s linear forwards;
+            transform:translateX(0px);
+        }
+        .cloud div {
+            width:20rem;
+            height: 20rem;
+            background:url('image/cloud.png') no-repeat; background-size:100% 100%;
+        }
+        .cloud  .cl-3 {
+            margin-top: -10rem;
+            margin-left: -20rem;;
+            width: 60rem;
+        }
+        .cloud  .cl-2 {
+            margin-top:-13rem;
+            width:30rem;
+        }
+        .cloud .cr-2 {
+            margin-top:3px;
+        }
+
+
+        @keyframes mymove{
+            from {transform:translate(0, 135px)}
+            to {transform:translate(0, 0px)}
+        }
+
+        @-webkit-keyframes mymove{
+            from {transform:translate(0, 135px)}
+            to {transform:translate(0, 0px)}
+        }
+        @-webkit-keyframes breathe {
+            0% { opacity: .2; }
+            100% { opacity: 1; }
+        }
+        @-webkit-keyframes breathe2 {
+            0% { opacity: .2; border:1px solid rgba(59,235,235,0); box-shadow:0 1px 5px rgba(255,255,255,0.1);}
+            100% { opacity: 1; border:1px solid rgba(59,235,235,1); box-shadow:0 1px 5px rgba(59,255,255,1);}
+        }
+        @-webkit-keyframes cloudLeft {
+            0% { transform:translateX(0px);}
+            100% { transform:translateX(-800px);}
+        }
+        @-webkit-keyframes cloudRight {
+            0% { transform:translateX(0px);}
+            100% { transform:translateX(1000px);}
+        }
+    </style>
+</head>
+<body>
+
+<div class="main" style="display: block">
+    <div class="cloud cloud-l">
+        <div class="cl-1"></div>
+        <div class="cl-2"></div>
+        <div class="cl-3"></div>
+    </div>
+    <div class="cloud cloud-r">
+        <div class="cr-1"></div>
+        <div class="cr-2"></div>
+    </div>
+    <div class="wrap1 spot-box" data-href="xizang.html">
+        <span class="spot"></span>
+        <div class="lay">
+            <p>116.38 39.9</p>
+            <p>北京市 天安门</p>
+            <p class="juli"></p>
+        </div>
+    </div>
+    <div class="wrap2 spot-box" data-href="xizang.html">
+        <span class="spot"></span>
+        <div class="lay">
+            <p>136.38 79.9</p>
+            <p>天津</p>
+            <p class="juli"></p>
+        </div>
+    </div>
+    <div class="wrap3 spot-box" data-href="xizang.html">
+        <span class="spot"></span>
+        <div class="lay">
+            <p>16.38 29.9</p>
+            <p>上海</p>
+            <p class="juli"></p>
+        </div>
+    </div>
+    <div class="wrap4 spot-box" data-href="xizang.html">
+        <span class="spot"></span>
+        <div class="lay">
+            <p>116.38 39.9</p>
+            <p>北京市 天安门</p>
+            <p class="juli"></p>
+        </div>
+    </div>
+    <div class="wrap5 spot-box" data-href="xizang.html">
+        <span class="spot"></span>
+        <div class="lay">
+            <p>116.38 39.9</p>
+            <p>北京市 天安门</p>
+            <p class="juli"></p>
+        </div>
+    </div>
+    <div class="wrap6 spot-box" data-href="xizang.html">
+        <span class="spot"></span>
+        <div class="lay">
+            <p>116.38 39.9</p>
+            <p>北京市 天安门</p>
+            <p class="juli"></p>
+        </div>
+    </div>
+    <div class="wrap7 spot-box" data-href="xizang.html">
+        <span class="spot"></span>
+        <div class="lay">
+            <p>116.38 39.9</p>
+            <p>北京市 天安门</p>
+            <p class="juli"></p>
+        </div>
+    </div>
+    <div class="wrap8 spot-box" data-href="xizang.html">
+        <span class="spot"></span>
+        <div class="lay">
+            <p>116.38 39.9</p>
+            <p>北京市 天安门</p>
+            <p class="juli"></p>
+        </div>
+    </div>
+</div>
+<script>
+    var config = {
+
+    }
+</script>
+<script src="js/swiper.min.js"></script>
+<script src="js/zepto.js"></script>
+<script>
+    (function (doc, win) {
+
+        var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+
+                    console.info("html font-size:" + clientWidth);
+                    console.info("html font-size:" + $('body').width());
+                    console.info("html font-size:" + (20 * (clientWidth / 320) + 'px'));
+                };
+        recalc();
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+
+
+    document.body.addEventListener('touchmove', function (event) {
+        event.preventDefault();
+    }, false);
+
+    var swiper = new Swiper('.swiper-container', {
+        autoplay:2000,
+        autoplayDisableOnInteraction : false,
+        onReachEnd: function(swiper){
+            setTimeout(function(){
+                $('.txt').show();
+                $('.detail').addClass('con');
+                setTimeout(function(){
+                    $('.btn').show();
+                },2500)
+                swiper.lockSwipes();
+            },1000);
+        }
+    });
+    $('.btn').on('click',function(){
+        $('.guide').hide();
+        $('.main').show();
+        setTimeout(function(){
+            getLocation();
+        },200);
+    });
+    function getLocation(){
+        if (navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }else{
+            // x.innerHTML="Geolocation is not supported by this browser.";
+        }
+    }
+    function showPosition(position){
+        var size = getFlatternDistance(position.coords.latitude,position.coords.longitude,116.38, 39.9);
+        $('.juli').html('距离:' + Math.floor(size)  + 'km');
+    }
+
+    var EARTH_RADIUS = 6378.137;    //单位M
+    var PI = Math.PI;
+
+    function getRad(d){
+        return d*PI/180.0;
+    }
+    function getFlatternDistance(lat1,lng1,lat2,lng2){
+        var f = getRad((lat1 + lat2)/2);
+        var g = getRad((lat1 - lat2)/2);
+        var l = getRad((lng1 - lng2)/2);
+
+        var sg = Math.sin(g);
+        var sl = Math.sin(l);
+        var sf = Math.sin(f);
+
+        var s,c,w,r,d,h1,h2;
+        var a = EARTH_RADIUS;
+        var fl = 1/298.257;
+
+        sg = sg*sg;
+        sl = sl*sl;
+        sf = sf*sf;
+
+        s = sg*(1-sl) + (1-sf)*sl;
+        c = (1-sg)*(1-sl) + sf*sl;
+
+        w = Math.atan(Math.sqrt(s/c));
+        r = Math.sqrt(s*c)/w;
+        d = 2*w*a;
+        h1 = (3*r -1)/2/c;
+        h2 = (3*r +1)/2/s;
+
+        return d*(1 + fl*(h1*sf*(1-sg) - h2*(1-sf)*sg));
+    }
+
+    $('.main').delegate('[data-href]', 'click', function(e){
+        window.location.href = 'nc.html';
+    });
+</script>
+</body>
+</html>

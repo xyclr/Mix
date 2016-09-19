@@ -1,0 +1,64 @@
+<?php 
+/**
+ * The create view file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     trade 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+?>
+<?php include '../../common/view/header.html.php';?>
+<div class='panel'>
+  <div class='panel-heading'>
+    <strong><i class="icon-plus"></i> <?php echo $lang->deposit->create;?></strong>
+  </div>
+  <div class='panel-body'>
+    <form method='post' id='ajaxForm' class='form-inline'>
+      <table class='table table-form w-p60'>
+        <tr>
+          <th><?php echo $lang->card->number;?></th>
+          <td><?php echo html::input('number', '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->card->amount;?></th>
+          <td><?php echo html::input('amount', '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th></th>
+          <td><?php echo html::submitButton() . '&nbsp;&nbsp;' . html::backButton();?><div id='duplicateError' class='hide'></div></td>
+        </tr>      
+      </table>
+    </form>
+    
+  </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$("#number").blur(function(){
+			var number = $(this).val();
+			if(number != ''){
+    			$('#deposit').remove();
+    			$('#deposit').remove();
+    			$.ajax({
+    				url:'/finance/index.php?m=card&f=getNumberInfo&number=' + number,
+    				type:'get',
+    				dataType:'json',
+    				success:function(data){
+    					if(data.code == 0){
+    						$("table").append("<tr id='deposit'><th>持卡人</th><td>"+data.data.realname+"</td></tr><tr id='deposit'><th>剩余金额</th><td>"+data.data.amount+"</td></tr>");
+    					}else{
+    						$("table").append("<tr id='deposit'><th style='color:red;'>错误</th><td style='color:red;'>"+data.msg+"</td></tr>");
+    					}
+    				},
+    				error:function(data){
+    					$("table").append("<th colspan='2' style='font-color:red;'>"+data.msg+"</th>");
+    				}
+    			});
+			}
+		});
+	});
+</script>
+<?php include '../../common/view/footer.html.php';?>

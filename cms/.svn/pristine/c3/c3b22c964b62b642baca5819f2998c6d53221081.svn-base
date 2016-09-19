@@ -1,0 +1,4 @@
+#datepicker {position: absolute; top: 45px; left: 60px; width: 200px; z-index: 1000;}
+.modal-body #datepicker {position: absolute; top: -35px; left: 120px; width: 200px; z-index: 1000;}
+.table-form td + td, .table-form th + th {padding-left: 5px;}
+.chosen-container[id^="idvalues"] .chosen-drop {min-width: 450px;!important}

@@ -1,0 +1,98 @@
+<?php include '../../../sys/common/view/header.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/color.html.php';?>
+
+<div class='panel'>
+    <div class='panel-heading'>
+        <strong><i class='icon-building'></i> <?php echo $lang->entry->create;?></strong>
+    </div>
+
+    <div class='panel-body'>
+    <form method='post' id='ajaxForm' class='form-inline'>
+    <table class='table table-form w-p60'>
+        <tr>
+            <th class='w-70px'><?php echo $lang->order->order_sn;?></th>
+            <td>
+            <?php echo $order_sn;?>
+              <?php echo html::hidden('order_sn',$order_sn, "class='form-control'");?>
+            </td>
+        </tr>
+        <tr>
+            <th class='w-70px'><?php echo $lang->order->member;?></th>
+            <td>
+            <?php echo html::input('member', '', "class='form-control'");?>
+            </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->name;?></th>
+          <td>
+            <?php echo html::input('name', '', "class='form-control'");?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->color;?></th>
+          <td>
+            <a href="javascript:void(0)" id="img"></a> (点击方框选取颜色)
+            <?php echo html::hidden('color', '', "class='color'");?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->brand;?></th>
+          <td>
+           <?php echo html::select('brand', $brandList, '', "class='form-control'");?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->cloth_model;?></th>
+          <td>
+           <?php echo html::select('cloth_model', $clothModelList, '', "class='form-control'");?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->cloth_flaw;?></th>
+          <td>
+            <?php echo html::input('cloth_flaw', '', "class='form-control'");?>
+          </td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->order->delivery_time;?></th>
+          <td><?php echo html::input('delivery_time', date('Y-m-d'), "class='form-control form-date'");?></td>
+        </tr>
+         <tr>
+          <th><?php echo $lang->order->wash_way_1;?></th>
+          <td><?php echo html::select('wash_way', $lang->order->wash_way, '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->order->iron_1;?></th>
+          <td><?php echo html::select('iron', $lang->order->iron, '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->order->way_1;?></th>
+          <td><?php echo html::select('way', $lang->order->way, '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->order->money;?></th>
+          <td>
+            <div class='input-group'>
+              <?php echo html::input('good_amount', '', "class='form-control' style='width:10%'");?>
+              <!--span class='input-group-addon'><span class='currency'></span></span-->
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->order->remark;?></th>
+          <td><?php echo html::textarea('remark',  '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th></th>
+          <td><?php echo html::submitButton("立即支付");?></td>
+        </tr>
+    </table>
+    </form>
+    </div>
+
+    <div class='panel-heading'> </div>
+</div>
+
+<?php include '../../../sys/common/view/footer.html.php';?>
+

@@ -1,0 +1,3 @@
+.page-content > .panel > .panel-heading > .panel-actions {margin-left: -5px;}
+.tr-child, .tr-child > td {padding: 0;}
+.tr-child > td > table {padding: 5px; background-color: #fff; border: 2px solid #DDDDDD;}

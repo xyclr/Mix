@@ -1,0 +1,21 @@
+{
+  "author": "xyclr <xyclr@163.com> (http://www.ndesig.com)",
+  "name": "movie",
+  "version": "0.0.1",
+  "description": "movie form xyclr",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "koa": "*",
+    "sha1": "*",
+    "bluebird": "*",
+    "path": "*",
+    "request": "*",
+    "raw-body": "*",
+    "ejs": "*",
+    "heredoc": "*",
+    "crypto": "*"
+
+  }
+}

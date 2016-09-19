@@ -1,0 +1,15 @@
+.panel .no-padding{padding: 0px;}
+.tree .active{font-weight: bold;}
+.tree > li {margin-right: 0;}
+
+.attend-normal [class^=attend] {color: #38B03F;}
+.attend-late .attend-signin    {color: #EA644A;}
+.attend-early .attend-signout  {color: #FF8A65;}
+.attend-both [class^=attend]   {color: #FF5722;}
+.attend-absent [class^=attend] {color: #F1A325;}
+.attend-leave [class^=attend]  {color: #9E9E9E;}
+.attend-trip [class^=attend]   {color: #8666B8;}
+.attend-rest [class^=attend]   {color: #3280fc;}
+
+table .otherMonth {background: #f0f0f0; color: #9e9e9e}
+table tr:last-child th ,table tr:last-child td{border-bottom: none;}

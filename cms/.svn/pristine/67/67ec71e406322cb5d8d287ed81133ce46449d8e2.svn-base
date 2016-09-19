@@ -1,0 +1,31 @@
+
+
+
+<?php include '../../../sys/common/view/header.modal.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<div class='panel-body'>
+    <form method='post' id='ajaxForm' class='form-inline' action="<?php echo $this->createLink('workshop.wash', 'error')?>">
+   <table class='table table-form table-condensed'>
+   <tr>
+      <th class='w-70px'>错误类型</th>
+      <td>
+          <?php echo html::select('log_order_opt', $this->lang->wash->error, "class='form-control'");?>
+      </td>
+   </tr>
+   <tr>
+      <th class='w-70px'>原因</th>
+      <?php echo html::hidden('order_id',$id, "class='form-control'");?>
+      <td>
+          <?php echo html::textarea('log_msg','', "class='form-control'");?>
+      </td>
+   </tr>
+   
+    <tr>
+      <th></th>
+      <td><?php echo html::submitButton();?></td>
+    </tr>
+  </table>
+</form>
+</div>
+<?php include '../../../sys/common/view/footer.modal.html.php';?>
+

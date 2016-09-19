@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Acens';
+    src: url('../fonts/Acens.eot');
+    src: url('../fonts/Acens.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Acens.woff') format('woff'),
+    url('../fonts/Acens.ttf') format('truetype'),
+    url('../fonts/Acens.svg#NeuesBauenDemo') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'VnBahamasBH';
+    src: url('../fonts/VnBahamasBH.eot');
+    src: url('../fonts/VnBahamasBH.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/VnBahamasBH.woff') format('woff'),
+    url('../fonts/VnBahamasBH.ttf') format('truetype'),
+    url('../fonts/VnBahamasBH.svg#NeuesBauenDemo') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

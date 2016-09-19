@@ -1,0 +1,100 @@
+<?php
+/**
+ * The browse view file of balance module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     balance 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+?>
+<?php include '../../../sys/common/view/header.modal.html.php'; ?>
+<?php js::set('mode', $mode); ?>
+<li id='bysearchTab'><?php echo html::a('#', "<i class='icon-search icon'></i>" . $lang->search->common) ?></li>
+<div id='menuActions'>
+    <?php /*if (commonModel::hasPriv('order', 'export')): ?>
+        <div class='btn-group'>
+            <button data-toggle='dropdown' class='btn btn-primary dropdown-toggle' type='button'><i class='icon-upload-alt'></i> <?php echo $lang->export; ?> <span class='caret'></span></button>
+            <ul id='exportActionMenu' class='dropdown-menu'>
+                <li><?php commonModel::printLink('order', 'export', "mode=all&&orderBy={$orderBy}", $lang->exportAll, "class='iframe' data-width='700'"); ?></li>
+                <li><?php commonModel::printLink('order', 'export', "mode=thisPage&&orderBy={$orderBy}", $lang->exportThisPage, "class='iframe' data-width='700'"); ?></li>
+            </ul>
+        </div>
+    <?php endif; */?>
+    <?php commonModel::printLink('order', 'create', '', "<i class='icon-plus'></i> {$lang->order->create}", "class='btn btn-primary'") ?>
+</div>
+<div class='panel'>
+    <table class='table table-hover table-striped tablesorter table-data table-fixed' id='contactList'>
+        <thead>
+            <tr class='text-center'>
+                <?php $vars = "mode={$mode}&orderBy=%s&recTotal={$pager->recTotal}&recPerPage={$pager->recPerPage}&pageID={$pager->pageID}"; ?>
+                <th class='w-60px'> <?php commonModel::printOrderLink('id', $orderBy, $vars, $lang->order->id); ?></th>
+                <th class='w-100px'> <?php commonModel::printOrderLink('serial', $orderBy, $vars, $lang->order->serial); ?></th>
+                <th class='w-100px text-left'><?php commonModel::printOrderLink('member', $orderBy, $vars, $lang->order->member); ?></th>
+                <th class='w-100px visible-lg'><?php commonModel::printOrderLink('add_time', $orderBy, $vars, $lang->order->add_time); ?></th>
+                <th class='w-60px'>订单价钱</th>
+                <th class='w-60px'>实付</th>
+                <th class='w-60px'><?php echo $lang->order->order_state_1; ?></th>
+                <th class='w-60px'>操作人</th>
+                <th class='w-200px'><?php echo $lang->actions; ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($orders as $orders): ?>
+                <tr class='text-center'>
+                    <td><?php echo $orders->id; ?></td>
+                    <td class='text-center'><?php echo $orders->serial; ?></td>
+                    <td class='text-center'><?php echo $orders->card_number; ?></td>
+                    <td class='visible-lg'><?php echo date('Y-m-d H:i:s',$orders->add_time); ?></td>
+                    <td class='text-center'><?php echo $orders->amount; ?></td>
+                    <td class='text-center'><?php echo $orders->pay_amount; ?></td>
+                    <td><?php echo $lang->order->serialStatus[$orders->status]; ?></td>
+                    <td class='text-center'><?php echo $orders->realname; ?></td>
+                    <td class='operate'>
+                        <?php if($orders->status>0){?>
+                        <a href="/sales/index.php?m=order&f=webprint&id=<?php echo $orders->id;?>">打印</a>
+                        <?php } ?>
+                        <a href="/sales/index.php?m=order&f=childOrder&serial_id=<?php echo $orders->serial;?>" >订单详情</a>
+                        <?php
+                        if ($orders->status== 6){commonModel::printLink('order', 'feedback', "id=$orders->id", $lang->order->feedback);}
+                        //commonModel::printLink('action',  'createRecord', "objectType=contact&objectID={$contact->id}&customer={$contact->customer}", $lang->contact->record, "data-toggle='modal' data-type='iframe' data-icon='comment-alt'");
+                        //commonModel::printLink('address', 'browse', "objectType=contact&objectID=$contact->id", $lang->contact->address, "data-toggle='modal'");
+                         if ($orders->status == 0){
+							commonModel::printLink('order', 'create', "serial=$orders->serial", $lang->order->goadd);
+							commonModel::printLink('order', 'showConfirm', "serial=$orders->serial", $lang->order->gopay);
+						 }elseif ($orders->order_state == 1){
+                         	commonModel::printLink('order', 'cancel', "id=$orders->id", $lang->order->cancel,"data-toggle='modal'");
+						 }
+                        ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <div class='table-footer'><?php $pager->show(); ?></div>
+</div>
+
+<?php include '../../common/view/footer.html.php';?>
+<?php js::import($jsRoot . 'jquery.poshytip.min.js');?>
+<?php js::import($jsRoot . 'jquery.printarea.js');?>
+<script></script>
+<script>
+$(function(){
+	$("#printbtn").click(function(){
+	$("#printarea").printArea();
+	});
+});
+
+//打印提示
+$('#printbtn').poshytip({
+	className: 'tip-yellowsimple',
+	showTimeout: 1,
+	alignTo: 'target',
+	alignX: 'center',
+	alignY: 'bottom',
+	offsetY: 5,
+	allowTipHover: false
+});
+</script>

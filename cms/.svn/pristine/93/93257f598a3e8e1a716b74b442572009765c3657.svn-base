@@ -1,0 +1,94 @@
+<?php
+//生产车间
+class dispatch extends control {
+
+    public static $orderStatus = array(
+            '1' => '支付',
+            '2' => '配送',  //wait
+            '3' => '车间',  //dispatch
+            '4' => '回店',  //
+            '5' => '确认',  //isok
+            '6' => '异常',  //error
+        );
+
+
+    public function index(){
+        $this->locate(inlink('browse'));
+    }
+    
+    //调度
+    public function browse($mode = 'wait', $orderBy = 'id', $recTotal = 0, $recPerPage = 10, $pageID = 1){
+        switch($mode){
+            case "wait" :
+                $status = 2;
+                break;
+            case "dispatch" :
+                $status = 3;
+                break;
+            case "isok" :
+                $status = 5;
+                break;
+            case "error" :
+                $status = 6;
+                break;
+            default : 
+                $status = 0;
+        }
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $data = $this->dispatch->getIsDispatchList($status, $pager);
+        $this->view->datas = $data;
+        $this->view->mode = $mode;
+        $this->view->pager = $pager;
+        $this->view->title   = $this->lang->dispatch->dispatch;
+        $this->display();
+    }
+    
+    //详情
+    public function detail($id, $mode = 'wait') {
+    	$serialData = $this->dispatch->getData($id);
+        if($serialData && isset($serialData->serial)){
+            $serial = $serialData->serial;
+        }
+        $orderData = $this->dispatch->getOrderList($serial);
+
+    	$data->wash_way = $this->lang->dispatch->wash_way[$data->wash_way];
+    	$data->iron = $this->lang->dispatch->iron[$data->iron];
+    	$data->way = $this->lang->dispatch->way[$data->way];
+
+        $this->view->mode = $mode;
+    	$this->view->orderData = $orderData;
+    	$this->view->serialData = $serialData;
+    	$this->view->title   = $this->lang->dispatch->detail;
+    	$this->display();
+    }
+
+    //订单加入调度
+    public function indispatch($id) {
+        $this->dispatch->setIsDispatch($id, 3);
+        $this->locate("/workshop/index.php?m=dispatch&f=browse&mode=dispatch");
+    }
+    
+    //确认订单
+    public function dodispatch($id) {
+        $this->dispatch->setIsDispatch($id, 5);
+        $this->locate("/workshop/index.php?m=dispatch&f=browse&mode=dispatch");
+    }
+    
+    public function error($id) {
+    	$this->display();
+    }
+
+    public function edit ($id, $act = ''){
+        if($_POST){
+        }
+    	$data = $this->dispatch->getData($id);
+        $this->view->clothModelList = $this->loadModel('cloth', 'sys')->getList(1);
+        $this->view->currencyList     = $this->loadModel('common', 'sys')->getCurrencyList();
+        $this->view->brandList      = $this->loadModel('cloth', 'sys')->getList(2);
+    	$this->view->title   = $this->lang->dispatch->detail;
+    	$this->view->data = $data;
+        $this->display();
+    }
+
+}

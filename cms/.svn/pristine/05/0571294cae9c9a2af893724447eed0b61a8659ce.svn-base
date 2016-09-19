@@ -1,0 +1,50 @@
+<?php 
+/**
+ * The create view of contact module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     contact 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+?>
+<?php include '../../common/view/header.html.php';?>
+<?php include '../../common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/chosen.html.php';?>
+<div class='panel'>
+  <div class='panel-heading'>
+    <strong><i class="icon-plus"></i> <?php echo $lang->feedback->create;?></strong>
+  </div>
+  <div class='panel-body'>
+    <form method='post' id='contactForm' class='form-condensed'>
+      <div class='row'>
+        <div class='col-md-9'>
+          <table class='table table-form'>
+            <tr class='customerInfo'>
+              <th><?php echo $lang->feedback->contact;?></th>
+              <td><?php echo html::select('uid', $contactList, '', "class='form-control'");?></td>
+            </tr>
+            <tr>
+              <th><?php echo $lang->feedback->title;?></th>
+              <td><?php echo html::input('title', '', "class='form-control'");?></td>
+            </tr>
+            <tr>
+              <th><?php echo $lang->feedback->content;?></th>
+              <td colspan='2'><?php echo html::textarea('content', '', "rows='3' class='form-control'");?></td>
+            </tr>
+            <tr>
+              <th></th>
+              <td colspan='2'>
+                <?php echo html::submitButton() . '&nbsp;&nbsp;' . html::backButton();?>
+                <div id='duplicateError' class='hide'></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<?php include '../../common/view/footer.html.php';?>

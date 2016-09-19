@@ -1,0 +1,33 @@
+.panel-body.boards-container {padding: 5px}
+.boards.dragging {cursor: move!important;}
+.board, .board-empty { margin: 0; padding: 5px; border: none; float: left; width: 20%}
+.board > .panel {margin-bottom: 0;}
+.board > .panel > .panel-body {padding: 0;}
+
+.board-item .pri {line-height: 18px; height: 18px; width: auto; border: none; background: none}
+.board-item .pri.pri-0 {color: #aaa}
+.board-item {padding: 6px; border-top: 1px solid #ddd; margin: -1px -1px 0;}
+.board-item-shadow {margin: 0;}
+
+.board-item.board-item-empty {border-style: solid; background: #f1f1f1; padding: 15px 6px;}
+.boards.dragging .board.drop-in {box-shadow: none}
+.boards.dragging .board.drop-in > .panel {box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);}
+
+.task {position: relative;}
+.task-heading {padding-right: 35px;}
+.task-actions {position: absolute; right: 3px; top: 3px}
+.task-actions .btn {margin: 0; color: #aaa; min-width: 22px}
+.ie-8 .task-actions .btn {min-width: 10px}
+.task-actions > .dropdown {display: inline-block; margin-left: -5px;}
+.task-info {display: none; margin-top: 5px;}
+.task-info .btn-mini {line-height: 1;}
+.task.show-info .task-info {display: block;}
+.dropdown .caret {border-top-color: #999}
+.dropdown-menu > a {display: block; padding: 3px 15px; color: #333}
+.dropdown-menu > a:hover {background: #f1f1f1; color: #a30e21; text-decoration: none}
+.dropdown-menu > a.disabled, .dropdown-menu > a.disabled:hover, .dropdown-menu > a.active {color: #aaa; background: none}
+.task-status.text-wait{color:#e48600;}
+.task-status.text-doing{color:#d2322d;}
+.task-status.text-done{color:#229f24;}
+.task-status.text-cancel{color:#808080}
+.task-status.text-closed{color:#999999;}

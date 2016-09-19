@@ -1,0 +1,51 @@
+<?php 
+/**
+ * The edit view of contact module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     contact 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+?>
+<?php if(helper::isAjaxRequest()):?>
+<?php include '../../../sys/common/view/header.modal.html.php';?>
+<?php include '../../common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/chosen.html.php';?>
+<?php else:?>
+<?php include '../../common/view/header.html.php';?>
+<?php include '../../common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/chosen.html.php';?>
+<?php endif;?>
+<form method='post' id='contactForm' class='form-condensed' action="<?php echo helper::createLink('feedback', 'edit', "feedbackID=$feedback->id")?>">
+  <div class="row-table">
+    <div class='col-main'>
+      <div class='panel'>
+        <div class='panel-body'>
+          <table class='table table-form'>
+            <tr>
+              <th class='w-50px'><?php echo $lang->feedback->title;?></th>
+              <td colspan='2'><?php echo html::input('title', $feedback->title, "class='form-control'");?></td>
+            </tr>
+            <tr>
+              <th class='w-50px'><?php echo $lang->feedback->content;?></th>
+              <td colspan='2'><?php echo html::textarea('content', $feedback->content, "rows='3' class='form-control'");?></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class='page-actions'>
+        <?php echo html::submitButton() . html::backButton();?>
+      </div>
+    </div>
+      
+    </div>
+  </div>
+</form>
+<?php if(helper::isAjaxRequest()):?>
+<?php include '../../../sys/common/view/footer.modal.html.php';?>
+<?php else:?>
+<?php include '../../common/view/footer.html.php';?>
+<?php endif;?>

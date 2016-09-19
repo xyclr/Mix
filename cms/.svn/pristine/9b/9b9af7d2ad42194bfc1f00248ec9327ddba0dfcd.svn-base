@@ -1,0 +1,663 @@
+<?php
+
+/**
+ * The model file of balance module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     contact
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class orderModel extends model {
+
+    const WAIT     = 0;
+    const DISPATCH = 1;
+    const WASH     = 2;
+    const IRON     = 3;
+    const CHECK    = 4;
+    const SEND     = 5;
+
+    /**
+     * Get balance by id.
+     * 
+     * @param  int    $id 
+     * @access public
+     * @return object
+     */
+    public function getByID($id) {
+        return $this->dao->select('*')->from(TABLE_SERIAL)->where('id')->eq($id)->limit(1)->fetch();
+    }
+    
+    public function getOrderById($id)
+    {
+    	return $this->dao->select('*')->from(TABLE_SORDER)->where('id')->eq($id)->limit(1)->fetch();
+    }
+    
+    /**
+     * Get balance by id.
+     * 
+     * @param  int    $id 
+     * @access public
+     * @return object
+     */
+    public function getBySerialOne($serial) {
+        return $this->dao->select('*')->from(TABLE_SERIAL)->where('serial')->eq($serial)->limit(1)->fetch();
+    }
+    
+     /**
+     * Get balance by id.
+     * 
+     * @param  int    $id 
+     * @access public
+     * @return object
+     */
+    public function getByChildOrderID($id) {
+        return $this->dao->select('*')->from(TABLE_SORDER)->where('id')->eq($id)->limit(1)->fetch();
+    }
+    
+    /**
+     * Get balance by id.
+     * 
+     * @param  int    $id 
+     * @access public
+     * @return object
+     */
+    public function getBySerial($serial) {
+        return $this->dao->select('t1.*,t2.name as t_name,t2.number')->from(TABLE_SORDER)->alias('t1')
+             ->leftJoin(TABLE_CLOTH_SET)->alias('t2')->on('t1.name = t2.id')
+            ->where('serial')->eq($serial)
+            ->fetchAll('id');
+    }
+    
+    /**
+     * Get order list.
+     * 
+     * @param  int    $depositor 
+     * @param  string  $orderBy 
+     * @param  object  $pager 
+     * @access public
+     * @return array
+     */
+    public function getList($store_id = '', $orderBy = 'id_desc', $pager = null) {
+        return $this->dao->select('t1.*,t2.realname')->from(TABLE_SERIAL)->alias('t1')
+                        ->leftJoin(TABLE_USER)->alias('t2')->on('t1.admin_user = t2.id')
+                        ->where('t1.store_id')->eq($this->app->user->dept)
+                        ->orderBy('t1.'.$orderBy)
+                        ->page($pager)
+                        ->fetchAll('id');
+    }
+    
+     public function getOrderList($serial_id='', $orderBy = 'id_desc', $pager = null)
+    {
+        return $this->dao->select('t1.*,t2.name as t_name')->from(TABLE_SORDER)->alias('t1')
+             ->leftJoin(TABLE_CLOTH_SET)->alias('t2')->on('t1.name = t2.id')
+            ->where('serial')->eq($serial_id)
+            ->orderBy($orderBy)
+            ->page($pager)
+            ->fetchAll('id');
+    }
+    
+    public function getTotal($store_id = 0, $start = null, $end = null){
+       $rs = $this->dao->select('count(*)')->alias('num')->from(TABLE_SERIAL)->where('1')->eq(1);
+       if (!empty($store_id)){
+           $rs = $rs->andWhere('store_id')->eq($store_id);
+       }
+       if ($start){
+           $rs = $rs->andWhere('add_time')->ge($start);
+       }
+       if ($end){
+           $rs = $rs->andWhere('add_time')->le($end);
+       }
+       $rs = $rs->fetch();
+       return $rs->num;
+    }
+    /**
+     * Get order list.
+     * 
+     * @param  int    $depositor 
+     * @param  string  $orderBy 
+     * @param  object  $pager 
+     * @access public
+     * @return array
+     */
+    public function getputawayList($store_id = '', $status = '', $orderBy = 'id_desc', $pager = null) {
+       return $this->dao->select('t1.*,t2.realname')->from(TABLE_SERIAL)->alias('t1')
+                        ->leftJoin(TABLE_USER)->alias('t2')->on('t1.admin_user = t2.id')
+                        ->where('t1.store_id')->eq($this->app->user->dept)
+                        ->beginIf($status != '')->andWhere('status')->in($status)->fi()
+                        ->orderBy('t1.'.$orderBy)
+                        ->page($pager)
+                        ->fetchAll('id');
+    }
+    
+    /**
+     * Get balance list.
+     * 
+     * @param  int    $depositor 
+     * @param  string  $orderBy 
+     * @param  object  $pager 
+     * @access public
+     * @return array
+     */
+    public function getFeedbackList($store_id = '', $orderBy = 'id_desc', $pager = null) {
+        return $this->dao->select('*')->from(TABLE_SFEEDBACK)
+                        ->orderBy($orderBy)
+                        ->page($pager)
+                        ->fetchAll('id');
+    }
+
+    /**
+     * Get latest balances.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getLatest() {
+        return $this->dao->select('depositor, date, money, currency')
+                        ->from(TABLE_BALANCE)
+                        ->orderBy('date')
+                        ->fetchGroup('currency', 'depositor');
+    }
+
+    /**
+     * Get date otions of all balances.
+     * 
+     * @param  int    $depositorID 
+     * @access public
+     * @return void
+     */
+    public function getDateOptions($depositorID = 0) {
+        return $this->dao->select('date')->from(TABLE_BALANCE)
+                        ->beginIF($depositorID)->where('depositor')->in($depositorID)->fi()
+                        ->orderBy('date_desc')
+                        ->fetchPairs('date', 'date');
+    }
+
+    /**
+     * Create a balance.
+     * 
+     * @param  object    $balance 
+     * @access public
+     * @return int|bool
+     */
+    public function create() {
+        $order_info = fixer::input('post')->add('add_time', time())
+                ->add('admin_user', $this->app->user->id)
+                ->add('member', intval($this->post->member))
+                ->add('delivery_time', strtotime($this->post->delivery_time))
+                ->add('store_id', $this->app->user->dept)
+                ->get();
+        $rs         = $this->dao->insert(TABLE_SORDER)->data($order_info)->autoCheck()->exec();
+        $orderID    = $this->dao->lastInsertID();
+        if (dao::isError())
+            return false;
+        return $orderID;
+    }
+
+    /**
+     * Create a balance.
+     * 
+     * @param  object    $balance 
+     * @access public
+     * @return int|bool
+     */
+    public function dealBack() {
+        $order_log = fixer::input('post')
+                ->add('log_user', $this->app->user->realname)
+                ->add('log_role', $this->app->user->role)
+                ->add('log_time', time())
+                ->add('log_orderstate', 3)
+                ->add('log_order_opt', 2)
+                ->get();
+        $rs        = $this->dao->insert(TABLE_SORDERLOG)->data($order_log)->autoCheck()->exec();
+        $log_id    = $this->dao->lastInsertID();
+        if ($log_id) {
+            $paramsUpdate['is_resur']      = 1;
+            $paramsUpdate['dispatch_step'] = 0;
+            $paramsUpdate['order_state']   = 3;
+        }
+        $this->dao->update(TABLE_SORDER)->data($paramsUpdate)->autoCheck()->where('id')->eq($this->post->order_id)->exec();
+        if (!dao::isError())
+            return true;
+
+        return false;
+    }
+
+    /**
+     * Create a balance.
+     * 
+     * @param  object    $balance 
+     * @access public
+     * @return int|bool
+     */
+    public function feedback() {
+        $feedback_info = fixer::input('post')->add('add_time', time())
+                ->add('admin_id', $this->app->user->id)
+                ->get();
+        $rs            = $this->dao->insert(TABLE_SFEEDBACK)->data($feedback_info)->autoCheck()->exec();
+        $orderID       = $this->dao->lastInsertID();
+        if (dao::isError())
+            return false;
+        return $orderID;
+    }
+
+    /**
+     * Update a balance.
+     * 
+     * @param  int    $balanceID 
+     * @access public
+     * @return string|bool
+     */
+    public function update($order_id, $type = '') {
+        $orderInfo = $this->getByID($order_id);
+        if ($type == 'put') {
+            $paramsUpdate = array('order_state' => 4);
+        } else {
+            $paramsUpdate = array('order_state' => 0);
+        }
+        $params = array(
+            'log_time'       => time(),
+            'order_id'       => $order_id,
+            'log_msg'        => '衣服回店',
+            'log_orderstate' => 4,
+            'log_user'       => $this->app->user->id
+        );
+        $rs     = $this->dao->insert(TABLE_SORDERLOG)->data($params)->autoCheck()->exec();
+        $this->dao->update(TABLE_SORDER)->data($paramsUpdate)->autoCheck()->where('id')->eq($order_id)->exec();
+        if (!dao::isError())
+            return true;
+
+        return false;
+    }
+
+    /**
+     * Update a balance.
+     * 
+     * @param  int    $balanceID 
+     * @access public
+     * @return string|bool
+     */
+    public function clothSendUpdate($order_id,$order_status='',$info='') {
+        $paramsUpdate['order_state'] = $order_status;
+        if($_POST['shelf_num'])
+        $paramsUpdate['shelf_num']   = $_POST['shelf_num'];
+        $params                      = array(
+            'log_time'       => time(),
+            'order_id'       => $order_id,
+            'log_msg'        => $info,
+            'log_orderstate' => $order_status,
+            'log_user'       => $this->app->user->id
+        );
+        $rs                          = $this->dao->insert(TABLE_SORDERLOG)->data($params)->autoCheck()->exec();
+        $this->dao->update(TABLE_SORDER)->data($paramsUpdate)->autoCheck()->where('id')->eq($order_id)->exec();
+        if (!dao::isError())
+            return true;
+        return false;
+    }
+    
+    /**
+     * Update a balance.
+     * 
+     * @param  int    $balanceID 
+     * @access public
+     * @return string|bool
+     */
+    public function childUpdate($order_id,$order_status='',$info='') {
+        $paramsUpdate['status'] = $order_status;
+        $params                      = array(
+            'log_time'       => time(),
+            'order_id'       => $order_id,
+            'log_msg'        => $info,
+            'log_orderstate' => $order_status,
+            'log_user'       => $this->app->user->id
+        );
+        $rs                          = $this->dao->insert(TABLE_SORDERLOG)->data($params)->exec();
+        $this->dao->update(TABLE_SERIAL)->data($paramsUpdate)->autoCheck()->where('id')->eq($order_id)->exec();
+        if (!dao::isError())
+            return true;
+        return false;
+    }
+
+    public function updateOrderStatus($order_id) {
+        $orderInfo = $this->getByID($order_id);
+        if ($orderInfo->order_state == '1') {
+            return $this->dao->update(TABLE_SORDER)->set('order_state')->eq(2)->autoCheck()->where('id')->eq($order_id)->exec();
+        }
+        return false;
+    }
+
+    /**
+     * Delete a balance.
+     * 
+     * @param  int      $balanceID 
+     * @access public
+     * @return void
+     */
+    public function delete($balanceID, $null = null) {
+        $balance = $this->getByID($balanceID);
+        if (!$balance)
+            return false;
+
+        $this->dao->delete()->from(TABLE_BALANCE)->where('id')->eq($balanceID)->exec();
+
+        return !dao::isError();
+    }
+
+    public function getTrellisList() {
+        return $this->dao->select('*')->from(TABLE_TRELLIS)->where('store_id')->eq($this->app->user->dept)->fetchAll();
+    }
+
+    public function confirm()
+    {
+        $serial = $_POST['serial'];
+        if (!empty($_POST['color'])){
+            $rs = $this->continues();
+        }
+        
+        // 查询该流水号下的所有订单
+        $orderList = $this->dao->select('*')->from(TABLE_SORDER)->where('serial')->eq($serial)->fetchAll();
+        $good_amount = 0;
+        $delivery_time = 0;
+        $order_sn = array();
+        foreach ($orderList as $key => $val){
+            if ($val->work_day < $orderList[$key+1]){
+            	
+            	$delivery_time = $orderList[$key+1];
+            	
+            }else{
+            	
+            	$delivery_time = $val->work_day;
+            }
+            
+            $order_sn[] = $val->order_sn;
+            $good_amount += $val->good_amount; // 订单价格
+        }
+        $params = new stdClass();
+        $params->serial = intval($serial);
+        $params->order_sn = json_encode($order_sn);
+        $params->amount   = $good_amount;
+        $params->admin_user = $this->app->user->id;
+        $params->store_id = $this->app->user->dept;
+        $params->add_time = time();
+        $params->delivery_time = strtotime($delivery_time.' day');
+        // 查询是否有订单   未支付 继续添加衣服
+        $rs = $this->dao->select('count(*) as num')->from(TABLE_SERIAL)->where('serial')->eq($serial)->fetch();
+        if ($rs->num == 0){
+        	$rs = $this->dao->insert(TABLE_SERIAL)->data($params)->autoCheck()->exec();
+        }else{
+        	$rs = $this->dao->update(TABLE_SERIAL)->data($params)->autoCheck()->where('serial')->eq($serial)->exec();
+        }
+         if(!dao::isError())
+        {
+            $serialID = $this->dao->lastInsertID();
+            $this->loadModel('action')->create('serial', $serialID, 'Created', '');
+            return array('result' => 'success', 'data' => $params);
+        }
+        
+        return array('result' => 'fail', 'message' => dao::getError());
+    }
+    
+    public function continues()
+    {
+        $cloth_set = $this->loadModel('sets', 'sales')->getByID($_POST['name']);
+        
+        $wash_way = $_POST['wash_way'];
+        switch ($wash_way){
+            case 1:
+                $good_amount = $cloth_set->standard;
+                break;
+            case 2:
+                $good_amount = $cloth_set->standard;
+                break;
+            case 3:
+                $good_amount = $cloth_set->standard;
+                break;
+            case 4:
+                $good_amount = $cloth_set->standard;
+                break;
+            case 5:
+                $good_amount = $cloth_set->iron;
+                break;
+            default:
+                $good_amount = $cloth_set->standard;
+                break;
+        }
+        
+        // 查询剩余的格架
+        $shelf = $this->dao->select('id,num')->from(TABLE_SHELF)->where('store_id')->eq($this->app->user->dept)->andWhere('type')->eq($cloth_set->number)->andWhere('order_sn')->eq('')->fetch();
+        $shelf_num = '';
+        $shelf_id = 0;
+        if ($shelf){
+        	$shelf_num = $cloth_set->number.'-'.$shelf->num;
+        	$shelf_id = $shelf->id;
+        }
+        
+        
+        $order_info = fixer::input('post')
+                ->add('add_time', time())
+                ->add('work_day', $cloth_set->work_day)
+                ->add('good_amount', $good_amount)
+                ->add('shelf_num', $shelf_num)
+                ->add('shelf_id', $shelf_id)
+                ->get();
+        $url = $this->loadModel('file')->uploadImg('avatar');
+        if ($url){
+        	$order_info->avatar = $url;
+        }
+        $rs         = $this->dao->insert(TABLE_SORDER)->data($order_info)->exec();
+        
+         if(!dao::isError())
+        {
+        	$this->dao->update(TABLE_SHELF)->set('order_sn')->eq($order_info->order_sn)->exec();
+            $blandID = $this->dao->lastInsertID();
+            $this->loadModel('action')->create('cloth_bland', $blandID, 'Created', '');
+            return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'data' => $order_info, 'locate' => helper::createLink('sales', 'create', 'serial='.$order_info->serial));
+        }
+        
+        return array('result' => 'fail', 'message' => dao::getError());
+    }
+    
+    public function getSerialById($serialID)
+    {
+        return $this->dao->select('*')->from(TABLE_SERIAL)->where('id')->eq($serialID)->limit(1)->fetch();
+    }
+    
+    public function getSerialBySerial($serialID)
+    {
+    	return $this->dao->select('*')->from(TABLE_SERIAL)->where('serial')->eq($serialID)->limit(1)->fetch();
+    }
+    public function getSerialOrder($serialID)
+    {
+    	return $this->dao->select('*')->from(TABLE_SORDER)->where('serial')->eq($serialID)->fetchAll();
+    }
+    
+    public function pay()
+    {
+    	$delivery_time = strtotime($_POST['delivery_time']);
+    	$pay_way = $_POST['pay_way'];
+    	$pay = fixer::input('post')
+    		->remove('delivery_time')
+    		->add('delivery_time', $delivery_time)
+    		->remove('pay_way')
+    		->get();
+    	$serialID = $pay->serial;
+    	// 用卡支付
+    	if ($pay->card_number){
+    		$order = $this->loadModel('card', 'finance')->getNumberInfo($pay->card_number, $serialID);
+    		
+    		// 如果卡余额 大等于支付金额 则用卡支付
+    		if($order->amount >= $order->good_amount){
+    			$pay->card_amount = $order->pay_amount;   			
+    			// 卡余额减少
+    			$card_amount = $order->amount - $order->good_amount;
+    			
+    		}else{
+    			$pay->card_amount = $order->amount;
+    			$card_amount = 0;
+    		}
+    		$this->dao->begin();
+    		$this->dao->update(TABLE_SERIAL)->data($pay)->autoCheck()->where('serial')->eq($serialID)->exec();
+    		if(dao::isError()){
+    			$this->dao->rollBack();
+    			return array('result' => 'fail', 'message' => dao::getError());
+    		}
+    		$this->dao->update(TABLE_FINANCE_CARD)->set('amount')->eq($card_amount)->where('number')->eq($pay->card_number)->exec();
+    		if(dao::isError()){
+    			$this->dao->rollBack();
+    			return array('result' => 'fail', 'message' => dao::getError());
+    		}
+    		$this->dao->commit();
+    		$this->loadModel('action')->create('finance_card', $pay->card_number, 'Update', '');
+    		$this->loadModel('action')->create('serial', $serialID, 'Update', '');
+    		// 跳转到继续支付
+    		if ($order->amount < $order->good_amount){
+    			if ($order->amount > 0){
+    				$this->addPayLog($serialID, $order->amount, 3, 1);
+    			}
+    			// 现金支付 插入支付记录
+    			if ($pay_way == 1){
+    				// 将状态置为支付
+    				$this->dao->update(TABLE_SERIAL)->set('status')->eq(1)->where('serial')->eq($serialID)->exec();
+    				$this->addPayLog($serialID, ($order->good_amount-$order->amount), 1, 1);
+    			}else{
+    				$trade = time().rand(100000, 999999);
+    				$this->addPayLog($serialID, ($order->good_amount-$order->amount), 2, 0, $trade);
+    				return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => helper::createLink('order', 'doPay', 'serial='.$serialID.'&amount='.($order->good_amount-$order->amount)));
+    			}
+    		}else{
+    			// 将状态置为支付
+    			$this->dao->update(TABLE_SERIAL)->set('status')->eq(1)->where('serial')->eq($serialID)->exec();
+    		}
+    		
+    		return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => helper::createLink('order', 'browse'));
+    		
+    	}else{
+    		if ($pay_way == 1){
+    			$this->addPayLog($serialID, $pay->pay_amount, 1, 1);
+    			// 将状态置为支付
+    			$this->dao->update(TABLE_SERIAL)->set('status')->eq(1)->where('serial')->eq($serialID)->exec();
+    		}else{
+    			$trade = time().rand(100000, 999999);
+    			$this->addPayLog($serialID, $pay->pay_amount, 2, 0, $trade);
+    			return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => helper::createLink('order', 'doPay', 'serial='.$serialID.'&amount='.$pay->pay_amount));
+    		}
+    	}
+    	
+    }
+    
+    public function addPayLog($serial, $amount, $pay_way, $status = 0, $trade_no = '')
+    {
+    	$params = array(
+    			'serial' => $serial,
+    			'amount' => $amount,
+    			'create_time' => date('Y-m-d H:i:s'),
+    			'pay_way' => $pay_way
+    	);
+    	if ($status){
+    		$params['status'] = $status;
+    	}
+    	if ($trade_no){
+    		$params['trade_no'] = $trade_no;
+    	}
+    	return $this->dao->insert(TABLE_PAYLOG)->data($params)->autoCheck()->exec();
+    }
+    
+    public function editcloth($id)
+    {
+    	
+    	
+    	$serial = $_POST['serial'];
+    	$cloth_set = $this->loadModel('sets', 'sales')->getByID($_POST['name']);
+        
+        $wash_way = $_POST['wash_way'];
+        switch ($wash_way){
+            case 1:
+                $good_amount = $cloth_set->standard;
+                break;
+            case 2:
+                $good_amount = $cloth_set->standard;
+                break;
+            case 3:
+                $good_amount = $cloth_set->standard;
+                break;
+            case 4:
+                $good_amount = $cloth_set->standard;
+                break;
+            case 5:
+                $good_amount = $cloth_set->iron;
+                break;
+            default:
+                $good_amount = $cloth_set->standard;
+                break;
+        }
+        // 查询剩余的格架
+        $shelf = $this->dao->select('id,num')->from(TABLE_SHELF)->where('store_id')->eq($this->app->user->dept)->andWhere('type')->eq($cloth_set->number)->andWhere('order_sn')->eq('')->fetch();
+        $shelf_num = '';
+        $shelf_id = 0;
+        if ($shelf){
+        	$shelf_num = $cloth_set->number.'-'.$shelf->num;
+        	$shelf_id = $shelf->id;
+        }
+        $order_info = fixer::input('post')
+                ->add('add_time', time())
+                ->add('work_day', $cloth_set->work_day)
+                ->add('good_amount', $good_amount)
+                ->add('shelf_num', $cloth_set->number)
+                ->add('shelf_num', $shelf_num)
+                ->add('shelf_id', $shelf_id)
+                ->remove('serial')
+                ->get();
+        $url = $this->loadModel('file')->uploadImg('avatar');
+        if ($url){
+        	$order_info->avatar = $url;
+        }
+        $rs         = $this->dao->update(TABLE_SORDER)->data($order_info)->where('id')->eq($id)->exec();
+         if(dao::isError())
+        {
+            return array('result' => 'fail', 'message' => dao::getError());
+        }
+        
+        $serialInfo = $this->dao->select('*')->from(TABLE_SERIAL)->where('serial')->eq($serial)->fetch();
+        if ($serialInfo){
+        	
+        	// 查询该流水号下的所有订单
+        	$orderList = $this->dao->select('*')->from(TABLE_SORDER)->where('serial')->eq($serial)->fetchAll();
+        	$good_amount = 0;
+        	$delivery_time = 0;
+        	$order_sn = array();
+        	foreach ($orderList as $key => $val){
+        		if ($val->work_day < $orderList[$key+1]){
+        			 
+        			$delivery_time = $orderList[$key+1];
+        			 
+        		}else{
+        			 
+        			$delivery_time = $val->work_day;
+        		}
+        	
+        		$order_sn[] = $val->order_sn;
+        		$good_amount += $val->good_amount; // 订单价格
+        	}
+        	$params = new stdClass();
+        	$params->serial = intval($serial);
+        	$params->order_sn = json_encode($order_sn);
+        	$params->amount   = $good_amount;
+        	$params->admin_user = $this->app->user->id;
+        	$params->store_id = $this->app->user->dept;
+        	$params->add_time = time();
+        	$params->delivery_time = strtotime($delivery_time.' day');
+        	$this->dao->update(TABLE_SHELF)->set('order_sn')->eq($order_info->order_sn)->exec();
+        	// 查询是否有订单   未支付 继续添加衣服
+        	$rs = $this->dao->update(TABLE_SERIAL)->data($params)->autoCheck()->where('serial')->eq($serial)->exec();
+        	if(!dao::isError())
+        	{
+        		$serialID = $this->dao->lastInsertID();
+        		$this->loadModel('action')->create('serial', $serial, 'Update', '');
+            	return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'data' => $order_info, 'locate' => helper::createLink('order', 'browse'));
+        	}
+        	return array('result' => 'fail', 'message' => dao::getError());
+        }
+    }
+}

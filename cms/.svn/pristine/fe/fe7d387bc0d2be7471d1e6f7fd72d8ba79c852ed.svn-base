@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * The model file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     contact
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class clothModel extends model {
+
+    public function getAll($mode = '', $orderBy = 'type_desc', $pager = null) {
+
+        if (strpos($orderBy, 'id') === false)
+            $orderBy .= ', id_desc';
+
+        $contacts = $this->dao->select('*')->from(TABLE_CLOTH)
+                ->orderBy($orderBy)
+                ->page($pager)
+                ->fetchAll('id');
+        return $contacts;
+    }
+
+    public function create() {
+        $cloth = fixer::input('post')->add('createdDate', date('Y-m-d H:i:s'))->get();
+
+        $rs = $this->dao->insert(TABLE_CLOTH)->data($cloth)->autoCheck()->exec();
+        if (!dao::isError()) {
+            $clothID = $this->dao->lastInsertID();
+            $this->loadModel('action')->create('cloth', $clothID, 'Created', '');
+            return array(
+                'result'  => 'success',
+                'message' => $this->lang->saveSuccess,
+                'locate'  => helper::createLink('cloth', 'browse')
+            );
+        }
+        return array(
+            'result'  => 'fail',
+            'message' => dao::getError()
+        );
+    }
+
+    public function edit($clothID) {
+        $cloth = fixer::input('post')->get();
+
+        $rs = $this->dao->update(TABLE_CLOTH)->data($cloth)->autoCheck()->where('id')->eq($clothID)->exec();
+        if (!dao::isError()) {
+            $this->loadModel('action')->create('cloth', $clothID, 'Edit', '');
+            return array(
+                'result'  => 'success',
+                'message' => $this->lang->saveSuccess,
+                'locate'  => helper::createLink('cloth', 'browse')
+            );
+        }
+        return array(
+            'result'  => 'fail',
+            'message' => dao::getError()
+        );
+    }
+
+    public function getById($clothID) {
+        return $this->dao->select('*')->from(TABLE_CLOTH)->where('id')->eq($clothID)->fetch();
+    }
+    
+    public function getList($type=1, $orderBy = 'type_desc', $pager = null) {
+
+        if (strpos($orderBy, 'id') === false)
+            $orderBy .= ', id_desc';
+
+        $contacts = $this->dao->select('*')->from(TABLE_CLOTH)
+                ->where('type')->eq($type)->orderBy($orderBy)
+                ->page($pager)
+                ->fetchAll('id');
+        $arr=array();
+        foreach ($contacts as $k=>$v){
+          $arr[$v->id]=  $v->name;
+        }
+        return $arr;
+    }
+}

@@ -1,0 +1,4 @@
+.form-condensed .input-group>.input-group-addon {border-left:none; border-right:none; border-radius: 0}
+
+.plus, .minus {line-height: 30px}
+.plus:hover, .minus:hover, .plus:active, .minus:active {text-decoration: none}

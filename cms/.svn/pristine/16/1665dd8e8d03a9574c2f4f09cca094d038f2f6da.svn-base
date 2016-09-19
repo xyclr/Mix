@@ -1,0 +1,216 @@
+<?php
+/**
+ * The control file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     trade
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class sets extends control
+{
+    /** 
+     * The index page, locate to the browse page.
+     * 
+     * @access public
+     * @return void
+     */
+    public function index()
+    {
+        $this->locate(inlink('browse'));
+    }
+
+    /**
+     * Browse trade.
+     * 
+     * @param string $orderBy     the order by
+     * @param int    $recTotal 
+     * @param int    $recPerPage 
+     * @param int    $pageID 
+     * @access public
+     * @return void
+     */
+    public function browse($mode = 'all',  $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    {   
+    	
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        
+        /* Build search form. */
+        $this->loadModel('search', 'sys');
+        $this->config->sets->search['actionURL'] = $this->createLink('sets', 'browse', "mode=bysearch");
+        $this->search->setSearchParams($this->config->sets->search);
+        
+        $setss = $this->sets->getList($mode, $orderBy, $pager);
+        $this->view->title   = $this->lang->sets->browse;
+        $this->view->setss  = $setss;
+        $this->view->mode    = $mode;
+        $this->view->pager   = $pager;
+        $this->view->orderBy = $orderBy;
+
+        $this->display();
+    }   
+
+    /**
+     * Create a contact.
+     * 
+     * @param  string $type 
+     * @access public
+     * @return void
+     */
+    public function create()
+    {
+        if($_POST)
+        {
+            $return = $this->sets->create(); 
+            $this->send($return);
+        }
+
+        $this->view->title         = $this->lang->sets->create;
+        $this->display();
+    }
+
+    
+    /**
+     * Edit a trade.
+     * 
+     * @param  int    $tradeID 
+     * @access public
+     * @return void
+     */
+    public function edit($setsID)
+    {
+        if($_POST)
+        {
+            $return = $this->sets->update($setsID); 
+            $this->send($return);
+        }
+
+        $sets = $this->sets->getByID($setsID);
+        $this->view->title         = $this->lang->cate->edit;
+        $this->view->sets          = $sets;
+        $this->display();
+    }
+
+
+    /**
+     * Delete a trade.
+     * 
+     * @param  int      $tradeID 
+     * @access public
+     * @return void
+     */
+    public function delete($setsID)
+    {
+        if($this->sets->delete($setsID)) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
+    
+    public function search($name)
+    {
+        echo json_encode($this->sets->search($name));
+    }
+    
+    public function getListName()
+    {
+        return $this->sets->getListName();
+    }
+
+    public function bland($mode = 'all',  $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    {   
+    	
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        
+        $setss = $this->sets->getBlandList($mode, $orderBy, $pager);
+        $this->view->title   = $this->lang->sets->bland;
+        $this->view->setss  = $setss;
+        $this->view->mode    = $mode;
+        $this->view->pager   = $pager;
+        $this->view->orderBy = $orderBy;
+
+        $this->display();
+    }   
+    
+    public function createBland()
+    {
+        if($_POST)
+        {
+            $return = $this->sets->createBland();
+            $this->send($return);
+        }
+        
+        $this->view->title         = $this->lang->sets->create;
+        $this->display();
+    }
+    
+    public function createShelf()
+    {
+    	if($_POST)
+    	{
+    		$return = $this->sets->createShelf();
+    		$this->send($return);
+    	}
+    
+    	$this->view->title         = $this->lang->sets->create;
+    	$this->display();
+    }
+    
+    public function editShelf($shelfID)
+    {
+    	if($_POST)
+    	{
+    		$return = $this->sets->editShelf($shelfID);
+    		$this->send($return);
+    	}
+    
+    	$this->view->title         = $this->lang->sets->edit;
+    	$this->view->shelf = $this->sets->getShelfByID($shelfID);
+    	$this->display();
+    }
+    
+    public function deleteBland($blandID)
+    {
+        if($this->sets->deleteBland($blandID)) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
+    
+    public function deleteShelf($shelfID)
+    {
+    	if($this->sets->deleteShelf($shelfID)) $this->send(array('result' => 'success'));
+    	$this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
+    
+    public function editBland($blandID)
+    {
+        if($_POST)
+        {
+            $return = $this->sets->update($blandID);
+            $this->send($return);
+        }
+    
+        $sets = $this->sets->getBlandByID($blandID);
+        $this->view->title         = $this->lang->sets->edit;
+        $this->view->sets          = $sets;
+        $this->display();
+    }
+    
+	public function shelf($mode = 'all',  $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    {   
+    	
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        
+        
+        $setss = $this->sets->getShelfList($mode, $orderBy, $pager);
+        $this->view->title   = $this->lang->sets->shelf;
+        $this->view->setss  = $setss;
+        $this->view->mode    = $mode;
+        $this->view->pager   = $pager;
+        $this->view->orderBy = $orderBy;
+
+        $this->display();
+    }   
+}

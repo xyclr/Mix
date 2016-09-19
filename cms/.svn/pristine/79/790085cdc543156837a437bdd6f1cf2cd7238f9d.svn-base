@@ -1,0 +1,82 @@
+<?php include '../../../sys/common/view/header.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/color.html.php';?>
+
+<div class='panel'>
+    <div class='panel-heading'>
+        <strong><i class='icon-building'></i> <?php echo $this->lang->wash->wash;?><?php echo $this->lang->wash->detail;?></strong>
+    </div>
+
+    <div class='panel-body'>
+    <table class='table table-form w-p60'>
+        <tr>
+            <th class='w-90px'><?php echo $lang->wash->order_sn;?></th>
+            <td>
+            <?php echo $data->order_sn;?>
+            </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->wash->name;?></th>
+          <td>
+            <?php echo $data->name;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->wash->color;?></th>
+          <td>
+            <a href="javascript:void(0)"  style="width:20px;display:block;height:10px;background: <?php echo $data->color;?>"></a>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->wash->brand;?></th>
+          <td>
+           <?php echo $data->brand;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->wash->cloth_flaw;?></th>
+          <td>
+            <?php echo $data->cloth_flaw;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->wash->delivery_time;?></th>
+          <td><?php echo date('Y-m-d',$data->add_time + $data->delivery_time*24*3600);?></td>
+        </tr>
+         <tr>
+          <th class='w-70px'><?php echo $lang->wash->wash_way_1;?></th>
+          <td><?php echo $data->wash_way;?></td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->wash->iron_1;?></th>
+          <td><?php echo $data->iron;?></td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->wash->remark;?></th>
+          <td><?php echo $data->remark;?></td>
+        </tr>
+        <?php 
+        if ($data->error){
+            foreach ($data->error as $error){
+         ?>
+        
+          <th class='w-70px'><?php echo $lang->wash->error[$error->log_order_opt];?></th>
+          <td><?php echo $error->log_msg;?></td>
+        </tr>
+        <?php }}?>
+        <tr>
+          <td colspan="99">
+        <?php 
+                echo html::commonButton("洗涤确认", 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=wash&f=confirm&id={$data->id}\"'");
+                commonModel::printLink('wash', 'error', "id={$data->id}", "异常登记","data-toggle='modal' class='btn btn-default'");
+        ?>
+          </td>
+        </tr>
+    </table>
+    </div>
+
+    <div class='panel-heading'> </div>
+</div>
+
+<?php include '../../../sys/common/view/footer.html.php';?>
+

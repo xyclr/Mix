@@ -1,0 +1,4 @@
+.project-block{height:160px;}
+.manager{font-weight:bold; color:#CA011B;}
+.footerbar{position:absolute; bottom:30px; right:20px;}
+.footerbar span{font-weight:normal; font-size:12px; margin:0 5px;}

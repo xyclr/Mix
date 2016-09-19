@@ -1,0 +1,81 @@
+﻿@charset "utf-8";
+#case {width:100%;height:965px;margin:0px;background:url(../images/case/case_bg.gif) no-repeat top center;}
+#case .wraper {height:965px;background:url(../images/case/case_map.jpg) no-repeat top center;position:relative;}
+#case .wraper h3 {width:310px;height:71px;position:absolute;left:68px;top:61px;background:url(../images/case/case_tit.jpg) no-repeat;}
+#case .wraper .tips {position:absolute;left:68px;top:637px;}
+#case .wraper .tips li  {float:left;clear:both;color:#999;margin-bottom:4px;}
+#case .wraper .tips li img  {vertical-align:middle;margin-right:5px;}
+.icon-spot-lg img {position:absolute;}
+.icon-spot-lg .mask {display:none;}
+.icon-spot-lg,.icon-spot-lg-mask,.icon-spot-lg-mask-2 {}
+#case .spot img {position:absolute;opacity:0;}
+.icon-spot-sm {width:25px;height:25px;}
+.icon-spot-sm-2 {width:17px;height:17px;}
+.icon-spot-sm-3 {width:15px;height:15px;}
+.icon-spot-sm-4 {width:10px;height:10px;}
+.icon-spot-sm-5 {width:8px;height:8px;}
+/*links*/
+.links {position:absolute;left:8px;top:781px;width:900px;}
+.picScroll-top{ margin:0 auto;overflow:hidden; position:relative;}
+.picScroll-top .hd{ overflow:hidden;  height:30px; background:#f4f4f4; padding:0 10px;  }
+.picScroll-top .hd .prev,.picScroll-top .hd .next{ display:block;  width:9px; height:5px; float:right; margin-right:5px; margin-top:10px;  overflow:hidden;cursor:pointer; background:url("images/arrow.png") 0 -100px no-repeat;}
+.picScroll-top .hd .next{ background-position:0 -140px;  }
+.picScroll-top .hd .prevStop{ background-position:-60px -100px;  }
+.picScroll-top .hd .nextStop{ background-position:-60px -140px;  }
+.picScroll-top .hd ul{ float:right; overflow:hidden; zoom:1; margin-top:10px; zoom:1; }
+.picScroll-top .hd ul li{ float:left;  width:9px; height:9px; overflow:hidden; margin-right:5px; text-indent:-999px; cursor:pointer; background:url("images/icoCircle.gif") 0 -9px no-repeat; }
+.picScroll-top .hd ul li.on{ background-position:0 0; }
+.picScroll-top .bd{ padding:10px;   }
+.picScroll-top .bd ul{ overflow:hidden; zoom:1; }
+.picScroll-top .bd ul li{ text-align:center; zoom:1; }
+.picScroll-top .bd ul li { text-align:center;float:left; }
+.picScroll-top .bd ul li a {float:left;margin-right:15px;margin-bottom:5px;}
+.picScroll-top .bd ul li img{width:114px;height:44px;border:6px solid #fff;opacity:0.8; }
+.picScroll-top .bd ul li img:hover {opacity:1;}
+/*m-nav-2-case*/
+.m-nav-2-case a {width:480px!important;}
+.m-nav-2-case li i {background:url(../images/case/sprt_case.png) no-repeat;width:20px;height:20px;vertical-align:-2px;margin-right:5px;}
+.m-nav-2-case .icon_1 {background-position:0px 0px;}
+.m-nav-2-case li.cur .icon_1 {background-position:0px -20px;}
+.m-nav-2-case .icon_2 {background-position:-20px 0px;}
+.m-nav-2-case li.cur .icon_2 {background-position:-20px -20px;}
+/*感言case-gy*/
+#case-gy {width:100%;margin:0px;background:#efefef;}
+#case-gy .wraper {background:#fff;border:1px solid #e5e5e5;border-top:none;clear:both;margin-bottom:40px;padding:20px;width:919px;}
+#case-gy .tit {position:relative;border-bottom:2px solid #eaeaea;position:relative;}
+#case-gy .tit h3  {font-weight:normal;color:#333;font-size:18px;line-height:44px;padding:0px 10px;border-bottom:2px solid #3498db;display:inline-block;*zoom:1;*display:inline;margin-bottom:-2px;}
+
+
+
+#case-gy .item-swap {height: 750px;overflow: hidden;}
+#case-gy .item-swap li{clear:both;border-bottom:1px solid #f0f0f0;padding:30px 30px 30px 110px; height:90px;width:779px;position:relative; overflow: hidden;}
+#case-gy .item-swap li img {width:70px;height:70px;position:absolute;top:30px;left:30px;}
+#case-gy .item-swap li p {color:#666;line-height:20px;margin-top:10px;}
+#case-gy .item-swap li .info i {color:#333;font-size:14px;margin-right:5px;}
+#case-gy .item-swap li .info span {color:#999;}
+#case-gy .item-swap li:hover {background-color:#f9f9f9;}
+.gy-content {padding:30px;border-top:2px solid #eaeaea;margin-top:30px;}
+.gy-content h3 {color:#636566;font-size:14px;margin-bottom:10px;}
+.gy-content textarea {border:2px solid #dbdbdb;border-bottom:0px;padding:10px;width:835px;height:75px;float:left;color:#ccc;text-indent:0px;}
+.gy-content .tools {border:2px solid #dbdbdb;border-top:0px;height:56px;line-height:56px;width:855px;background:#fbfaf8;float:left;text-align:right;}
+.gy-content .tools input {float:right;margin:10px 20px 10px 10px;width:100px;height:35px;line-height:35px;cursor:pointer;font-size:14px;color:#636566;background:#f5f5f5;border:1px solid #d9d9d9;
+    background-image: -moz-linear-gradient(top, #fff, #f5f5f5);
+    background-image: -ms-linear-gradient(top, #fff, #f5f5f5);
+    background-image: -o-linear-gradient(top, #fff, #f5f5f5);
+    background-image: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#f5f5f5));
+    background-image: -webkit-linear-gradient(top, #fff, #f5f5f5);
+    background-image: linear-gradient(top, #fff, #f5f5f5);
+}
+.gy-content .tools input:hover  {background:#0082bf;border:1px solid #0082bf;color:#fff;}
+.gy-content .tips{color:#999;font-size:12px;line-height:56px;float:right;}
+.gy-content .tips em{color:#ff8800;font-size:20px;}
+
+#case-message{width:860px;height:auto;margin:30px auto; overflow: hidden;}
+#case-message h3{font-size: 14px;color: #636566; height: 30px; line-height: 30px;}
+#case-message .textzone{width: 858px;height: 156px;border:1px solid #dbdbdb;position: relative;}
+#case-message textarea{width:848px;height:90px;padding: 5px;overflow: hidden;outline: none; resize: none;line-height: 22px; border: 0 none; background: none; color: #cccccc;}
+#case-message .textzone p{height: 36px;padding: 8px;background: #fbfaf8; line-height: 36px;text-align: right;}
+#case-message .textzone p span.count{*position: absolute;*right: 116px;/*兼容IE7*/}
+#case-message .textzone button{width:98px;height:34px;text-align: center; font-size: 14px; color:#636566; margin-left: 10px; outline: none; border:1px solid #d9d9d9; background: url("../images/product/bg_btn.png") 0 0 repeat-x; text-shadow: 0 1px 0 rgba(255,255,255,.5);}
+#case-message .textzone button:hover,#case-message .textzone button:active{ background-position: 0 -34px;}
+

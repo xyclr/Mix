@@ -1,0 +1,4 @@
+.tooltip {z-index: 10000;}
+i.btn{font-family:ZenIcon;}
+.no-td-padding td + td, .no-td-padding th + th {padding-left: 5px;}
+.alert{margin-bottom: 5px;}

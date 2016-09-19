@@ -1,0 +1,5 @@
+.tree .active{font-weight: bold;}
+.tree > li {margin-right: 0;}
+
+.with-side .side{left: 20px; position: absolute; width: 140px;}
+.with-side .main{padding-left: 160px; margin-right: 0;}

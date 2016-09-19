@@ -1,0 +1,49 @@
+<?php
+/**
+ * The zh-cn file of common module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Chunsheng wang <chunsheng@cnezsoft.com>
+ * @package     common 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+$lang->app = new stdclass();
+$lang->app->name = 'SALES';
+
+$lang->menu->sales = new stdclass();
+$lang->menu->sales->dashboard = '我的地盘|order|index|';
+$lang->menu->sales->order      = '数据录入|order|browse|';
+$lang->menu->sales->data     = '信息查询|data|browse|';
+$lang->menu->sales->sets     = '设置|sets|browse|';
+//$lang->menu->sales->data = '数据统计|data|index|';
+//$lang->menu->cash->contact   = '联系人|contact|browse|';
+//$lang->menu->sales->setting   = '设置|tree|browse|type=in|';
+
+
+/* Menu of trade module. */
+$lang->order = new stdclass();
+$lang->order->menu = new stdclass();
+$lang->order->menu->browse   = array('link' => '收衣|order|create|mode=all');
+//$lang->order->menu->in       = array('link' => '售卡|trade|browse|mode=in');
+//$lang->order->menu->out      = array('link' => '充值|trade|browse|mode=out');
+$lang->order->menu->transfer = array('link' => '送洗|order|sendwash|mode=all');
+$lang->order->menu->inveset  = array('link' => '回店上架|order|putaway|mode=all');
+$lang->order->menu->report   = array('link' => '衣物返工|order|report|');
+$lang->order->menu->report   = array('link' => '取衣|order|take|');
+$lang->order->menu->feedback   = array('link' => '客人反馈|order|feedbackList|');
+//$lang->order->menu->report   = array('link' => '撤单及退款|trade|report|');
+//$lang->order->menu->report   = array('link' => '报修|trade|report|');
+//$lang->order->menu->report   = array('link' => '耗材登记|trade|report|');
+/* Menu of trade module. */
+$lang->data = new stdclass();
+$lang->data->menu = new stdclass();
+$lang->data->menu->browse = array('link' => '订单异常查询|data|browse|');
+$lang->data->menu->query = array('link' => '店面查询统计|store|query|');
+
+$lang->sets = new stdclass();
+$lang->sets->menu = new stdclass();
+$lang->sets->menu->browse = '衣物设置|sets|browse|';
+$lang->sets->menu->bland = '品牌设置|sets|bland|';
+$lang->sets->menu->shelf = '格架设置|sets|shelf|';

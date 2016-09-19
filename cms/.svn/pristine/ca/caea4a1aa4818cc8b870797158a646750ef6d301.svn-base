@@ -1,0 +1,70 @@
+<?php
+/**
+ * The balance module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     balance
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+
+$lang->check->id        = '编号';
+$lang->check->order_sn = '洗涤条码号';
+$lang->check->name  = '衣物名称';
+$lang->check->color     = '衣物颜色';
+$lang->check->brand      = '衣物品牌';
+$lang->check->cloth_flaw      = '衣物瑕疵';
+$lang->check->wash_effect      = '洗后效果';
+$lang->check->delivery_time      = '交货时间';
+$lang->check->wash_way_show         = '洗涤方式';
+$lang->check->wash_way[1]      = '水洗';
+$lang->check->wash_way[2]      = '干洗';
+$lang->check->wash_way[3]      = '湿洗';
+$lang->check->wash_way[4]      = '单去渍';
+$lang->check->iron_show      = '熨烫方式';
+$lang->check->iron[1]      = '无裤线';
+$lang->check->iron[2]      = '单烫';
+$lang->check->quality[1]      = '折叠';
+$lang->check->remark      = '备注';
+$lang->check->add_time      = '下单时间';
+$lang->check->member      = '会员卡号';
+$lang->check->cloth_model      = '洗衣模型';
+$lang->check->payment_code      = '支付方式';
+$lang->check->payment_time      = '支付时间';
+$lang->check->good_amount      = '洗衣价格';
+$lang->check->order_amount      = '订单实际价格';
+$lang->check->pd_amount      = '会员卡支付金额';
+$lang->check->order_state      = '订单状态';
+$lang->check->way_show      = '提取方式';
+$lang->check->way[1]      = '自提';
+$lang->check->way[2]      = '配送';
+$lang->check->finish_time      = '取衣时间';
+$lang->check->admin_user      = '店员ID';
+$lang->check->store_id      = '店面';
+$lang->check->dispatch      = '调度';
+$lang->check->detail      = '详情';
+$lang->check->wash      = '洗涤';
+$lang->check->way_1      = '提取方式';
+$lang->check->iron_1      = '熨烫方式';
+$lang->check->wash_way_1         = '洗涤方式';
+
+$lang->check->error         = array();
+$lang->check->error[4] = '异常';
+$lang->check->error[5] = '事故';
+$lang->check->check = '质检';
+$lang->check->setDispatch = array();
+$lang->check->setDispatch[checkModel::WASH] = '洗涤';
+$lang->check->setDispatch[checkModel::IRON] = '熨烫';
+$lang->check->setDispatch[checkModel::CHECK] = '质检';
+
+$lang->check->title = new stdclass();
+$lang->check->title->dispatch = '调度';
+$lang->check->title->wash      = '洗涤';
+$lang->check->title->iron = '熨烫';
+$lang->check->title->check = '质检';
+$lang->check->title->distribution = '配送';
+$lang->check->title->wash_group   = '洗涤组';
+$lang->check->title->iron_group = '熨烫组';
+$lang->check->title->check_group = '调度组';

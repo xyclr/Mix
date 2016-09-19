@@ -1,0 +1,70 @@
+<?php
+/**
+ * The balance module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     balance
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+
+$lang->wash->id        = '编号';
+$lang->wash->order_sn = '洗涤条码号';
+$lang->wash->name  = '衣物名称';
+$lang->wash->color     = '衣物颜色';
+$lang->wash->brand      = '衣物品牌';
+$lang->wash->cloth_flaw      = '衣物瑕疵';
+$lang->wash->wash_effect      = '洗后效果';
+$lang->wash->delivery_time      = '交货时间';
+$lang->wash->wash_way_show         = '洗涤方式';
+$lang->wash->wash_way[1]      = '水洗';
+$lang->wash->wash_way[2]      = '干洗';
+$lang->wash->wash_way[3]      = '湿洗';
+$lang->wash->wash_way[4]      = '单去渍';
+$lang->wash->iron_show      = '熨烫方式';
+$lang->wash->iron[1]      = '无裤线';
+$lang->wash->iron[2]      = '单烫';
+$lang->wash->quality[1]      = '折叠';
+$lang->wash->remark      = '备注';
+$lang->wash->add_time      = '下单时间';
+$lang->wash->member      = '会员卡号';
+$lang->wash->cloth_model      = '洗衣模型';
+$lang->wash->payment_code      = '支付方式';
+$lang->wash->payment_time      = '支付时间';
+$lang->wash->good_amount      = '洗衣价格';
+$lang->wash->order_amount      = '订单实际价格';
+$lang->wash->pd_amount      = '会员卡支付金额';
+$lang->wash->order_state      = '订单状态';
+$lang->wash->way_show      = '提取方式';
+$lang->wash->way[1]      = '自提';
+$lang->wash->way[2]      = '配送';
+$lang->wash->finish_time      = '取衣时间';
+$lang->wash->admin_user      = '店员ID';
+$lang->wash->store_id      = '店面';
+$lang->wash->dispatch      = '调度';
+$lang->wash->detail      = '详情';
+$lang->wash->wash      = '洗涤';
+$lang->wash->way_1      = '提取方式';
+$lang->wash->iron_1      = '熨烫方式';
+$lang->wash->wash_way_1         = '洗涤方式';
+
+$lang->wash->error         = array();
+$lang->wash->error[4] = '异常';
+$lang->wash->error[5] = '事故';
+
+$lang->wash->setDispatch = array();
+$lang->wash->setDispatch[washModel::WASH] = '洗涤';
+$lang->wash->setDispatch[washModel::IRON] = '熨烫';
+$lang->wash->setDispatch[washModel::CHECK] = '质检';
+
+$lang->wash->title = new stdclass();
+$lang->wash->title->dispatch = '调度';
+$lang->wash->title->wash      = '洗涤';
+$lang->wash->title->iron = '熨烫';
+$lang->wash->title->check = '质检';
+$lang->wash->title->distribution = '配送';
+$lang->wash->title->wash_group   = '洗涤组';
+$lang->wash->title->iron_group = '熨烫组';
+$lang->wash->title->check_group = '调度组';

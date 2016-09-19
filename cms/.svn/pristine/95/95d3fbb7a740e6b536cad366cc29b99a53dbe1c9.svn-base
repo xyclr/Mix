@@ -1,0 +1,85 @@
+<?php include '../../../sys/common/view/header.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/color.html.php';?>
+
+<div class='panel'>
+    <div class='panel-heading'>
+        <strong><i class='icon-building'></i> <?php echo $this->lang->order->detail;?></strong>
+    </div>
+
+    <div class='panel-body'>
+    <table class='table table-form w-p60'>
+        <tr>
+            <th class='w-90px'><?php echo $lang->order->order_sn;?></th>
+            <td>
+            <?php echo $data->order_sn;?>
+            </td>
+        </tr>
+        <tr>
+            <th class='w-70px'><?php echo $lang->order->member;?></th>
+            <td>
+            <?php echo $data->member;?>
+            </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->name;?></th>
+          <td>
+            <?php echo $data->name;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->color;?></th>
+          <td>
+            <a href="javascript:void(0)"  style="width:20px;display:block;height:10px;background: <?php echo $data->color;?>"></a>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->brand;?></th>
+          <td>
+           <?php echo $data->brand;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->cloth_model;?></th>
+          <td>
+           <?php echo $data->cloth_model;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->cloth_flaw;?></th>
+          <td>
+            <?php echo $data->cloth_flaw;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->delivery_time;?></th>
+          <td><?php echo $data->delivery_time;?></td>
+        </tr>
+         <tr>
+          <th class='w-70px'><?php echo $lang->order->wash_way_1;?></th>
+          <td><?php echo $data->wash_way;?></td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->iron_1;?></th>
+          <td><?php echo $data->iron;?></td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->way_1;?></th>
+          <td><?php echo $data->way;?></td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->remark;?></th>
+          <td><?php echo $data->remark;?></td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->order->shelf;?></th>
+          <td><?php echo $data->shelf_num;?></td>
+        </tr>
+    </table>
+    </div>
+
+    <div class='panel-heading'> </div>
+</div>
+
+<?php include '../../../sys/common/view/footer.html.php';?>
+

@@ -1,0 +1,65 @@
+<?php
+/**
+ * The balance module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     balance
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+
+$lang->workshop->id        = '编号';
+$lang->workshop->order_sn = '洗涤条码号';
+$lang->workshop->name  = '衣物名称';
+$lang->workshop->color     = '衣物颜色';
+$lang->workshop->brand      = '衣物品牌';
+$lang->workshop->cloth_flaw      = '衣物瑕疵';
+$lang->workshop->wash_effect      = '洗后效果';
+$lang->workshop->delivery_time      = '交货时间';
+$lang->workshop->wash_way_show         = '洗涤方式';
+$lang->workshop->wash_way[1]      = '水洗';
+$lang->workshop->wash_way[2]      = '干洗';
+$lang->workshop->wash_way[3]      = '湿洗';
+$lang->workshop->wash_way[4]      = '单去渍';
+$lang->workshop->iron_show      = '熨烫方式';
+$lang->workshop->iron[1]      = '无裤线';
+$lang->workshop->iron[2]      = '单烫';
+$lang->workshop->quality[1]      = '折叠';
+$lang->workshop->remark      = '备注';
+$lang->workshop->add_time      = '下单时间';
+$lang->workshop->member      = '会员卡号';
+$lang->workshop->cloth_model      = '洗衣模型';
+$lang->workshop->payment_code      = '支付方式';
+$lang->workshop->payment_time      = '支付时间';
+$lang->workshop->good_amount      = '洗衣价格';
+$lang->workshop->order_amount      = '订单实际价格';
+$lang->workshop->pd_amount      = '会员卡支付金额';
+$lang->workshop->order_state      = '订单状态';
+$lang->workshop->way_show      = '提取方式';
+$lang->workshop->way[1]      = '自提';
+$lang->workshop->way[2]      = '配送';
+$lang->workshop->finish_time      = '取衣时间';
+$lang->workshop->admin_user      = '店员ID';
+$lang->workshop->store_id      = '店面';
+$lang->workshop->dispatch      = '调度';
+$lang->workshop->detail      = '详情';
+$lang->workshop->way_1      = '提取方式';
+$lang->workshop->iron_1      = '熨烫方式';
+$lang->workshop->wash_way_1         = '洗涤方式';
+
+$lang->workshop->setDispatch = array();
+$lang->workshop->setDispatch[workshopModel::WASH] = '洗涤';
+$lang->workshop->setDispatch[workshopModel::IRON] = '熨烫';
+$lang->workshop->setDispatch[workshopModel::CHECK] = '质检';
+
+$lang->workshop->title = new stdclass();
+$lang->workshop->title->dispatch = '调度';
+$lang->workshop->title->wash      = '洗涤';
+$lang->workshop->title->iron = '熨烫';
+$lang->workshop->title->check = '质检';
+$lang->workshop->title->distribution = '配送';
+$lang->workshop->title->wash_group   = '洗涤组';
+$lang->workshop->title->iron_group = '熨烫组';
+$lang->workshop->title->check_group = '调度组';

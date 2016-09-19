@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INSPINIA | Dashboard</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background: #ccc
+        }
+
+        h5 {
+            font-size: 16px;
+            color: #000;
+        }
+
+        .file-list li {
+            width: 100%;
+            overflow: hidden;
+            font-size: 14px;
+            margin: 2px 0;
+            display: table;
+        }
+
+        .file-list li a {
+            display: block;
+            color: #333;
+            width: 250px;
+            margin-right: 50px;
+            overflow: hidden;
+            word-wrap: normal;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .file-list li a:hover {
+            color: #337ab7;
+            text-decoration: none;
+        }
+
+        .file-list li span {
+            color: #999;
+            margin-right: 30px;
+            display: table-cell;
+            width: 150px;
+        }
+
+        .file-list li span.cke {
+            width: 20px;
+            padding:0 10px 0 20px;
+        }
+
+        .file-list li span.cke input {
+            vertical-align: -2px;
+        }
+
+        .btn-box {
+            color: #000;
+            visibility: hidden;
+        }
+        .file-list li:hover,.file-list.hover{
+            background:#eee;
+        }
+        .file-list li:hover .btn-box,.file-list.hover .btn-box {
+            visibility: visible;
+        }
+        .btn-box {
+            padding-left:20px;
+        }
+        .btn-box span {
+            cursor: pointer;
+        }
+        .btn-box span i {
+            margin-right:5px;
+        }
+        .btn-box span:hover {
+            color: #337ab7;
+        }
+    </style>
+</head>
+
+<body>
+
+<!--list-->
+<div id="FileBrowser">
+    <div class="ibox-title">
+        <div class="row">
+            <div class="col-lg-3">
+                <h5>uploads Files List</h5>
+            </div>
+            <div class="col-lg-9">
+                <div class="ibox-tools-btn">
+                    <a class="btn  btn-primary" data-toggle="modal" data-target="#fileUpload">
+                        <i class="fa fa-reply"></i> Back
+                    </a>
+                    <a class="btn  btn-primary" data-toggle="modal" data-target="#fileUpload">
+                        <i class="fa fa-upload"></i> Upload File
+                    </a>
+
+                    <a class="btn  btn-primary" id="btn-select-all">
+                        Select All
+                    </a>
+                    <a class="btn  btn-primary" id="btn-select-cancel">
+                        Cancel Select
+                    </a>
+
+                    <a class="btn  btn-warning" id="btn-file-del">
+                        <i class="fa fa-trash-o"></i> Del Select
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ibox-content" style="overflow: hidden">
+        <ul class="file-list" style="padding:0;">
+            <li><span class="cke"><input type="checkbox"/></span><a href=""  class="name"><i class="fa fa-folder"></i> Files</a><span class="time">2015-10-10</span><span class="size">4464556461</span><span class="btn-box"><span class="btn-view"><i class="fa fa-eye"></i>view</span><span class="btn-view"><i class="fa fa-check-circle"></i>select</span></span></li>
+            <li><span class="cke"><input type="checkbox"/></span><a href=""  class="name"><i class="fa fa-picture-o"></i> Pictures</a><span class="time">2015-10-10</span><span class="size">4464556sdfasdfadf461</span><span class="btn-box"><span class="btn-view"><i class="fa fa-eye"></i>view</span><span class="btn-view"><i class="fa fa-check-circle"></i>select</span></span></li>
+            <li><span class="cke"><input type="checkbox"/></span><a href=""  class="name"><i class="fa fa-file-o"></i> Web pages</a><span class="time">2015-10sfdadfasdf-10</span><span class="size">4464556461</span><span class="btn-box"><span class="btn-view"><i class="fa fa-eye"></i>view</span><span class="btn-view"><i class="fa fa-check-circle"></i>select</span></span></li>
+            <li><span class="cke"><input type="checkbox"/></span><a href=""  class="name"><i class="fa fa-video-camera"></i> Illustrations</a><span class="time">2015-10-10</span><span class="size">4464556461</span><span class="btn-box"><span class="btn-view"><i class="fa fa-eye"></i>view</span><span class="btn-view"><i class="fa fa-check-circle"></i>select</span></span></li>
+            <li><span class="cke"><input type="checkbox"/></span><a href=""  class="name"><i class="fa fa-file-audio-o"></i> Films</a><span class="time">2015-10-10</span><span class="size">4464556461</span><span class="btn-box"><span class="btn-view"><i class="fa fa-eye"></i>view</span><span class="btn-view"><i class="fa fa-check-circle"></i>select</span></span></li>
+        </ul>
+    </div>
+</div>
+
+<script src="../js/jquery-2.1.1.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+</body>
+</html>

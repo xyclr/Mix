@@ -1,0 +1,99 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="Copyright" content="懒人图库 http://www.makewing.com/" />
+<meta name="description" content="学会偷懒，并懒出境界是提高工作效率最有效的方法！" />
+<script type="text/javascript" src="http://img01.12530.com/cms/zhuanti/js/jquery-1.7.2.min.js"></script>
+<meta content="懒人图库" name="keywords" />
+<title>懒人图库</title>
+</head>
+
+<body>
+<div class="video_playlist">
+    <div class="center_wrap">
+
+        <div class="video_wrap">
+            <div id="myElement">Loading the player...</div>
+            <div id="play">
+                <div class="player_list" id="play"  style="margin-left: 25px; margin-top: -7px;">
+                    <i style="display:none;"  url="http://img01.12530.com/zhuanti/20140313/qzdmm.flv" name="妻子的秘密" img="http://img01.12530.com/cms/" onclick='clikplayerMV(this);'> 妻子的秘密</i>
+                </div>
+
+            </div>
+
+        </div>
+        <script src="http://img01.12530.com/cms/zhuanti/0425/fshy/js/jwplayer.js"></script>
+        <script>jwplayer.key="E+0spMpF0ekxdD9RVk7lqkfN9ktR05Sn7DUy9A=="</script>
+        <script type="text/javascript">
+
+            var width_mv = 0 ;
+            var height_mv = 0 ;
+            var autostart_mv = false ;
+            function viewplay(width,height,autostart){
+                var i = $('#play').find('i');
+                var plist=[];
+                i.each(function(){
+                    plist.push({image:$(this).attr('img'),file:$(this).attr('url'),title:$(this).attr('name')});
+                });
+
+                jwplayer("myElement").setup({
+                    playlist: plist,
+                    width: width,
+                    height: height,
+                    autostart: autostart
+                });
+            }
+            function clikplayerMV(obji){
+                var plist=[];
+                var obj = $(obji);
+                obj.addClass("current").siblings().removeClass("current");
+                plist.push({image:obj.attr('img'),file:obj.attr('url'),title:obj.attr('name')});
+                jwplayer("myElement").setup({
+                    playlist: plist,
+                    width: width_mv,
+                    height: height_mv,
+                    autostart: autostart_mv
+                });
+
+            }
+            function intiMV(width,height,autostart){
+                width_mv = width ;
+                height_mv = height ;
+                autostart_mv = autostart;
+            }
+            function play_mv(){
+                var i = $('#play').find('i');
+                var plist=[];
+                i.each(function(){
+                    plist.push({image:$(this).attr('img'),file:$(this).attr('url'),title:$(this).attr('name')});
+                });
+
+                jwplayer("myElement").setup({
+                    playlist: plist,
+                    width: width_mv,
+                    height: height_mv,
+                    autostart: autostart_mv
+                });
+            }
+            function playfirst(){
+                var i = $('#play').find('i:first');
+                var plist=[];
+                i.each(function(){
+                    plist.push({image:$(this).attr('img'),file:$(this).attr('url'),title:$(this).attr('name')});
+                });
+                jwplayer("myElement").setup({
+                    playlist: plist,
+                    width: width_mv,
+                    height: height_mv,
+                    autostart: autostart_mv
+                });
+            }
+        </script>
+        <script type="text/javascript">
+            $(function(){
+                intiMV('610','358',true);
+                playfirst();
+            });
+        </script>
+</body>
+</html>

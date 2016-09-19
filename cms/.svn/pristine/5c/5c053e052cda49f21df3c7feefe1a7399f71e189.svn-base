@@ -1,0 +1,177 @@
+<?php
+/**
+ * The model file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     contact
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class cateModel extends model
+{
+    /**
+     * Get trade by id.
+     * 
+     * @param  int    $id 
+     * @access public
+     * @return object
+     */
+    public function getByID($id)
+    {
+        return $this->dao->select('*')->from(TABLE_FINANCE_CATE)->where('id')->eq($id)->fetch();
+    }
+
+    /** 
+     * Get trade list.
+     * 
+     * @param  string  $orderBy 
+     * @param  object  $pager 
+     * @access public
+     * @return array
+     */
+    public function getList($mode, $orderBy, $pager = null)
+    {          
+        return $this->dao->select('*')->from(TABLE_FINANCE_CATE)->page($pager)->fetchAll('id');
+    }
+
+    /**
+     * Get monthly chart data.
+     * 
+     * @param  string    $type 
+     * @param  string    $currentYear 
+     * @param  string    $currentMonth 00-12
+     * @param  string    $groupBy 
+     * @param  string    $currency 
+     * @access public
+     * @return array
+     */
+    public function getChartData($type, $currentYear, $currentMonth, $groupBy, $currency)
+    {
+        /* Get this year data if currentMonth == '00'. */
+        $startDate = $currentMonth == '00' ? $currentYear . '-01-01' : $currentYear . '-' . $currentMonth . '-01';
+        $endDate   = $currentMonth == '00' ? date('Y-m-d', strtotime('+12 months', strtotime($startDate))) : date('Y-m-d', strtotime('+1 months', strtotime($startDate)));
+
+        if($groupBy == 'category')
+        {
+            if($type == 'in')  $list = $this->lang->trade->incomeCategoryList + $this->loadModel('tree')->getOptionMenu('in', 0, true);
+            if($type == 'out') $list = $this->lang->trade->expenseCategoryList + $this->loadModel('tree')->getOptionMenu('out', 0, true);
+            $list = array('' => '') + $list;
+        }
+
+        if($groupBy == 'dept') $list = $this->loadModel('tree')->getOptionMenu('dept', 0, true);
+
+        $datas = $this->dao->select("$groupBy as name, sum(money) as value")->from(TABLE_TRADE)
+                ->where('type')->eq($type)
+                ->beginIf($currency != '')->andWhere('currency')->eq($currency)->fi()
+                ->beginIf($startDate != '' and $endDate != '')->andWhere('date')->ge($startDate)->andWhere('date')->lt($endDate)->fi()
+                ->beginIf($groupBy == 'category')->andWhere('category')->in(array_keys($list))
+                ->groupBy($groupBy)
+                ->orderBy('value_desc')
+                ->fetchAll('name');
+
+        if(empty($datas)) return array();
+
+        foreach($datas as $name => $data) $data->name = ($name and isset($list[$name])) ? $list[$name] : $this->lang->report->undefined;
+
+        return $datas;
+    }
+
+    /** 
+     * Get trade list by trade's id list.
+     * 
+     * @param  array    $idList 
+     * @access public
+     * @return void
+     */
+    public function getByIdList($idList)
+    {
+        return $this->dao->select('*')->from(TABLE_TRADE)->where('id')->in($idList)->fetchAll('id');
+    }
+
+    /** 
+     * Get details of a trade.
+     * 
+     * @param  int    $tradeID 
+     * @access public
+     * @return array
+     */
+    public function getDetail($tradeID)
+    {
+        return $this->dao->select('*')->from(TABLE_TRADE)->where('parent')->eq($tradeID)->fetchAll();
+    }
+
+    /**
+     * Create a trade.
+     * 
+     * @param  string    $type   in|out
+     * @access public
+     * @return void
+     */
+    public function create()
+    {
+        $cate = fixer::input('post')
+            ->get();
+        
+        $this->dao->insert(TABLE_FINANCE_CATE)
+            ->data($cate)
+            ->autoCheck()
+            ->exec();
+
+        $cateID = $this->dao->lastInsertID();
+
+        if(!dao::isError())
+        {
+            $cardID = $this->dao->lastInsertID();
+            $this->loadModel('action')->create('card_category', $cateID, 'Created', '');
+            return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => helper::createLink('cate', 'browse'));
+        }
+        
+        return array('result' => 'fail', 'message' => dao::getError());
+
+    }
+    
+    /**
+     * Update a trade.
+     * 
+     * @param  int    $tradeID 
+     * @access public
+     * @return string|bool
+     */
+    public function update($cateID)
+    {
+        $cate = fixer::input('post')
+            ->get();
+        
+        $this->dao->update(TABLE_FINANCE_CATE)
+            ->data($cate)
+            ->autoCheck()
+            ->where('id')->eq($cateID)
+            ->exec();
+
+        if(!dao::isError())
+        {
+            $cardID = $this->dao->lastInsertID();
+            $this->loadModel('action')->create('card_category', $cateID, 'Update', '');
+            return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => helper::createLink('cate', 'browse'));
+        }
+        
+        return array('result' => 'fail', 'message' => dao::getError());
+    }
+
+    /**
+     * Delete a trade.
+     * 
+     * @param  int      $tradeID 
+     * @access public
+     * @return void
+     */
+    public function delete($cateID)
+    {
+        $this->dao->delete(TABLE_FINANCE_CATE)->where('id')->eq($cateID)->exec();
+        $this->addLog($cardID, $oldCard->amount, 3);
+        return !dao::isError();
+    }
+
+}

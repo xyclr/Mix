@@ -1,0 +1,83 @@
+<?php
+//生产车间
+class wash extends control {
+
+
+    public function index(){
+        $this->locate(inlink('browse'));
+    }
+    
+    public function browse($mode = 'wash', $orderBy = 'id', $recTotal = 0, $recPerPage = 10, $pageID = 1){
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $data = $this->wash->getDispatchList($mode, $pager);
+        $this->view->datas = $data;
+        $this->view->mode = $mode;
+        $this->view->pager = $pager;
+        $this->view->title   = $this->lang->dispatch->wash;
+        $this->display();
+    }
+    
+    //调度
+    public function dodispatch($id, $mode = 1) {
+        if($mode != 1){
+    	    $this->wash->setIsChange($id, 0);
+        }
+        $this->wash->changeStatus($id, $mode);
+    	$this->locate("/workshop/index.php?m=workshop&f=detail&id={$id}&step={$mode}");
+    }
+
+    //加入调度
+    public function indispatch($id, $mode = 1) {
+        $this->workshop->setIsDispatch($id, 1);
+    	$this->locate("/workshop/index.php?m=workshop&f=dispatch&mode=1");
+    }
+
+    //确认衣物
+    public function confirm($id) {
+    	$this->wash->changeStatus($id, 3);
+    	$this->locate("/workshop/index.php?m=wash&f=browse");
+    }
+
+    //返厂
+    public function recur($id) {
+    	$this->wash->setIsChange($id, 0);
+    	$this->wash->setIsRecur($id, 1);
+    	$this->locate("/workshop/index.php?m=wash&f=detail&id={$id}");
+    }
+    
+    //详情
+    public function detail($id, $step = 0) {
+    	$data = $this->wash->getData($id);
+    	$data->wash_way = $this->lang->wash->wash_way[$data->wash_way];
+    	$data->iron = $data->creases == 1 ? '有裤线' : '无裤线';
+        $this->view->step = $step;
+    	$this->view->data = $data;
+    	$this->view->title   = $this->lang->workshop->detail;
+    	$this->display();
+    }
+
+    public function edit ($id, $act = ''){
+        if($_POST){
+        }
+    	$data = $this->wash->getData($id);
+        $this->view->clothModelList = $this->loadModel('cloth', 'sys')->getList(1);
+        $this->view->currencyList     = $this->loadModel('common', 'sys')->getCurrencyList();
+        $this->view->brandList      = $this->loadModel('cloth', 'sys')->getList(2);
+    	$this->view->title   = $this->lang->wash->detail;
+    	$this->view->data = $data;
+        $this->display();
+    }
+
+    public function error()
+    {
+        $this->view->id = $_GET['id'];
+        if ($_POST) {
+            //获取会员卡信息
+            $result = $this->wash->dealBack($this->view->id);
+            if ($result)
+                $this->send(array('result' => 'success', 'message' => "成功", 'locate' => inlink('browse')));
+        }
+        $this->display();
+    }
+}

@@ -1,0 +1,11 @@
+<?php die();?> 
+20151109 10:16:17: /sys/install.php
+
+20151109 10:16:24: /sys/install.php?m=install&f=step0
+
+20151109 10:16:28: /sys/install.php?m=install&f=step1
+
+20151109 10:16:29: /sys/install.php?m=install&f=step2
+
+20151109 10:16:38: /sys/install.php?m=install&f=step3
+

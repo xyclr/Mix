@@ -1,0 +1,16 @@
+.attend-normal {color: #38B03F;}
+.attend-late   {color: #EA644A;}
+.attend-early  {color: #FF8A65;}
+.attend-both   {color: #FF5722;}
+.attend-absent {color: #F1A325;}
+.attend-leave  {color: #9E9E9E;}
+.attend-trip   {color: #8668B8;}
+.attend-rest   {color: #3280FC;}
+.attend-status {font-weight: bold; font-size: 14px;}
+
+.legend-item {margin-right: 15px;}
+.legend-i {padding: 5px;}
+
+.valign-middle {vertical-align: middle !important;}
+.tree .active {font-weight: bold;}
+.tree > li {margin-right: 0;}

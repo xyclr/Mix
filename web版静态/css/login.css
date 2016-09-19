@@ -1,0 +1,19 @@
+.login{background-color: #f7f7f7;}
+.login-header .txt{margin-top: 40px; margin-left: 40px; font-size: 16px;}
+.login-header .g-header-main{height: 100px;}
+.login-header .g-header-main a.m-logo{margin-top: 25px;}
+.login-w{background: url("i/login-bg.png") no-repeat top center; height: 500px; width: 100%;}
+.login-w-c{width: 1185px; height: 100%; position: relative; margin: 0 auto;}
+.login-con{width:385px; height: 265px; position: absolute; right: 110px; top:50px; background-color: #fff; padding: 20px; }
+.login-con p{height: 38px; color: #666;}
+.login-con p .title{width: 70px; font-size: 17px; line-height: 38px; text-align: right; margin-right: 8px;}
+.login-con p input{width: 180px; height: 36px; line-height: 36px; border: solid 1px #ccc; padding: 0 10px; margin-right: 12px;}
+.login-con p .dtmm{width: 88px; border: solid 1px #ccc; height: 36px; line-height: 36px; font-size: 14px; text-align: center; background-color: #f7f7f7; color: #666;}
+.login-con p .dtmm:hover{background-color: #fdfdfd;}
+.login-con p .yzm,.login-con p .yzm img{width: 86px; height: 100%;}
+.login-con p .btn-login{width: 335px; height: 36px; line-height: 36px; background-color: #8dc21f; font-size: 16px; color: #fff; text-align: center; margin-top: 45px;}
+.login-con p .btn-login:hover{background-color: #a0dc25;}
+
+
+
+

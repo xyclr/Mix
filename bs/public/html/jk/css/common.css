@@ -1,0 +1,103 @@
+/* 
+ * @description: 蜀宝宝微商城 通用样式 
+ * @author: wuzhibo 2015.03.30
+**/
+
+@charset "utf-8";
+
+html { height:100%; font-size:16px; }
+body { height:100%; font-size:1rem; padding:0; margin:0; background-color:#eee; font-family:Helvetica; }
+
+.ico { display:inline-block; }
+.main { padding:0; }
+.hide { display:none; }
+.mask { display:none; position:absolute; z-index:999; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.4); }
+.poplayer { display:none; position:absolute; z-index:1000; left:0; bottom:0; }
+
+/* 单行文本省略 */
+.omit { text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+
+/* 购物车数字 */
+.cartnum { display:inline-block; position:absolute; top:5px; right:50%; margin-right:-20px; width:15px; height:15px; text-align:center; line-height:15px; -webkit-border-radius:100%; border-radius:100%; background-color:rgba(255,128,128,0.8); color:#fff; font-size:0.75rem; }
+
+/* header */
+.header { width:100%; height:46px; position:fixed; z-index:99; padding:0 45px 0 72px; background-color:#ff8080; box-sizing:border-box; }
+
+/*floor*/
+.floor {
+    background-color: #fff;
+    border-top: solid 1px #ddd;
+    margin-bottom: 10px;
+}
+.floor .bd {padding-bottom:10px;}
+.floor .hd {overflow: hidden;border-bottom: solid 1px #ddd;padding:5px 10px;font-size:12px;}
+.floor .hd h3 {float:left;font-size:14px;color:#00b38a;}
+.floor .hd a {float:right;}
+.floor .item {position: relative;padding:2%;}
+.floor .thumb {width:100%;}
+.floor .thumb img {width:100%;}
+.floor .p-name {position: absolute; bottom: 75px; background-color: rgba(0,0,0,0.5); display: block; border-radius: 5px; padding:5px 2%; color: #fff;width:92%;line-height:16px;height:12px;overflow: hidden}
+.floor .info {font-size:12px;overflow: hidden}
+.floor .logo {width:30px;height:30px;border-radius:30px;border:10px solid #fff;position: absolute;left:20px;bottom:20px;}
+.floor .p-detail {padding-left:70px;height:38px;overflow: hidden}
+.floor .btn-fav,.floor .btn-faved {width:30px;height:30px;display: block;background:rgba(0,0,0,0.2) url("../images/ico_fav.png") no-repeat;background-size:100% 100%;position: absolute;top:20px;right:20px;border-radius:5px;}
+.floor .btn-faved { }
+
+.ad {width:100%;height:50px;background:#ddd;margin-bottom:10px;line-height:50px;font-size:20px;text-align: center;color:#fff;}
+
+/* footer */
+footer.nav { position:fixed; z-index:99; bottom:0; width:100%; height:54px; background:#fafafa; border-top:solid 1px #e5e5e5; overflow:hidden; }
+footer.nav .item { position:relative; float:left; height:100%; width:33.33%; text-align:center; box-sizing:border-box; }
+footer.nav .item .ico { display:block; margin:0 auto; width:24px; height:24px; background-size:100% 100%; margin-top:6px; }
+footer.nav .item .txt { display:block; font-size:0.75rem; margin-top:3px; }
+footer.nav .item .cart-count { position:absolute; width:15px; height:15px; border-radius:100%; top:5px; right:50%; background-color:rgba(255,128,128,0.8); color:#fff; font-size:0.75rem; text-align:center; line-height:15px; margin-right:-20px; }
+.ico-home { background:url(../images/ico_nav_home.png) no-repeat 0 0; }
+.ico-search { background:url(../images/ico_nav_search.png) no-repeat 0 0; }
+.ico-user { background:url(../images/ico_nav_user.png) no-repeat 0 0; }
+
+.selected .txt { color:#ff8080; }
+.selected .ico-home { background-image:url(../images/ico_nav_home_on.png) !important; }
+.selected .ico-search { background-image:url(../images/ico_nav_search_on.png) !important; }
+.selected .ico-user { background-image:url(../images/ico_nav_user_on.png) !important; }
+
+
+header.titlebar { position:relative; display:block; padding:0 40px; height:46px; background-color:#eee; border-bottom:solid 1px #ddd; }
+header.titlebar .title { display:block; width:100%; height:100%; text-align:center; line-height:46px; font-size:1rem; }
+a.btn-back { position:absolute; z-index:100; left:0; top:0; display:block; width:35px; height:100%; text-align:center; }
+a.btn-back .ico-back { margin-top:10px; width:24px; height:24px; background:url(../images/ico_back.png) no-repeat 0 0; background-size:100% 100%; }
+a.btn-search { position:absolute; z-index:100; top:7px; right:0; display:block; width:35px; height:31px; text-align:center; /*border-left:solid 1px #e5e5e5;*/ }
+a.btn-search .ico-search { margin-top:6px; width:20px; height:20px; background:url(../images/ico_search_gray.png) no-repeat 0 0; background-size:100% 100%; }
+
+a.btn-filter { position:absolute; z-index:100; top:0; right:0; display:block; width:35px; height:100%; text-align:center; line-height:45px; font-size:0.875rem; }
+a.btn-filter .ico-filter { margin-top:11px; width:24px; height:24px; background:url(../images/ico_filter.png) no-repeat 0 0; background-size:100% 100%; }
+
+.search-bar { position:relative; display:block; padding:0 10px 0 40px; height:45px; background-color:#eee; border-bottom:solid 1px #e5e5e5; }
+.search-bar .search-box { position:relative; height:100%; padding-top:7px; box-sizing:border-box; }
+.search-bar .search-box input { width:100%; box-sizing:border-box; height:31px; padding:3px 5px; padding-right:40px; border:0; background-color:#fff; font-size:0.875rem; border-radius:0; -webkit-border-radius:3px; }
+.search-bar .title { display:block; line-height:45px; text-align:center; font-family:1rem; }
+
+/*footer.cart*/
+footer.cart { position:fixed; z-index:1000; bottom:0; width:100%;text-align: center; border-top:solid 1px #e5e5e5; box-sizing:border-box; padding:10px 0; background-color:#fff; }
+footer.cart a { display:inline-block; margin-right:10px; }
+footer.cart .btn-buy, footer.cart .btn-addtocart { width:100px; height:25px; text-align:center; line-height:25px; font-size:1rem; -webkit-border-radius:5px; border-radius:5px; border-style:solid; border-width:1px; background-color:#fff; box-sizing:border-box; }
+footer.cart .btn-buy { border-color:#ff8080; background-color:#ff8080; color:#fff; }
+footer.cart .btn-addtocart { border-color:#faa500; background-color:#faa500; color:#fff; }
+
+.p-d-info {background:#fff;overflow: hidden;}
+.p-d-info .p-d-img {width:100%;}
+.p-d-info .p-d-name {color: #00b38a; font-weight: normal; border-left: 5px solid #00b38a; font-size: 14px; line-height: 14px;padding: 0 0 0px 10px;margin:10px;}
+.p-d-detail {margin:0 10px 10px 10px;font-size:12px;}
+.p-d-extra {font-size:12px;background:#fff;padding:10px;margin-top:10px;}
+.p-d-extra .dd {color: #00b38a;}
+
+.usr .item {width:100%;background:#fff;padding:5px 10px;margin:20px 0;overflow: hidden;font-size:12px;position: relative;}
+.usr .profile {padding:10px;height:50px;line-height:50px;margin-top:50px;}
+.usr .profile .name {float:left;margin-left:10px;}
+.usr  .more {position: absolute;top:8px;right:30px;background:url(../images/ico_back.png) no-repeat 0 0;width:10px;height:10px;display: block;background-size: 100% 100%;transform:rotate(180deg);
+    -ms-transform:rotate(180deg);
+    -moz-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+    -o-transform:rotate(180deg); }
+.usr .profile .img-box {float:left;}
+.usr .profile .more {top:30px;}
+.usr .profile .img-box img {width:50px;height:50px;border-radius: 50px;}

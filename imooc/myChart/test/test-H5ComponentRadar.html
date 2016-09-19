@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+
+    <title>IT教育网2015课程学习情况</title>
+
+    <style type="text/css">
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            font-size: 12px;
+        }
+
+        .iphone{
+            width: 340px;
+            height: 540px;
+            background-color: #fff;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -270px 0 0 -170px;
+        }
+    </style>
+
+    <script type="text/javascript" src="../js/lib/jquery.js"></script>
+    <script type="text/javascript" src="../js/H5ComponentBase.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/H5ComponentBase.css">
+
+
+    <!-- 引入雷达图的资源 -->
+    <script type="text/javascript" src="../js/H5ComponentRadar.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/H5ComponentRadar.css">
+
+    <body>
+        <!-- 用于开发测试 H5ComponentRadar 对象（雷达图组件） -->
+        <div class="iphone">
+
+        </div>
+
+        <script type="text/javascript">
+
+            var cfg = {
+                type: 'radar',
+                width:400,
+                height:400,
+                center: true,
+                data : [
+                    ['项目A', .4,],
+                    ['项目B', .2, 0, '60%', 'yellow'],
+                    ['HTML', .9, 0, '-60%', 'red'],
+                    ['JAVA', .8, 0, '-60%', 'red'],
+                    ['PHP', .7, 0, '-60%', 'red'],
+                ],
+                css: {
+                    top:200,
+                    opacity: 0
+                },
+                animateIn:{
+                    opacity:1,
+                    top:200,
+                },
+                animateOut:{
+                    opacity:0,
+                    top:100,
+                },
+            };
+
+            var h5 = new H5ComponentRader('cp', cfg);
+            $('.iphone').append(h5);
+
+            var leave = true;
+            $('body').click(function(){
+                leave = !leave;
+                h5.trigger( leave ? 'onLeave' : 'onLoad' )
+            })
+        </script>
+
+    </body>
+
+</html>

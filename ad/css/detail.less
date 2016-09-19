@@ -1,0 +1,258 @@
+@import "base-conf";
+
+body {
+  background: #f2f2f2;
+}
+
+.p-detail {
+  overflow: hidden;
+  background: #fff;
+  margin-top:10px;
+  padding-bottom:20px;
+  .bread {
+    padding:10px 20px;
+    border-bottom:1px dotted #d4d4d4;
+    font-size:15px;
+    line-height: 15px;
+  }
+}
+
+.p-preview {
+  margin:10px 20px 0 20px;
+  font-size:14px;
+
+  .imgScroll {
+    width:370px;
+    height: 430px;
+    float:left;
+  }
+
+  .p-preview-info {
+    float:left;
+    margin-left:35px;
+    width:750px;
+  }
+
+  .p-name {
+    font-size:18px;
+    color:#333;
+    line-height: 18px;
+    margin:10px 0 20px 0;
+  }
+
+  .p-info {
+    padding:15px;
+    background: #f2f2f2;
+    color:#666;
+    height: 115px;
+    overflow: hidden;
+
+    .itm {
+      margin-bottom:30px;
+    }
+
+    strong {
+      color:@font-color-blue;
+      font-size:20px;
+      font-weight: normal;
+      vertical-align: middle;
+    }
+
+    .per {
+      font-size:12px;
+    }
+  }
+  .p-other {
+    border-top:1px dotted #d4d4d4;
+    margin-top:15px;
+    padding:10px 18px 0;
+    .itm {
+      margin-bottom: 23px;
+    }
+    .lab {
+      display: inline-block;
+      *zoom:1;
+      *display:inline;
+      width: 100px;text-align: right;
+    }
+    .btn-pay {
+      font-size:18px;
+      line-height: 56px;
+      width:280px;
+      height: 56px;
+      display: block;
+      text-align: center;
+      background: #8dc21f;
+      color:#fff;
+      margin-top: 10px;
+    }
+
+    .time-s1 {
+      display: inline-block;
+      *zoom:1;
+      *display:inline;
+      width:118px;
+      height: 26px;
+      border:1px solid #d4d4d4;
+      text-align: center;
+      line-height: 26px;
+      margin-right: 10px;
+    }
+
+    .time-s2 {
+      display: inline-block;
+      *zoom:1;
+      *display:inline;
+      width:255px;
+      height: 28px;
+      text-align: center;
+      line-height: 28px;
+      background: #f2f2f2;
+    }
+  }
+
+
+}
+
+.p-sub {
+  border:1px solid #d4d4d4;
+  margin:36px 20px 0 20px;
+
+  .dt {
+    border-top:4px solid #0085cf;
+    line-height: 36px;
+    padding-left:20px;
+    border-bottom:1px solid #d4d4d4;
+  }
+  .dd {
+    text-align: center;
+    padding:10px 0;
+  }
+}
+
+.datepick-s1,.datepick-s2 {
+  position: relative;
+  z-index: 2;
+  .dt {
+    cursor: pointer;
+    display: block;
+    width:120px;
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+  }
+  .dd {
+    display: none;
+    position: absolute;
+    left:-65px;
+    top: 27px;
+    border:1px solid #0085cf;
+    width:330px;
+    background: #fff;
+
+    .mt {
+      height: 30px;
+      line-height: 30px;
+      font-size:14px;
+      text-indent:5px;
+      text-align: left;
+      color:#fff;
+      background: #0085cf;
+    }
+
+    .mc {
+      height: 280px;
+      background: #fff;
+      text-align: center;
+    }
+  }
+
+  &.active {
+    border-color:#0085cf!important;
+    .dt {
+      background:#0085cf;
+      color:#fff;
+    }
+    .dd {
+      display: block;
+    }
+  }
+}
+.datepick-s2 {
+  z-index: 1;
+  .dd {
+    left:-180px;
+    width:480px;
+    .mc {
+      padding:15px 0;
+      height: 90px;
+      text-align: center;
+    }
+  }
+
+  .time-box {
+    position: relative;
+    width:140px;
+    display: inline-block;
+    *zoom:1;
+    *display:inline;
+    s{
+      position: absolute;
+      right:3px;
+      top:2px;
+      width:25px;
+      height: 22px;
+      background: url("i/time.png");
+    }
+  }
+  .ipt {
+    border: 1px solid #d4d4d4;
+    height: 24px;
+    line-height: 24px;
+    width: 140px;
+  }
+
+  .btn-box{
+    a {
+      width:90px;
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
+      display: inline-block;
+      *zoom:1;
+      *display:inline;
+      background: #fff;
+      color:#333;
+      border:1px solid #ddd;
+      font-size:16px;
+      margin:0 13px;
+
+      &.btn-submit {
+        background: #0085cf;
+        border-color:#0085cf;
+        color:#fff;
+      }
+    }
+  }
+}
+
+/*图片轮播*/
+.picScrollImg img {width:370px;height: 370px;}
+.picScroll{ overflow:hidden; position:relative;}
+.picScroll .hd{ overflow:hidden; }
+.picScroll .hd .prev,.picScroll .hd .next{ display:block;  width:19px; height:55px; overflow:hidden;
+  cursor:pointer; background:url("i/common.png") 0 0 no-repeat;position: absolute}
+.picScroll .hd .prev{ background-position:0 -52px;left: 0;top:10px; }
+.picScroll .hd .next{ background-position:-19px -52px;right: 0;top:10px; }
+.picScroll .hd .prevStop{ background-position:-60px 0; }
+.picScroll .hd .nextStop{ background-position:-60px -50px; }
+.picScroll .bd{ padding:10px 26px 0 26px;}
+.picScroll .bd ul{ overflow:hidden; zoom:1; }
+.picScroll .bd ul li{ margin:0 12px; float:left; _display:inline; overflow:hidden; text-align:center;cursor: pointer;opacity: 0.6}
+.picScroll .bd ul li .pic{ text-align:center; }
+.picScroll .bd ul li .pic img{ width:55px; height:55px; display:block;}
+.picScroll .bd ul li.active {opacity: 1}
+.picScroll .bd ul li .pic a:hover img{ border-color:#999;  }
+.picScroll .bd ul li .title{ line-height:24px;   }
+.picScroll .pageState {display: none}
+

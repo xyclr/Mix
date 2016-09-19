@@ -1,0 +1,9 @@
+form .article-files > li.article-files-heading {display: none}
+form .article-files {margin-bottom: 10px;}
+.boards li.active{font-weight: bold;}
+.breadcrumb{padding-left: 0; padding-right: 0; display: inline;}
+.row .nav.nav-stacked + .nav.nav-stacked {margin-top: 20px;}
+.nav-primary > li.active > a, .nav-primary > li.active > a:hover, .nav-primary > li.active > a:focus {background: #fff !important; color: #229f24!important; border-color: #ddd !important;}
+
+.input-group-addon .checkbox-inline {padding-top: 3px;}
+.ie-8 .input-group-addon .checkbox-inline {padding-top: 0; position: relative; bottom: -3px}

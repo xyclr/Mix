@@ -1,0 +1,68 @@
+<?php 
+/**
+ * The browse view file of contact module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     contact 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+?>
+<?php include '../../common/view/header.html.php';?>
+<?php js::set('mode', $mode);?>
+<li id='bysearchTab'><?php echo html::a('#', "<i class='icon-search icon'></i>" . $lang->search->common)?></li>
+<div id='menuActions'>
+  <?php commonModel::printLink('cate', 'create', '', "<i class='icon-plus'></i> {$lang->cate->create}", "class='btn btn-primary'")?>
+</div>
+<div class='panel'>
+  <table class='table table-hover table-striped tablesorter table-data table-fixed' id='contactList'>
+    <thead>
+      <tr class='text-center'>
+        <?php $vars = "mode={$mode}&orderBy=%s&recTotal={$pager->recTotal}&recPerPage={$pager->recPerPage}&pageID={$pager->pageID}";?>
+        <th class='w-60px'> <?php commonModel::printOrderLink('id', $orderBy, $vars, $lang->cate->id);?></th>
+        <th><?php commonModel::printOrderLink('type', $orderBy, $vars, $lang->cate->type_title);?></th>
+        <th><?php commonModel::printOrderLink('kind', $orderBy, $vars, $lang->cate->kind_title);?></th>
+        <th><?php commonModel::printOrderLink('price', $orderBy, $vars, $lang->cate->price);?></th>
+        <th><?php commonModel::printOrderLink('amount', $orderBy, $vars, $lang->cate->amount);?></th>
+        <th><?php commonModel::printOrderLink('discount', $orderBy, $vars, $lang->cate->discount);?></th>
+        <th><?php echo $lang->cate->standard;?></th>
+        <th><?php echo $lang->cate->special1;?></th>
+        <th><?php echo $lang->cate->special2;?></th>
+        <th><?php echo $lang->cate->iron;?></th>
+        <th><?php echo $lang->cate->group;?></th>
+        <th><?php echo $lang->cate->group_price;?></th>
+        <th class='w-200px'><?php echo $lang->actions;?></th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php foreach($cates as $cate):?>
+    <tr class='text-center'>
+      <td><?php echo $cate->id;?></td>
+      <td><?php echo $lang->cate->type[$cate->type];?></td>
+      <td><?php echo $lang->cate->kind[$cate->kind];?></td>
+      <td ><?php echo $cate->price;?></td>
+      <td ><?php echo $cate->amount;?></td>
+      <td ><?php echo $cate->discount;?></td>
+      <td ><?php echo $lang->cate->radio[$cate->standard];?></td>
+      <td ><?php echo $lang->cate->radio[$cate->special1];?></td>
+      <td ><?php echo $lang->cate->radio[$cate->special2];?></td>
+      <td ><?php echo $lang->cate->radio[$cate->iron];?></td>
+      <td ><?php echo $cate->group;?></td>
+      <td ><?php echo $cate->group_price;?></td>
+      <td class='operate'>
+        <?php
+        commonModel::printLink('cate', 'edit', "cateID=$cate->id", $lang->edit);
+        echo "<div class='dropdown'><a data-toggle='dropdown' href='javascript:;'>" . $this->lang->more . "<span class='caret'></span> </a><ul class='dropdown-menu pull-right'>";
+        commonModel::printLink('cate', 'delete', "cateID=$cate->id", $lang->delete, "class='reloadDeleter'", '', '', 'li');
+        echo '</ul></div>';
+        ?>
+      </td>
+    </tr>
+    <?php endforeach;?>
+    </tbody>
+  </table>
+  <div class='table-footer'><?php $pager->show();?></div>
+</div>
+<?php include '../../common/view/footer.html.php';?>

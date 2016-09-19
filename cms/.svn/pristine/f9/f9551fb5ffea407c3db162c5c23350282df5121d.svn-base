@@ -1,0 +1,36 @@
+<?php
+/**
+ * The model file of balance module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     contact
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class orderModel extends model
+{
+ 	public function getStoreList()
+ 	{
+ 		return $this->dao->select('id,name')->from(TABLE_CATEGORY)->where('parent')->eq(820004)->fetchAll();
+ 	}   
+ 	
+ 	public function rechargeMoney($store_id)
+ 	{
+ 		$rs = $this->dao->select('sum(amount) as money')->from(TABLE_FINANCE_CARD)->where('store_id')->eq($store_id)->fetch();
+ 		return round((empty($rs) ? 0 : $rs->money), 2);
+ 	}
+ 	
+ 	public function orderMoney($store_id)
+ 	{
+ 		$rs = $this->dao->select('sum(good_amount) as money')->from(TABLE_SORDER)->where('store_id')->eq($store_id)->fetch();
+ 		return round((empty($rs) ? 0 : $rs->money), 2);
+ 	}
+ 	
+ 	public function cardMoney($store_id)
+ 	{
+ 		$rs = $this->dao->select('sum(t2.amount) as money')->from(TABLE_SORDER)->alias('t1')->join(TABLE_PAYLOG)->alias('t2')->on('t1.id=t2.order_id')->where('store_id')->eq($store_id)->fetch();
+ 		return round((empty($rs) ? 0 : $rs->money), 2);
+ 	}
+}

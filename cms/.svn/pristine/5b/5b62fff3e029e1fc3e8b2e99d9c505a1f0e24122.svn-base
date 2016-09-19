@@ -1,0 +1,64 @@
+<?php
+/**
+ * The control file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     trade
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class deposit extends control
+{
+    /** 
+     * The index page, locate to the browse page.
+     * 
+     * @access public
+     * @return void
+     */
+    public function index()
+    {
+        $this->locate(inlink('create'));
+    }
+
+    
+    
+    public function create()
+    {
+        if($_POST)
+        {
+            $return = $this->card->deposit();
+            $this->send($return);
+        }
+        
+        unset($this->lang->card->menu);
+        $this->view->title         = $this->lang->card->deposit;
+        $this->display();
+    }
+    
+    public function getNumberInfo($number)
+    {
+        if (empty($number)){
+            $result = array(
+                'code' => 1,
+                'msg'  => '参数不能为空',
+            );
+        }else{
+            $data = $this->card->getNumberInfo($number);
+            if (empty($data)){
+                $result = array(
+                    'code' => 1,
+                    'msg'  => '卡号不存在',
+                );
+            }else{
+                $result = array(
+                    'code' => 0,
+                    'msg'  => '成功获取卡号信息',
+                    'data' => $data
+                );
+            }
+        }
+        echo json_encode($result);
+    }
+}

@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * The model file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     contact
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class trellisModel extends model {
+
+    public function getAll($mode = '', $orderBy = 'number_desc', $pager = null) {
+
+        $trellis = $this->dao->select('t1.*,t2.name')->from(TABLE_TRELLIS)->alias('t1')
+        		->leftJoin(TABLE_CATEGORY)->alias('t2')->on('t1.store_id=t2.id')
+                ->orderBy($orderBy)
+                ->page($pager)
+                ->fetchAll('id');
+        return $trellis;
+    }
+
+    public function create() {
+    	if (!$_POST['store_id']){
+    		$trellis = fixer::input('post')->add('store_id', $this->app->user->dept)->get();
+    	}else{
+        	$trellis = fixer::input('post')->get();
+    	}
+
+        $rs = $this->dao->insert(TABLE_TRELLIS)->data($trellis)->autoCheck()->exec();
+        if (!dao::isError()) {
+            $trellisID = $this->dao->lastInsertID();
+            $this->loadModel('action')->create('trellis', $trellisID, 'Created', '');
+            return array(
+                'result'  => 'success',
+                'message' => $this->lang->saveSuccess,
+                'locate'  => helper::createLink('trellis', 'browse')
+            );
+        }
+        return array(
+            'result'  => 'fail',
+            'message' => dao::getError()
+        );
+    }
+
+    public function edit($trellisID) {
+    if (!$_POST['store_id']){
+    		$trellis = fixer::input('post')->add('store_id', $this->app->user->dept)->get();
+    	}else{
+        	$trellis = fixer::input('post')->get();
+    	}
+
+        $rs = $this->dao->update(TABLE_TRELLIS)->data($trellis)->autoCheck()->where('id')->eq($trellisID)->exec();
+        if (!dao::isError()) {
+            $this->loadModel('action')->create('trellis', $trellisID, 'Edit', '');
+            return array(
+                'result'  => 'success',
+                'message' => $this->lang->saveSuccess,
+                'locate'  => helper::createLink('trellis', 'browse')
+            );
+        }
+        return array(
+            'result'  => 'fail',
+            'message' => dao::getError()
+        );
+    }
+
+    public function getById($trellisID) {
+        return $this->dao->select('*')->from(TABLE_TRELLIS)->where('id')->eq($trellisID)->fetch();
+    }
+    
+    public function getTrellisList() {
+        $arr = array();
+        $arr_t =  $this->dao->select('*')->from(TABLE_TRELLIS)->where('store_id')->eq($this->app->user->dept)->fetchAll();
+        if (!empty($arr_t)) {
+            foreach ($arr_t as $k => $v) {
+                $arr[$v->number] = $v->number;
+            }
+        }
+        return $arr;
+    }
+    
+    public function getList($type=1, $orderBy = 'type_desc', $pager = null) {
+
+        if (strpos($orderBy, 'id') === false)
+            $orderBy .= ', id_desc';
+
+        $contacts = $this->dao->select('*')->from(TABLE_CLOTH)
+                ->where('type')->eq($type)->orderBy($orderBy)
+                ->page($pager)
+                ->fetchAll('id');
+        $arr=array();
+        foreach ($contacts as $k=>$v){
+          $arr[$v->id]=  $v->name;
+        }
+        return $arr;
+    }
+}

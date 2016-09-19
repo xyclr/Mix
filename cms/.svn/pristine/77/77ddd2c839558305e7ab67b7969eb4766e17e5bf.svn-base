@@ -1,0 +1,157 @@
+
+
+
+<?php include '../../common/view/header.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/color.html.php';?>
+<?php include '../../../sys/common/view/chosen.html.php';?>
+<form method='post' id='ajaxForm' class='form-inline'" action="/sales/index.php?m=order&f=doPay">
+	<table class='table table-form w-p60'>
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->serial;?></th>
+			<td>
+        <?php echo $data->serial;?>
+          <?php echo html::hidden('serial', $data->serial, "class='form-control'");?>
+      </td>
+		</tr>
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->member;?></th>
+			<td>
+                <?php echo html::input('card_number', '', "class='form-control'");?>
+			</td>
+		</tr>
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->user;?></th>
+			<td>
+                <?php echo html::select('user_id', $userList, 0, "class='form-control chosen'");?>
+			</td>
+		</tr>
+		<tr>
+			<th class='w-70px' ><?php echo $lang->order->good_amount;?><?php echo html::hidden('pay_amount', $data->amount, "class='form-control'");?></th>
+			<td id = "good_amount">
+			
+       <?php echo $data->amount;?>
+      </td>
+		</tr>
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->delivery_time;?></th>
+			<td>
+        <?php echo html::input('delivery_time', date('Y-m-d H', $data->delivery_time), "class='form-control form-date'");?>
+      </td>
+		</tr>
+		<tr>
+			<th><?php echo $lang->order->way_1;?></th>
+			<td><?php echo html::select('way', $lang->order->way, '', "class='form-control'");?></td>
+		</tr>
+		<tr id="pay_way">
+			<th><?php echo $lang->order->pay_way;?></th>
+			<td><?php echo html::radio('pay_way', $lang->order->pay, '', "class='form-control'");?><span id='tip' style="color: red;"></span></td>
+		</tr>
+		<tr>
+			<th></th>
+			<td><?php echo html::submitButton("确认支付");?> </td>
+		</tr>
+	</table>
+	<table class='table table-form w-p60' style="display:none;" id="hide_card_info">
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->depositor;?></th>
+			<td id="hide_card_number"></td>
+		</tr>
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->type;?></th>
+			<td id="hide_type"></td>
+		</tr>
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->kind;?></th>
+			<td id="hide_kind"></td>
+		</tr>
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->amount;?></th>
+			<td id="hide_amount"></td>
+		</tr>
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->standard;?></th>
+			<td id="hide_standard"></td>
+		</tr>
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->special1;?></th>
+			<td id="hide_special1"></td>
+		</tr>
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->special2;?></th>
+			<td id="hide_special2"></td>
+		</tr>
+		<tr>
+			<th class='w-70px'><?php echo $lang->order->iron_title;?></th>
+			<td id="hide_iron"></td>
+		</tr>
+	</table>
+</form>
+<script type="text/javascript">
+$(function(){
+	$("#card_number").blur(function(){
+		var number = $(this).val();
+		var serial = $("#serial").val();
+		$("#hide_card_number").html(number);
+		$("#hide_type").html('');
+		$("#hide_kind").html('');
+		$("#hide_amount").html('');
+		$("#hide_standard").html('');
+		$("#hide_special1").html('');
+		$("#hide_special2").html('');
+		$("#hide_iron").html('');
+		$("#amount").html('');
+		$("#good_amount").html('');
+		if(number != ''){
+			$('#hide_card_info').show();
+			$.ajax({
+				url:'/finance/index.php?m=card&f=getNumberInfo&number=' + number + '&serial=' + serial,
+				type:'get',
+				dataType:'json',
+				success:function(data){
+					if(data.code == 0){
+    					if(data.data.type){
+    						$("#hide_card_number").html(number);
+    						$("#hide_type").html(data.data.type);
+    						$("#hide_kind").html(data.data.kind);
+    						$("#hide_amount").html(data.data.amount);
+    						$("#hide_standard").html(data.data.standard);
+    						$("#hide_special1").html(data.data.special1);
+    						$("#hide_special2").html(data.data.special2);
+    						$("#hide_iron").html(data.data.iron);
+    						$("#pay_amount").val(data.data.good_amount);
+    						$("#good_amount").html(data.data.good_amount);
+    						if(data.data.uid){
+    							$("#user_id").val(data.data.uid);
+    							$("#user_id").trigger("chosen:updated");
+    						}
+    						if(data.data.amount >= data.data.good_amount){
+    							$("#pay_way").hide();
+    						}else{
+    							$("#pay_way").show();
+    							$("#tip").html('还需支付'+(data.data.good_amount - data.data.amount).toFixed(2));
+    						}
+    					}else{
+    						$("#hide_card_info").hide();
+    					}
+					}else{
+						$("#hide_card_info").hide();
+					}
+				},
+				error:function(data){
+					$("#hide_card_info").hide();
+				}
+			});
+		}else{
+			$("#hide_card_info").hide();
+		}
+	});
+});
+document.onkeypress=function(){
+    if(event.keyCode==13){
+   		return false;
+	}	
+}
+</script>
+<?php include '../../common/view/footer.html.php';?>
+

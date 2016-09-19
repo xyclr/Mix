@@ -1,0 +1,27 @@
+<div class="modal inmodal fade" id="fileUpload" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">File Upload</h4>
+            </div>
+            <form role="form" action="/upload" method="post"  enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group"><label>file path</label> <input type="file" name="file" placeholder="File name" class="form-control"></div>
+                    <div class="form-group">
+                        <label>upload path</label>
+                        <select  name="src" class="form-control">
+                            <option value="images" selected>images</option>
+                            <option value="video">video</option>
+                            <option value="audio">audio</option>
+                        </select>
+                        <div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" id="file_upload" value="Upload"/>
+                        </div>
+            </form>
+        </div>
+    </div>
+</div>

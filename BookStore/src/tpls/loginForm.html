@@ -1,0 +1,38 @@
+<div class="panel panel-default" >
+    <div class="panel-heading">
+        <div class="panel-title">图书管理系统</div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form name="loginForm" ng-controller="LoginCtrl"  class="form-horizontal" novalidate>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                            用户名：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="email" name="email" class="form-control" placeholder="推荐使用126邮箱" ng-model="userInfo.email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                            密码：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="password" name="password" class="form-control" placeholder="只能是数字、字母、下划线" ng-model="userInfo.password"  required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                             <!-- <input type="submit" ng-disabled="loginForm.email.$dirty && loginForm.password.$invalid ||
+  loginForm.password.$dirty && loginForm.password.$invalid" class="btn btn-success btn-lg" value="登陆" /> -->
+                              <button ng-disabled="loginForm.$invalid" ui-sref="booklist({bookType:0})" class="btn btn-success btn-lg">登录</button>
+                            <button ng-disabled="loginForm.$invalid" ng-click="login()" class="btn btn-success btn-lg">登录</button>
+                            <button class="btn btn-default btn-lg" ng-click="setFormData()">注册</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

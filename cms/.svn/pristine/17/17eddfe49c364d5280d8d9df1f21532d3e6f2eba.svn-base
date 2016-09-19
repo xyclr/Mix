@@ -1,0 +1,4 @@
+#duplicateError {display: inline-block;}
+#duplicateError .alert{padding: 3px 10px; margin-bottom: 0; text-align: left;}
+#duplicateError .close{right: 0; top: 5px; margin-left: 20px;} 
+.input-group .chosen-container-multi .chosen-choices {height: 34px; line-height: 24px; border-radius: 4px 0 0 4px;}

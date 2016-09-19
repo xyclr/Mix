@@ -1,0 +1,75 @@
+<?php
+/**
+ * The control file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     trade
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class cloth extends control
+{
+    /** 
+     * The index page, locate to the browse page.
+     * 
+     * @access public
+     * @return void
+     */
+    public function index()
+    {
+        $this->locate(inlink('browse'));
+    }
+
+	public function browse($mode = 'all', $orderBy = 'type_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    {   
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+
+        $clothes = $this->cloth->getAll($mode, $orderBy, $pager);
+        $this->session->set('clothQueryCondition', $this->dao->get());
+        $this->session->set('clothList', $this->app->getURI(true));
+
+        $this->view->title     = $this->lang->cloth->list;
+        $this->view->mode      = $mode;
+        $this->view->clothes  = $clothes;
+        $this->view->pager     = $pager;
+        $this->view->orderBy   = $orderBy;
+        $this->display();
+    }   
+    
+    
+    public function create()
+    {
+        if($_POST)
+        {
+            $return = $this->cloth->create();
+            $this->send($return);
+        }
+        
+        unset($this->lang->cloth->menu);
+        $this->view->title         = $this->lang->cloth->create;
+        $this->display();
+    }
+    
+    public function delete($clothID)
+    {
+    	if($this->cloth->delete($clothID)) $this->send(array('result' => 'success'));
+    	$this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
+    
+    public function edit($clothID)
+    {
+    	if($_POST)
+    	{
+    		$return = $this->cloth->edit($clothID);
+    		$this->send($return);
+    	}
+    	$cloth = $this->cloth->getById($clothID);
+    	$this->view->cloth  = $cloth;
+    	$this->view->title     = $this->lang->cloth->edit;
+    	$this->display();
+    }
+    
+}

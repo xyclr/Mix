@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>找回密码</title>
+<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="bookmark" href="/favicon.ico">
+<link href="../css/base.css" rel="stylesheet" type="text/css">
+<link href="../css/reg.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<!--m-nav-3-->
+<div class="m-nav-3">
+    <div class="wraper"><h3 class="f-ib">找回密码</h3><span>通过您的手机号码以确认用户真实性，绝不会产生任何费用</span></div>
+</div>
+<!--case-->
+<div id="case-reg">
+    <div class="wraper">
+        <div class="content">
+            <div class="tit"><h3>请输入您要注册的手机号码</h3></div>
+            <form method="post" class="reg-form">
+                <dl>
+                    <dt class="f-pr">
+                        <input type="tel" name="u-tel" id="u-tel" class="nor tn val-tel" value="请输入手机号 " required="">
+                        <span class="err" style="display:none;">请输入正确的手机号码</span>
+                    </dt>
+                    <dt>
+                        <input type="text" name="login_code" id="login_code" class="nor2 " value="请输入验证码" style="float: left;width:150px;" >
+                        <img src="" alt="验证码" style="width:65px;height:35px;">
+                        <a href="#" class="login c-blue-2 f-tdu" style="margin-left: 10px;">换一张</a>
+                        <span class="f-cb"></span>
+                        <span class="c-gray3 f-fs12">请输入图中字符，不区分大小写</span>
+
+                    </dt>
+                    <dt>
+                        <button type="submit" class="btn-sub btn-sub-dis">下一步</button>
+                        <!--<button type="submit" class="btn-sub btn-sub">下一步</button>-->
+                    </dt>
+
+                </dl>
+            </form>
+        </div>
+    </div>
+    <div class="f-cb"></div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/user.js"></script>
+</body>
+</html>

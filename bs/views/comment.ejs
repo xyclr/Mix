@@ -1,0 +1,103 @@
+<%- include header %>
+<body class=" pace-done">
+<div class="pace  pace-inactive">
+	<div class="pace-progress" data-progress-text="100%" data-progress="99"
+		 style="-webkit-transform: translate3d(100%, 0px, 0px); transform: translate3d(100%, 0px, 0px);">
+		<div class="pace-progress-inner"></div>
+	</div>
+	<div class="pace-activity"></div>
+</div>
+
+<div id="wrapper">
+	<%- include nav %>
+	<div id="page-wrapper" class="gray-bg dashbard-1">
+		<div class="row border-bottom">
+			<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+				<div class="navbar-header">
+					<a class="navbar-minimalize minimalize-styl-2 btn btn-primary "
+					   href="http://webapplayers.com/inspinia_admin-v2.1/#"><i class="fa fa-bars"></i> </a>
+
+					<form role="search" class="navbar-form-custom"
+						  action="http://webapplayers.com/inspinia_admin-v2.1/search_results.html">
+						<div class="form-group">
+							<input type="text" placeholder="Search for something..." class="form-control"
+								   name="top-search" id="top-search">
+						</div>
+					</form>
+				</div>
+				<ul class="nav navbar-top-links navbar-right">
+					<li>
+						<span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+					</li>
+
+					<li>
+						<a href="/logout">
+							<i class="fa fa-sign-out"></i> Log out
+						</a>
+					</li>
+					<li>
+						<a class="right-sidebar-toggle">
+							<i class="fa fa-tasks"></i>
+						</a>
+					</li>
+				</ul>
+
+			</nav>
+		</div>
+
+		<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="col-lg-10">
+				<h2>发布文章</h2>
+				<ol class="breadcrumb">
+					<li>
+						<a href="./">首页</a>
+					</li>
+					<li class="active">
+						<strong>文章内容-留言</strong>
+					</li>
+				</ol>
+			</div>
+			<div class="col-lg-2">
+			</div>
+		</div>
+
+		<div class="wrapper wrapper-content  animated fadeInRight article">
+			<div class="row">
+				<div class="col-lg-10 col-lg-offset-1">
+					<div class="ibox">
+						<div class="ibox-content">
+							<div class="pull-right" style="display: none">
+								<a class="btn btn-primary btn-xs" href="/edit/<%= post._id %>" > <i class="fa fa-edit"></i> 编辑</a>
+								<a class="btn btn-warning btn-xs"  href="/remove/<%= post._id %>" > <i class="fa fa-del"></i> 删除</a>
+								<a class="btn btn-warning btn-xs"  href="/comment/<%= post._id %>" > <i class="fa fa-del"></i>留言</a>
+							</div>
+							<div class="text-center article-title">
+								<h1>
+									<%- post.title %>
+								</h1>
+							</div>
+							<div class="">
+								<form method="post" class="form-horizontal">
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="name">名字</label>
+										<div class="col-sm-10"><input type="text" class="form-control" id="name" name="name" placeholder="名字"></div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="comment">正文</label>
+										<div class="col-sm-10"><textarea name="comment" id="" cols="30" rows="10" placeholder="留言内容" class="form-control"></textarea></div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4 col-sm-offset-2"> <button type="submit" class="btn btn-primary">发表</button></div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+<%- include footer %>

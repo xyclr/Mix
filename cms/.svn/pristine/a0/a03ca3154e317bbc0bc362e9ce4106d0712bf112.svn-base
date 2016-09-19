@@ -1,0 +1,44 @@
+<?php include '../../../sys/common/view/header.modal.html.php'; ?>
+<div class='panel'>
+    <div class='panel-heading'>
+        <strong><i class='icon-building'></i> <?php echo $lang->entry->create;?></strong>
+    </div>
+    <div class='panel-body'>
+        <table class='table table-hover table-striped tablesorter table-data table-fixed' id='contactList'>
+            <thead>
+                <tr class='text-center'>
+                    <th class='w-40px'><?php echo $lang->wash->id; ?></th>
+                    <th class='w-40px'><?php echo $lang->wash->order_sn; ?></th>
+                    <th class='w-40px'><?php echo $lang->wash->brand; ?></th>
+                    <th class='w-40px'><?php echo $lang->wash->name; ?></th>
+                    <th class='w-40px'><?php echo $lang->wash->color; ?></th>
+                    <th class='w-40px'><?php echo $lang->wash->wash_way_show; ?></th>
+                    <th class='w-40px'><?php echo $lang->wash->iron_show; ?></th>
+                    <th class='w-40px'>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($datas as $val): ?>
+                <tr class='text-center'>
+                    <td><?php echo $val->id; ?></td>
+                    <td><?php echo $val->order_sn; ?></td>
+                    <td><?php echo $val->brand; ?></td>
+                    <td><?php echo $val->name; ?></td>
+                    <td><a href="javascript:void(0)"  style="width:20px;display:block;height:10px;background: <?php echo $val->color;?>"></a></td>
+                    <td><?php echo $lang->wash->wash_way[$val->wash_way]; ?></td>
+                    <td><?php echo $data->creases == 1 ? '有裤线' : '无裤线';?></td>
+                    <td><?php commonModel::printLink('wash', 'detail', "id={$val->id}&mode={$mode}", "<i class='icon-plus'></i>{$lang->wash->detail}"); ?></td>
+                    <!--  
+                    <td><?php commonModel::printLink('wash', 'create', "id={$val->id}&mode={$mode}", "<i class='icon-plus'></i>{$lang->wash->dispatch}"); ?></td>
+                	-->
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <div class='table-footer'><?php $pager->show(); ?></div>
+    </div>
+    <div class='panel-heading'> </div>
+</div>
+
+
+<?php include '../../../sys/common/view/footer.html.php';?>

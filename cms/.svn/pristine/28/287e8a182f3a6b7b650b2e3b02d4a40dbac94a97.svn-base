@@ -1,0 +1,7 @@
+.media-heading {margin: 10px;}
+.media-heading a{color: #252525;}
+.media-heading a:hover, .article-title a:active{color: #4691EF; text-decoration: none;}
+.media-body p{color: #757575;}
+.media{border-bottom: 1px solid #ddd;}
+.media + .media{margin-top: 5px;}
+h3.media-heading{font-size:18px;font-weight: normal;}

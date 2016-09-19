@@ -1,0 +1,635 @@
+<!--
+    Powered By nodePPT - This is probably the best web presentation tool so far!
+    version: 1.4.1
+    site: https://github.com/ksky521/nodePPT
+    date: 2016.2.29
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>VSP前端集成解决方案 - By 苟建军</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.dark.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide" data-on-build="globalCallbackName"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>VSP前端集成解决方案</h1>
+<h3>@Alex</h3>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>主要内容</h1>
+<ul class="rollIn">
+<li>VSP三期的问题</li>
+<li>前端模块化框架</li>
+<li>前端集成解决方案工具</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>现有VSP三期的问题</h1>
+<ul>
+<li>js未合并压缩，未使用JSLint等工具进行验证</li>
+<li>js编写不规范,缺乏注释</li>
+<li>没有实现动静分离</li>
+<li>资源文件没有相应的版本信息（时间戳，md5）</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"   data-on-build="Slide.magic" data-on-enter="Slide.magic.init"><section class="slide-wrapper"><hgroup>
+<h2>暴露过多全局变量，污染命名空间，代码结构不够清晰，缺乏注释</h2>
+
+</hgroup><article>
+
+<img src="./img/pic1.png" alt="">
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>推荐：尽量少的创建全局变量，使用标准的注释</h2>
+<div class="columns">
+    <img src="./img/pic2.png">
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>推荐：尽量少的创建全局变量</h2>
+<div class="columns">
+    <pre><code class="javascript">
+    // We declare a IIFE and pass parameters
+      (function(log, w, undefined){
+        'use strict';
+
+        var x = 10,
+            y = 100;
+
+        // Will output 'true true'
+        log((w.x === undefined) + ' ' + (w.y === undefined));
+
+      }(window.console.log, window));
+    </code></pre>
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>变量声明，不推荐：</h2>
+<div class="columns">
+    <pre><code class="javascript">
+    function(log){
+      'use strict';
+
+      var a = 10;
+      var b = 10;
+
+      for(var i = 0; i < 10; i++) {
+        var c = a * b * i;
+      }
+
+      function f() {
+
+      }
+
+      var d = 100;
+      var x = function() {
+        return d * d;
+      };
+      log(x());
+
+    }(window.console.log));
+    </code></pre>
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>变量声明，推荐：</h2>
+<div class="columns">
+    <pre><code class="javascript">
+    (function(log){
+      'use strict';
+
+      var a = 10,
+          b = 10,
+          i,
+          c,
+          d,
+          x;
+
+      function f() {
+
+      }
+
+      for(i = 0; i < 10; i++) {
+        c = a * b * i;
+
+    }(window.console.log));
+    </code></pre>
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>使用 === 精确的比较操作符，避免在判断的过程中，由 JavaScript 的强制类型转换所造成的困扰</h2>
+<div class="columns">
+    <pre><code class="javascript">
+    function(log){
+
+      log('0' == 0);
+      log('' == false);
+      log('1' == true);
+      log(null == undefined);
+
+      var x = {
+        valueOf: function() {
+          return 'X';
+        }
+      };
+
+      log(x == 'X');
+
+    }(window.console.log));
+    </code></pre>
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>切勿在循环中创建函数</h2>
+<div class="columns">
+ <pre><code class="javascript">
+    (function(log, w){
+      'use strict';
+
+      // numbers and i is defined in the current function closure
+      var numbers = [1, 2, 3],
+          i;
+
+      for(i = 0; i < numbers.length; i++) {
+        w.setTimeout(function() {
+          w.alert('Index ' + i + ' with number ' + numbers[i]);
+        }, 0);
+      }
+
+    }(window.console.log, window));
+    </code></pre>
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>不推荐</h2>
+<div class="columns">
+ <pre><code class="javascript">
+    (function(log, w){
+        'use strict';
+        // numbers and i is defined in the current function closure
+        var numbers = [1, 2, 3],
+            i;
+
+        for(i = 0; i < numbers.length; i++) {
+          (function(index, number){
+            w.setTimeout(function() {
+              // Will output as expected 0 > 1, 1 > 2, 2 > 3
+              w.alert('Index ' + index + ' with number ' + number);
+            }, 0);
+          }(i, numbers[i]));
+        }
+    }(window.console.log, window));
+    </code></pre>
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>推荐</h2>
+<div class="columns">
+ <pre><code class="javascript">
+    (function(log, w){
+      'use strict';
+
+      // numbers and i is defined in the current function closure
+      var numbers = [1, 2, 3],
+          i;
+
+      numbers.forEach(function(number, index) {
+        w.setTimeout(function() {
+          w.alert('Index ' + index + ' with number ' + number);
+        }, 0);
+      });
+
+    }(window.console.log, window));
+    </code></pre>
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>seajs标准的模块声明</h2>
+
+</hgroup><article>
+
+<div class="columns">
+    <pre>
+   <code class="javascript">
+define(function(require, exports, module){
+    var a = require('widget/a/a.js');
+    var b = require('widget/b/b.js');
+
+    function init(){
+        //todo
+    }
+    exports.init = init;
+    //or return init;
+
+})
+ </code></pre>
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>seajs标准的模块引用</h2>
+<div class="columns">
+ <pre>
+ 非模块化js中引用：
+     <code class="javascript">
+ seajs.use(['/js/a.js','/js/b.js'],function(a,b){
+ //todo
+ })
+  </code>
+
+ 模块化js中的引用：<code class="javascript">
+    var a = require('widget/a/a.js');
+
+    </code>
+  </pre>
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>非标准化的js，无法使用服务端combo服务</h2>
+<p>错误
+<img src="./img/pic3.png">
+正确
+<img src="./img/pic4.png"></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>前端模块化框架</h1>
+<ul>
+<li>CommonJS<ul>
+<li>服务器端的，同步的 如nodejs</li>
+</ul>
+</li>
+<li>AMD<ul>
+<li>浏览器端的，异步的,如requirejs</li>
+</ul>
+</li>
+<li>CMD<ul>
+<li>浏览器端的，异步的,如seajs</li>
+</ul>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Seajs</h1>
+<ul>
+<li>一切皆为模块</li>
+<li>模块可以拥有数据和方法，数据和方法可以定义为公共或私有，公共数据和方法可以供别的模块调用</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Seajs-全局配置</h1>
+<pre>
+   <code class="javascript">
+      seajs.config({
+          base: 'path/to/jslib/',
+          alias: {
+            'app': 'path/to/app/'
+          },
+          charset: 'utf-8',
+          timeout: 20000,
+          debug: false
+      });
+</code>
+</pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Seajs-模块定义</h1>
+<h2>SeaJS中使用“define”函数定义一个模块。</h2>
+<ul>
+<li>源码：<div class="columns">
+<pre>
+   <code class="javascript">
+/**
+* Defines a module.
+* @param {string=} id The module id.
+* @param {Array.|string=} deps The module dependencies.
+* @param {function()|Object} factory The module factory function.
+*/
+fn.define = function(id, deps, factory) {
+   //code of function…
+}
+</code>
+</pre>
+</div></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Seajs-模块定义</h1>
+<div class="columns">
+ <pre>
+     <code class="javascript">
+ define(function(require, exports, module) {
+     var a = require('a'); //引入a模块
+     var b = require('b'); //引入b模块
+     var data1 = 1; //私有数据
+     var func1 = function() { //私有方法
+         return a.run(data1);
+     }
+     exports.data2 = 2; //公共数据
+     exports.func2 = function() { //公共方法
+         return 'hello';
+     }
+ });
+  </code>
+  </pre>
+</div><div  style="font-size:1.2rem;text-align:left;line-height:120%;">
+ require——模块加载函数，用于记载依赖模块。<br/>
+ exports——接口,将数据或方法定义在其上,暴露给外部调用。<br/>
+ module——模块的元数据。<br/>
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Seajs-模块引用</h1>
+ <pre>
+     <code class="javascript">
+        //单一模式
+        seajs.use('./a');
+
+        //回调模式
+        seajs.use('./a', function(a) {
+          a.run();
+        });
+
+        //多模块模式
+        seajs.use(['./a', './b'], function(a, b) {
+          a.run();
+          b.run();
+        });
+  </code>
+  </pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>前端集成解决方案工具 JDF</h1>
+<p><small><a href="https://www.npmjs.com/package/jdf" target="_blank">https://www.npmjs.com/package/jdf</a></small></p>
+<ul>
+<li>背景</li>
+<li>前端模块化框架</li>
+<li>关于JDF</li>
+<li>功能介绍</li>
+<li>JDF安装使用</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>关于JDF</h1>
+<ul>
+<li>JDF为京东前端开发集成解决方案</li>
+<li>目的是合理，快速和高效的解决前端开发中的工程和项目问题</li>
+<li>核心提供了前端开发必备的基础的UI和业务组件，并集成调试，构建，布署，代码生成，文档生成，编辑器插件等一系列开发工具</li>
+<li>同时提供了前端模块的下载，预览，发布</li>
+<li>提供ui,unit库，节约了开发成本</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>功能介绍</h1>
+<ul>
+<li>可生成标准化的项目文件夹</li>
+<li>项目配置:支持为项目创建一个配置文件，按选项统一编译</li>
+<li>支持widget编译，内置widget编译引挚</li>
+<li>支持volicity模板编译，可供前后端共享模板</li>
+<li>支持less，sass实时监听文件，当文件改变时自动执行编译成css</li>
+<li>支持给所有静态资源添加CDN域名前缀或后缀戳</li>
+<li>支持js/css所引用的链接生成combo格式或者压缩一个文件</li>
+<li>支持文件夹或者单独文件css和js文件压缩</li>
+<li>支持cmd模块自动提取文件id和dependencies，压缩时保留require关键字</li>
+<li>支持png图片压缩插件，将png24压缩为png8</li>
+<li>支持html/js/css文件lint，代码质量检查</li>
+<li>支持html/js/css文件格式化</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>安装</h1>
+<ul>
+<li>nodejs</li>
+<li>npm install -g jdf</li>
+<li>jdf -v</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>命令</h1>
+<ul>
+<li>jdf install init xxx，[在本地初始化一个jdf的标准项目，目录结构如下所示。xxx可省略，省略后默认的项目名称为jdf_init]</li>
+<li>jdf build [开启一个本地服务用来构建项目]</li>
+<li>jdf output [替换引用，编译css,js,合并压缩，输出编译文件到指定目录]</li>
+<li>jdf lint [html、css、js文件代码质量检查工具]</li>
+<li>jdf compress [html、css、js文件压缩工具]</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>目录规范</h1>
+<ul>
+<li>项目目录
+<img src="./img/pic5.png"></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>配置文件 config.json</h1>
+<p>需要放在当前项目的根目录下, 详细配置如下：</p>
+<pre>
+<code class="javascript">
+    {
+          "host": "192.168.193.145", //远端机器IP
+          "user": "www", //远端机器user
+          "password": "www", //远端机器password
+          "projectPath": "", //工程目录前缀
+          "localServerPort": 8085, //本地server端口
+          "cdn" : "http://www.ndesig.com", //静态cdn域名
+          "output":{ //输出规则
+            "concat":{
+              "js/index_a.js":["js/index.js", "js/a.js"]
+            }
+          }
+        }
+</code>
+</pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>项目路径转换说明</h1>
+<ul>
+<li><p>页面中css和js的引用路径一般情况如下</p>
+<ul>
+<li><p>建议的路径为 <span class="label label-default">/css/index.css</span></p>
+</li>
+<li><p>也可设置成相对路径 <span class="label label-default">../css/index.css</span></p>
+</li>
+</ul>
+</li>
+<li><p>执行jdf output，输出</p>
+<ul>
+<li>默认会转换为
+  <span class="label label-default">{{cdn}}{{projectPath}}/css/index.css</span></li>
+<li>如果config.json中cdn为空，即静态资源无需上传至cdn，转换成
+  <span class="label label-default">{{projectPath}}/css/index.css</span></li>
+<li>如果config.json中cdn和projectPath都为空，转换成 <span class="label label-default">../css/index.css</span></li>
+</ul>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<pre>
+* js组件-源码
+<code class="javascript">
+    define(function(require, exports, module){
+      var a = require('widget/a/a.js');
+      var b = require('widget/b/b.js');
+
+      function init(){
+        //todo
+      }
+      exports.init = init;
+      //or return init;
+    })
+    </code>
+</pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><pre></p>
+<ul>
+<li>js组件-编译输出
+<code class="javascript">
+  define([&#39;js/test.js&#39;], [&#39;/widget/a/a.js&#39;, &#39;widget/b/b.js&#39; ], function(require, exports, module){
+            require(&quot;widget/a/a.js&quot;),require(&quot;widget/b/b.js&quot;);
+            function init(){}
+            exports.init = init;
+          })</li>
+</ul>
+<p>    </code></p>
+<p></pre></p>
+<ul>
+<li>其中 &#39;js/test.js&#39; 为当前文件的id,  [&#39;widget/a/a.js&#39;, &#39;widget/b/b.js&#39;, ] 为当前js依赖的文件数组</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<pre>
+* js组件-使用
+<code class="javascript">
+    seajs.use(['jdf/1.0.0/unit/event/1.0.0/event.js'],function(event){
+            //todo
+        })
+</code>
+<code class="javascript">
+    define(function(require, exports){
+            var login = require('login.js');
+        function init(){
+            //todo
+        }
+        exports.init = init;
+        })
+</code>
+</pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>参考连接</h1>
+<ul>
+<li><a href="http://fe.jd.com:8090/pages/viewpage.action?pageId=884805" target="_blank">http://fe.jd.com:8090/pages/viewpage.action?pageId=884805</a> 京东前端规范文档</li>
+<li><a href="http://www.css88.com/archives/5366" target="_blank">http://www.css88.com/archives/5366</a>  js前端规范建议</li>
+<li><a href="http://jdf.jd.com/" target="_blank">http://jdf.jd.com/</a> JDF主页</li>
+<li><a href="http://jdf.jd.com/demo.html#accordion" target="_blank">http://jdf.jd.com/demo.html#accordion</a> JDF UI</li>
+<li><a href="http://www.imooc.com/learn/95" target="_blank">http://www.imooc.com/learn/95</a>  网页切图</li>
+<li><a href="http://seajs.org/docs/" target="_blank">http://seajs.org/docs/</a>  seajs</li>
+<li><a href="http://vsp.jd.com/st/js/cart.js" target="_blank">http://vsp.jd.com/st/js/cart.js</a> 模块化参考</li>
+</ul>
+
+</article></section></slide>
+        
+
+        <!-- <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+                <h2 style="color: white;">Powered By nodePPT v1.4.1</h2>
+            </article>
+        </slide> -->
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = (location.pathname + '#').split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'zoomin',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/highlight.pack.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+<script src="./js/demo.js"></script>
+<link rel="stylesheet" href="./css/demo.css">
+<script src="./js/zoom.js"></script>
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  config: ["TeX-AMS-MML_HTMLorMML.js"],
+  tex2jax: {inlineMath: [['\\(','\\)']]}});
+  //['$','$'], 避免货币价格冲突
+</script>
+<script type="text/javascript" src="./js/mathjax/MathJax.js"></script>
+
+<!--placeholder-->
+</body>
+</html>

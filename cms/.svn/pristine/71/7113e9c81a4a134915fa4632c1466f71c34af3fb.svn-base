@@ -1,0 +1,5 @@
+.table textarea.form-control{height: 32px;}
+.chosen-container[id^="trader"] .chosen-drop {min-width: 250px;!important}
+.chosen-container[id^="dept"] .chosen-drop {min-width: 200px;!important}
+.chosen-container[id^="trader"] .chosen-single {max-width: 173px;}
+.chosen-container[id^="dept"] .chosen-single {max-width: 80px;}

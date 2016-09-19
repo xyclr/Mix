@@ -1,0 +1,207 @@
+<%- include header %>
+<body class=" pace-done">
+<div class="pace  pace-inactive">
+	<div class="pace-progress" data-progress-text="100%" data-progress="99"
+		 style="-webkit-transform: translate3d(100%, 0px, 0px); transform: translate3d(100%, 0px, 0px);">
+		<div class="pace-progress-inner"></div>
+	</div>
+	<div class="pace-activity"></div>
+</div>
+
+<div id="wrapper">
+	<%- include nav %>
+	<div id="page-wrapper" class="gray-bg dashbard-1">
+		<div class="row border-bottom">
+			<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+				<div class="navbar-header">
+					<a class="navbar-minimalize minimalize-styl-2 btn btn-primary "
+					   href="http://webapplayers.com/inspinia_admin-v2.1/#"><i class="fa fa-bars"></i> </a>
+
+					<form role="search" class="navbar-form-custom"
+						  action="http://webapplayers.com/inspinia_admin-v2.1/search_results.html">
+						<div class="form-group">
+							<input type="text" placeholder="Search for something..." class="form-control"
+								   name="top-search" id="top-search">
+						</div>
+					</form>
+				</div>
+				<ul class="nav navbar-top-links navbar-right">
+					<li>
+						<span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+					</li>
+
+					<li>
+						<a href="logout">
+							<i class="fa fa-sign-out"></i> Log out
+						</a>
+					</li>
+					<li>
+						<a class="right-sidebar-toggle">
+							<i class="fa fa-tasks"></i>
+						</a>
+					</li>
+				</ul>
+
+			</nav>
+		</div>
+
+		<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="col-lg-10">
+				<h2>卡券</h2>
+				<ol class="breadcrumb">
+					<li>
+						<a href="./">首页</a>
+					</li>
+					<li class="active">
+						<strong>卡券编辑</strong>
+					</li>
+				</ol>
+			</div>
+			<div class="col-lg-2">
+			</div>
+		</div>
+
+		<div class="wrapper wrapper-content fadeInRight" >
+			<div class="row">
+
+				<div class="col-lg-12 animated fadeInRight">
+					<div class="row">
+						<div class="col-lg-12">
+
+							<div class="ibox-title">
+								<div class="row">
+									<div class="col-lg-3"> <h5>卡券</h5></div>
+									<div class="col-lg-9">
+										<!--<div class="ibox-tools-btn">
+											<a class="btn btn-primary btn-xs" id="refresh"> <i class="fa fa-refresh btn-xs"></i> 刷新</a>
+											<a class="btn btn-primary btn-xs"> <i class="fa fa-save"></i> 保存</a>
+											<a class="btn btn-warning btn-xs" href="/cremove/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"> <i class="fa fa-trash-o"></i> 删除</a>
+										</div>-->
+									</div>
+								</div>
+							</div>
+							<div class="ibox-content">
+								<form  method="post" class="form-horizontal" id="post">
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="title" >标题</label>
+										<div class="col-sm-10"><input type="text" class="form-control" value="<%- post.title %>" id="title" name="title" placeholder="卡券标题"></div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">点数</label>
+										<div class="col-sm-10">
+											<div class="row">
+												<div class="col-md-4"><input type="number" min="1" value="<%- post.point%>" placeholder="卡券兑换点数" class="form-control" name="point"></div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">卡券面值</label>
+										<div class="col-sm-10">
+											<div class="row">
+												<div class="col-md-4"><input type="number" min="1" placeholder="卡券面值" value="<%- post.price %>" class="form-control" name="price"></div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">卡券库存数量</label>
+										<div class="col-sm-10">
+											<div class="row">
+												<div class="col-md-4"><input type="number" min="0" placeholder="卡券库存数量" value="<%- post.num %>" class="form-control" name="num"></div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">卡券使用时间</label>
+										<div class="col-sm-10">
+											<div class="row">
+												<div class="col-md-4"><input type="date" placeholder="卡券使用开始时间" class="form-control" value="<%- post.dtime[0] %>" name="time1"></div>
+												<div class="col-md-4"><input type="date" placeholder="卡券结束开始时间" class="form-control" value="<%- post.dtime[1] %>" name="time2"></div>
+											</div>
+										</div>
+									</div>
+
+									<!--extra end-->
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="thumb">缩略图</label>
+										<div class="col-sm-10">
+											<div class="row">
+												<div class="col-md-10">
+													<div class="input-group" data-type="file">
+														<input type="url" class="form-control cur" name="thumb" value="<%- post.thumb %>" placeholder="请输入或者选择图片地址">
+														<span class="input-group-btn"> <a class="btn btn-default btn-upload" data-toggle="modal" data-target="#fileUpload">选择</a> </span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">卡券介绍信息</label>
+										<div class="col-sm-10">
+											<textarea name="detail"  class="summernote"><p><%- post.detail %></p></textarea>
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<div class="col-sm-4 col-sm-offset-2"> <button type="submit" class="btn btn-primary">保存修改</button></div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal inmodal fade bs-example-modal-lg" id="fileBrower" tabindex="-1" role="dialog"  aria-hidden="true" >
+	<div class="modal-dialog modal-lg" style="width:1000px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">File Browser</h4>
+			</div>
+			<div class="modal-body">
+				<iframe src="<%= settings.stServer %>/uploads" frameborder="0" style="border:none;overflow-y:auto;height:350px;width:100%;backgrounnd-color:transparent"></iframe>
+				<div class="form-group">
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+				<input type="submit" class="btn btn-primary" id="file_upload" value="Upload"/>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Custom and plugin javascript -->
+<script src="/js/inspinia.js"></script>
+<script src="/js/pace.min.js"></script>
+<script src="/js/common.js"></script>
+
+<!-- include summernote -->
+<link href="/css/summernote.css" rel="stylesheet">
+<link href="/css/summernote-bs3.css" rel="stylesheet">
+<script type="text/javascript" src="/js/summernote.js"></script>
+<script type="text/javascript" src="/js/post.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.summernote').summernote({
+			codemirror: {
+				theme: 'monokai'
+			}
+		});
+	});
+</script>
+
+
+</body>
+</html>

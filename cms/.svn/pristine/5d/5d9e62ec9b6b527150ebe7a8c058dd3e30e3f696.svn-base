@@ -1,0 +1,43 @@
+<?php 
+/**
+ * The edit view file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     trade 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+?>
+<?php include '../../common/view/header.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/chosen.html.php';?>
+<ul id='menuTitle'>
+  <li><?php commonModel::printLink('card', 'browse', '', $lang->card->browse);?></li>
+  <li class='divider angle'></li>
+</ul>
+<div class='panel'>
+  <div class='panel-heading'>
+    <strong><i class="icon-edit"></i> <?php echo $lang->card->edit;?></strong>
+  </div>
+  <div class='panel-body'>
+    <form method='post' id='ajaxForm' class='form-inline'>
+      <table class='table table-form w-p60'>
+        <tr>
+          <th><?php echo $lang->card->number;?></th>
+          <td><?php echo html::input('card', $card->number, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->card->amount;?></th>
+          <td><?php echo html::input('amount', $card->amount, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th></th>
+          <td><?php echo html::submitButton();?></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+<?php include '../../common/view/footer.html.php';?>

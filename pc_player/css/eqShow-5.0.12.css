@@ -1,0 +1,244 @@
+* {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+html {
+	height: 100%;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+body {
+	position: relative;
+	display: -webkit-box;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	overflow-y: auto;
+	background-color: #fafafa;
+	background-position: 50% 50%;
+	font-weight: 300;
+	font-size: 62.5%;
+	font-family: Helvetica,'Microsoft Yahei',Tahoma,Arial,sans-serif;
+	line-height: 1.231;
+	background-size: cover;
+	-webkit-touch-callout: none;
+	-webkit-box-orient: vertical;
+	-webkit-box-align: stretch;
+	min-width: 1366px;
+	width: expression_r( document.body.clientWidth < 1365 ? "1366px" : "auto" );
+	min-height: 600px;
+	width: expression_r( document.body.clientWidth < 599 ? "600px" : "auto" );
+	overflow-x: hidden;
+
+}
+.logo {
+	height: 26px;
+	width: 86px;
+	padding: 15px 0 0 15px;
+}
+.logo a{
+	display: block;
+	height: 26px;
+	width: 86px;
+}
+.logo a img{
+	display: block;
+	height: 26px;
+	width: 86px;
+}
+.phone_panel{
+	height:538px;
+	width: 765px;
+	bottom: 0px;
+	position: absolute;
+	left: 50%;
+	margin-left: -375px;
+}
+.phoneBox{
+	width:338px;
+	height:538px;
+	float:left;
+	background-image: url(../img/sj.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: 338px 538px;
+}
+.phoneBox .nr{
+	background-color:#000;
+	position:relative;
+	cursor:pointer;
+	height:470px;
+	width: 307px;
+	overflow-x:hidden;
+	overflow-y:hidden;
+	-webkit-user-select:none;
+	margin: 68px 0 0 16px;
+}
+.phoneBox .nr .iframe{
+	border-style: none;
+}
+.ctrl_panel {
+	float: left;
+	top: 435px;
+	width: 38px;
+	left: -3px;
+	position: relative;
+}
+.btn {
+	width: 38px;
+	height: 37px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	cursor: pointer;
+	background-image: url(../img/fy.png);
+	background-repeat: no-repeat;
+	background-size: 38px 181px;
+	display: block;
+}
+.next_btn {
+	background-position: 0px -145px;
+}
+.pre_btn {
+	margin-bottom: 11px;
+	background-position: 0px -97px;
+}
+.next_btn:hover{
+	background-position: 0px -47px;
+}
+.pre_btn:hover{
+	background-position: 0px 0px;
+}
+#code{
+	float: right;
+	width: 330px;
+	position: relative;
+	top: 50%;
+	margin-top: -224px;
+}
+.code_h1{
+	font-size: 40px;
+	font-weight: lighter;
+	margin: 0 0 9px 0;
+}
+.code_p1{
+	font-size: 15px;
+	line-height: 21px;
+}
+.code_p2{
+	font-size: 14px;
+	margin: 20px 0 8px 0;
+	color: #484848;
+}
+.code_p3{
+	font-size: 12px;
+	color: #AAA8A3;
+	line-height: 34px;
+}
+.code_p4{
+	display: block;
+	height: 46px;
+}
+.code_div1{
+	height: 45px;
+	margin-top:50px; 
+	padding: 0 0 0 55px;
+	background-image:  url(../img/tb1.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: 45px 45px;
+}
+.code_div1_p_span1{
+	font-size: 17px;
+	line-height: 20px;
+}
+.code_div1_p_span2{
+	font-size: 13px;
+}
+#code #codeImg{
+	display:block;
+	width: 78px;
+	height: 78px;
+	text-align: center;
+	background:#fff;
+	padding: 4px;
+	border:solid 1px #efefef;
+
+}
+.code_p4_a{
+	display: block;
+	width: 26px;
+	height: 26px;
+	float: left;
+	background-image: url(../img/fx.png);
+	background-repeat: no-repeat;
+	margin: 0 10px 0 0;
+	background-size: 300px 54px;
+}
+.code_p4_a1{
+	background-position: 0px 0px;
+}
+.code_p4_a2{
+	background-position: -32px 0px;
+}
+.code_p4_a3{
+	background-position: -65px 0px;
+}
+.code_p4_a4{
+	background-position: -98px 0px;
+}
+.code_p4_a5{
+	background-position: -163px 0px;
+}
+.code_p4_a1:hover{
+	background-position: 0px -28px;
+}
+.code_p4_a2:hover{
+	background-position: -32px -28px;
+}
+.code_p4_a3:hover{
+	background-position: -65px -28px;
+}
+.code_p4_a4:hover{
+	background-position: -98px -28px;
+}
+.code_p4_a5:hover{
+	background-position: -163px -28px;
+}
+.code_p5{
+	display: block;
+	margin-top: 13px;
+	height: 29px;
+}
+.code_p5_a{
+	display: block;
+	width: 86px;
+	height: 29px;
+	float: left;
+	background-image: url(../img/an.png);
+	background-repeat: no-repeat;
+	margin: 0 15px 0 0;
+	background-size: 209px 65px;
+}
+.code_p5_a1{
+	background-position: 0px 0px;
+}
+.code_p5_a2{
+	background-position: -104px 1px;
+}
+.code_p5_a1:hover{
+	background-position: 0px -36px;
+}
+.code_p5_a2:hover{
+	background-position: -104px -36px;
+}
+.img5 {
+	right: 30px;
+	position: absolute;
+	bottom: 10px;
+	font-size: 15px;
+	font-weight: 400;
+}

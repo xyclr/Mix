@@ -1,0 +1,107 @@
+<?php
+/**
+ * The balance module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     balance
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+$lang->order->serial = '流水号';
+$lang->order->index = '首页';
+$lang->order->editcloth = '编辑衣服';
+$lang->order->common    = '数据录入';
+$lang->order->confirm  = '立即下單';
+$lang->order->showconfirm  = '确认下單';
+$lang->order->continues  = '继续添加';
+$lang->order->export = '导出';
+$lang->order->id        = '编号';
+$lang->order->depositor = '卡号';
+$lang->order->order_sn = '洗涤码';
+$lang->order->name  = '衣物名称';
+$lang->order->color     = '衣物颜色';
+$lang->order->member      = '会员卡号';
+$lang->order->brand      = '衣物品牌';
+$lang->order->cloth_model      = '衣物模型';
+$lang->order->cloth_flaw      = '衣物瑕疵';
+$lang->order->wash_effect      = '洗后效果';
+$lang->order->delivery_time      = '交货时间';
+$lang->order->add_time      = '下单时间';
+$lang->order->wash_way_1         = '洗涤方式';
+$lang->order->wash_way[1]      = '干洗';
+$lang->order->wash_way[2]      = '水洗';
+$lang->order->wash_way[3]      = '单去渍';
+$lang->order->wash_way[4]      = '织补';
+$lang->order->wash_way[5]      = '单熨烫';
+$lang->order->iron_1      = '熨烫方式';
+$lang->order->creases[1]      = '无裤线';
+$lang->order->creases[2]      = '有裤线';
+$lang->order->way_1      = '提取方式';
+$lang->order->way[1]      = '自提';
+$lang->order->way[2]      = '配送';
+$lang->order->remark      = '备注';
+$lang->order->money      = '支付金额';
+$lang->order->create = '收衣';
+$lang->order->browse = '订单列表';
+$lang->order->feedbackList = '反馈列表';
+$lang->order->edit   = '编辑';
+$lang->order->feedback   = '客人反馈';
+$lang->order->delete = '删除';
+$lang->order->cancel = '取消订单';
+$lang->order->order_state_1  ='订单状态';
+$lang->order->order_state[0] = '已取消';
+$lang->order->order_state[1] = '待付款';
+$lang->order->order_state[2] = '已付款';
+$lang->order->order_state[3] = '衣物送洗';
+$lang->order->order_state[4] = '已上架';
+$lang->order->order_state[5] = '衣物返工';
+$lang->order->order_state[6] = '已取衣';
+$lang->order->order_state[7] = '撤单及退款';
+$lang->order->detail = '详情';
+$lang->order->shelf = '货架';
+$lang->order->feedback_1[1]   = '客户投诉';
+$lang->order->feedback_1[2]   = '客户建议';
+$lang->order->complain  ='投诉类型';
+$lang->order->content  ='反馈内容';
+$lang->order->complain_1[1]   = '服务质量';
+$lang->order->complain_1[2]   = '洗涤质量、事故';
+$lang->order->putaway   = '上架';
+$lang->order->sendwash   = '送洗';
+$lang->order->take   = '取衣';
+$lang->order->take_time = '取衣时间';
+$lang->order->date = '日期';
+$lang->order->time = '时间';
+$lang->order->good_amount = '订单金额';
+
+$lang->order->dispatch[0] = '调度中';
+$lang->order->dispatch[1] = '洗涤';
+$lang->order->dispatch[2] = '熨烫';
+$lang->order->dispatch[3] = '质检';
+$lang->order->dispatch[4] = '配送';
+
+$lang->order->type = '卡片类型';
+$lang->order->kind = '卡片种类';
+$lang->order->amount = '卡片余额';
+$lang->order->standard = '普通';
+$lang->order->special1 = '特种1';
+$lang->order->special2 = '特种2';
+$lang->order->iron_title = '单烫';
+
+$lang->order->serialStatus[0] = '未支付';
+$lang->order->serialStatus[1] = '支付';
+$lang->order->serialStatus[2] = '配送';
+$lang->order->serialStatus[3] = '车间';
+$lang->order->serialStatus[4] = '回店';
+$lang->order->serialStatus[5] = '取衣';
+$lang->order->serialStatus[6] = '已完成';
+
+$lang->order->pay_way = '支付方式';
+$lang->order->gopay = '去支付';
+$lang->order->goadd = '继续添加';
+$lang->order->pay = array();
+$lang->order->pay[1] = '现金';
+$lang->order->pay[2] = '刷卡';
+$lang->order->user = '用户';
+$lang->order->dopay = '确认支付';

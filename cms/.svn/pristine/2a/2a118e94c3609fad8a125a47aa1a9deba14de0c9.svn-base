@@ -1,0 +1,25 @@
+
+
+
+<?php include '../../../sys/common/view/header.modal.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<div class='panel-body'>
+    <form method='post' id='ajaxForm' class='form-inline' action="<?php echo $this->createLink('sales.order', 'put')?>">
+   <table class='table table-form table-condensed'>
+   <tr>
+      <th class='w-90px'>取衣</th>
+      <?php echo html::hidden('order_id',$id, "class='form-control'");?>
+      <td>
+          <?php echo html::select('shelf_num',$trelliList,'', "class='form-control'");?>
+      </td>
+    </th>
+   </tr>
+    <tr>
+      <th></th>
+      <td><?php echo html::submitButton();?></td>
+    </tr>
+  </table>
+</form>
+</div>
+<?php include '../../../sys/common/view/footer.modal.html.php';?>
+

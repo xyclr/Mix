@@ -1,0 +1,13 @@
+{
+  "excludeScenes": [],
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.gpmj",
+  "startScene": "cec2f986-b213-4a38-84f4-94dfc8ee0bdb",
+  "title": "gpmj",
+  "webOrientation": "auto"
+}

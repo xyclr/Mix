@@ -1,0 +1,30 @@
+#shortcutBox {margin-top:30px;}
+
+#shortcutBox .shortcut
+{
+            transition: all .3s;
+         -o-transition: all .3s;
+       -moz-transition: all .3s;
+    -webkit-transition: all .3s;
+    text-align:center;
+}
+#shortcutBox .shortcut:hover
+{
+         opacity: 0.8;
+    -moz-opacity: 0.8;
+    filter: alpha(opacity=80);
+            transition: all .3s;
+         -o-transition: all .3s;
+       -moz-transition: all .3s;
+    -webkit-transition: all .3s;
+}
+
+#shortcutBox h3{line-height: 170px; font-size:24px; color: #FFFFFF; font-weight: 500;}
+#shortcutBox a:hover{text-decoration: none;}
+
+@media(max-width:992px){#shortcutBox{margin-top: 20px;}}
+@media(max-width:768px){#shortcutBox{margin-top: -20px;}}
+
+.user    {background: #00A300;}
+.company {background: #B91D47;}
+.entry   {background: #2D89EF;}

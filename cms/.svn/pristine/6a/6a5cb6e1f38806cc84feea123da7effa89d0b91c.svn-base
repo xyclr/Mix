@@ -1,0 +1,24 @@
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/color.html.php';?>
+<div class='panel-body'>
+    <form method='post' id='ajaxForm' class='form-inline'>
+  <table class='table table-form w-p60'>
+    <tr>
+      <th class='w-70px'>类型</th>
+      <td>衣物捡漏</td>
+    </tr>
+    <tr>
+      <th class='w-70px'>事故原因</th>
+      <td>
+        <?php echo html::textarea('content', '', "class='form-control'");?>
+      </td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><?php echo html::submitButton();?></td>
+    </tr>
+  </table>
+</form>
+</div>
+<?php include '../../common/view/footer.html.php';?>
+

@@ -1,0 +1,18 @@
+/* dialog rules. */
+.dui-dialog { position:fixed;_position:absolute;z-index:100000;color:#666;font-size:14px; }
+.dui-dialog .dui-dialog-content { position:relative;z-index:2;background:#fff;*zoom:1; }
+.dui-dialog .hd { padding:10px;background:#f5f5f5;border-bottom:1px solid #ddd;font-size:14px;-moz-border-radius-topleft:4px;-moz-border-radius-topright:4px;-webkit-border-top-left-radius:4px;-webkit-border-top-right-radius:4px; }
+.dui-dialog .hd h3 { font-weight:normal;padding:0 40px 0 4px;background:none;color:#666;font-size:14px; }
+.dui-dialog .hd h3 i { color:#060;font-style:normal;margin-left:0.5ex; }
+.dui-dialog .bd { position:relative; padding:15px;*zoom:1;font-size:12px;}
+.dui-dialog .bd:after { content:'\0020';clear:both;display:block; }
+.dui-dialog .ft .bn-flat,
+.dui-dialog .ft input { margin:0 .5em; }
+.dui-dialog .ft { text-align:center;padding:10px;padding-top:0; }
+.dui-dialog .dui-dialog-close { position:absolute;top:10px;right:12px;line-height:16px;font:11px "Comic Sans MS";background:#e9e9e9;width:16px;height:16px;text-align:center;}
+a.dui-dialog-close:link { color:#666 }
+a.dui-dialog-close:hover {color: #fab0b6;}
+.dui-dialog .dui-dialog-shd { position:absolute;left:-8px;top:-8px;width:100%;height:100%;background:#000;opacity:.2;filter:alpha(opacity=20);-ms-filter:"alpha(opacity=20)"; }
+.dui-dialog-iframe { border:0;background:transparent;position:absolute;z-index:1;left:-8px;top:-8px;opacity:0;filter:alpha(opacity=0); }
+.dui-dialog h4 {font-size:16px;line-height:20px;margin-bottom:20px;}
+

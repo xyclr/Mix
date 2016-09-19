@@ -1,0 +1,70 @@
+<?php 
+/**
+ * The create view file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     trade 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+?>
+<?php include '../../common/view/header.html.php';?>
+<div class='panel'>
+  <div class='panel-heading'>
+    <strong><i class="icon-plus"></i> <?php echo $lang->cate->create;?></strong>
+  </div>
+  <div class='panel-body'>
+    <form method='post' id='ajaxForm' class='form-inline'>
+      <table class='table table-form w-p60'>
+        <tr>
+          <th><?php echo $lang->cate->type_title;?></th>
+          <td><?php echo html::select('type', $lang->cate->type, '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->cate->kind_title;?></th>
+          <td><?php echo html::select('kind', $lang->cate->kind, '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->cate->price;?></th>
+          <td><?php echo html::input('price', '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->cate->amount;?></th>
+          <td><?php echo html::input('amount', '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->cate->discount;?></th>
+          <td><?php echo html::input('discount', '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->cate->standard;?></th>
+          <td><?php echo html::radio('standard', $lang->cate->radio, '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->cate->special1;?></th>
+          <td><?php echo html::radio('special1', $lang->cate->radio, '', "class='form-control'");?></td>
+        </tr><tr>
+          <th><?php echo $lang->cate->special2;?></th>
+          <td><?php echo html::radio('special2', $lang->cate->radio, '', "class='form-control'");?></td>
+        </tr><tr>
+          <th><?php echo $lang->cate->iron;?></th>
+          <td><?php echo html::radio('iron', $lang->cate->radio, '', "class='form-control'");?></td>
+        </tr><tr>
+          <th><?php echo $lang->cate->group;?></th>
+          <td><?php echo html::radio('group', $lang->cate->radio, '', "class='form-control'");?></td>
+        </tr>
+       <tr>
+          <th><?php echo $lang->cate->group_price;?></th>
+          <td><?php echo html::input('group_price', '', "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th></th>
+          <td><?php echo html::submitButton() . '&nbsp;&nbsp;' . html::backButton();?><div id='duplicateError' class='hide'></div></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+<?php include '../../common/view/footer.html.php';?>

@@ -1,0 +1,144 @@
+<?php
+
+/**
+ * The control file of balance module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     balance
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class order extends control {
+	
+	public function index()
+	{
+		
+		
+		$this->locate(inlink('browse'));
+	}
+	
+	
+
+    /**
+     * Browse balance.
+     * 
+     * @param string $orderBy     the order by
+     * @param int    $recTotal 
+     * @param int    $recPerPage 
+     * @param int    $pageID 
+     * @access public
+     * @return void
+     */
+    public function browse($depositor = 0, $orderBy = 'date_desc', $recTotal = 0, $recPerPage = 10, $pageID = 1) {
+        $this->app->loadClass('pager', $static = true);
+        $pager  = new pager($recTotal, $recPerPage, $pageID);
+
+        $this->view->title   = $this->lang->order->browse;
+        $this->view->pager   = $pager;
+        $this->view->orderBy = $orderBy;
+
+        if ($depositor)
+            $this->view->subtitle = $this->view->depositorList[$depositor];
+
+        $this->display();
+    }
+
+    /**
+     * Create a contact.
+     * 
+     * @param  int    $depositor 
+     * @access public
+     * @return void
+     */
+    public function create($depositor = 0) {
+        if ($_POST) {
+            //获取会员卡信息
+            $member_info = $this->loadModel('card', 'finance')->getNumberInfo($_POST['member']);
+            if (empty($member_info)) {
+                $this->send(array('result' => 'fail', 'message' => "无法获取会员信息"));
+            }
+            if (floatval($member_info->amount) < floatval($this->post->good_amount)) {
+                $this->send(array('result' => 'fail', 'message' => "会员卡余额不足，请充值"));
+            }
+            $orderID = $this->order->create();
+            $result =false;
+            if($orderID){
+                $result = $this->loadModel('card', 'finance')->updatePay($_POST['member'],floatval($this->post->good_amount),2);
+            }
+            //扣除卡内金额
+            if (!$result)
+                $this->send(array('result' => 'fail', 'message' => dao::getError()));
+            
+            if($result)
+            $this->send(array('result' => 'success', 'message' => "支付成功，等待送往车间", 'locate' => $this->server->http_referer));
+        }
+        //获取类型
+//        $this->view->title            = $this->lang->balance->create;
+//        $this->view->currentDepositor = $depositor;
+        $this->view->clothModelList = $this->loadModel('cloth', 'sys')->getList(1);
+        $this->view->brandList      = $this->loadModel('cloth', 'sys')->getList(2);
+        //生成洗涤码
+        $this->view->order_sn       = $this->makePaySn(1);
+//        $this->view->currencyList     = $this->loadModel('common', 'sys')->getCurrencyList();
+        $this->display();
+    }
+
+    public function orderList() {
+        $this->display();
+    }
+
+    public function makePaySn($member_id) {
+        return mt_rand(10, 99)
+                . sprintf('%010d', time() - 946656000)
+                . sprintf('%03d', (float) microtime() * 1000)
+                . sprintf('%03d', (int) $member_id % 1000);
+    }
+
+    /**
+     * Edit a balance.
+     * 
+     * @param  int    $balanceID 
+     * @access public
+     * @return void
+     */
+    public function edit($balanceID) {
+        $balance = $this->balance->getByID($balanceID);
+        if (empty($balance))
+            die();
+        if ($_POST) {
+            $changes = $this->balance->update($balanceID);
+            if (dao::isError())
+                $this->send(array('result' => 'fail', 'message' => dao::getError()));
+
+            if ($changes) {
+                $actionID = $this->loadModel('action')->create('balance', $balanceID, 'Edited', '');
+                $this->action->logHistory($actionID, $changes);
+            }
+
+            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('browse')));
+        }
+
+        $this->view->title         = $this->lang->balance->edit;
+        $this->view->balance       = $balance;
+        $this->view->depositorList = $this->loadModel('depositor')->getList();
+        $this->view->currencyList  = $this->loadModel('common', 'sys')->getCurrencyList();
+
+        $this->display();
+    }
+
+    /**
+     * Delete a balance.
+     * 
+     * @param  int      $balanceID 
+     * @access public
+     * @return void
+     */
+    public function delete($balanceID) {
+        if ($this->balance->delete($balanceID))
+            $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
+
+}

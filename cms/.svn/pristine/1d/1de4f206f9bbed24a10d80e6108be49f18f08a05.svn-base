@@ -1,0 +1,40 @@
+<?php include '../../../sys/common/view/header.modal.html.php'; ?>
+
+<div class='panel'>
+    <div class='panel-heading'>
+        <strong><i class='icon-building'></i> <?php echo $lang->entry->create;?></strong>
+    </div>
+    <div class='panel-body'>
+        <table class='table table-hover table-striped tablesorter table-data table-fixed' id='contactList'>
+            <thead>
+                <tr class='text-center'>
+                    <th class='w-40px'><?php echo $lang->workshop->id; ?></th>
+                    <th class='w-40px'><?php echo $lang->workshop->order_sn; ?></th>
+                    <th class='w-40px'><?php echo $lang->workshop->name; ?></th>
+                    <th class='w-40px'><?php echo $lang->workshop->color; ?></th>
+                    <th class='w-40px'><?php echo $lang->workshop->wash_way_show; ?></th>
+                    <th class='w-40px'><?php echo $lang->workshop->iron_show; ?></th>
+                    <th class='w-40px'><?php echo $lang->workshop->way_show; ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($datas as $val): ?>
+                <tr class='text-center'>
+                    <td><?php echo $val->id; ?></td>
+                    <td><?php echo $val->order_sn; ?></td>
+                    <td><?php echo $val->name; ?></td>
+                    <td><?php echo $val->color; ?></td>
+                    <td><?php echo $lang->workshop->wash_way[$val->wash_way]; ?></td>
+                    <td><?php echo $lang->workshop->iron[$val->iron]; ?></td>
+                    <td><?php echo $lang->workshop->way[$val->way]; ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <div class='table-footer'><?php $pager->show(); ?></div>
+    </div>
+    <div class='panel-heading'> </div>
+</div>
+
+
+<?php include '../../../sys/common/view/footer.html.php';?>

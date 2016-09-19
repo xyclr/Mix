@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+<link rel="stylesheet" href="http://shubaby.oss-cn-beijing.aliyuncs.com/mobile/css/index.css" />
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+
+    <title>Demo</title>
+
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+
+    <script type="text/javascript" src="./js/zepto.min.js"></script>
+    <script type="text/javascript" src="./js/TouchSlide.1.1.js"></script>
+</head>
+
+<body>
+<header class="titlebar">
+    <a class="btn-back" href="index.html"><i class="ico ico-back"></i></a>
+    <span class="title">活动详情</span>
+</header>
+<div class="main">
+    <div class="p-d-info">
+        <div class="p-d-img">
+            <img src="./res/9AB5656A7E3BE39F63699865595FDC7A.jpg" alt=""/>
+        </div>
+        <div class="p-d-name">
+            学高为师，身正为范——王宁老师
+        </div>
+        <div class="p-d-detail">
+            “学高为师，身正为范”，这不仅仅是王宁老师的座右铭，更是真实的生活写照。
+            “你要给学生一滴水，你必须要拥有一杯水；你要给学生一杯水，你首先要拥有一桶水；你要给学生一桶水，你必须首先要拥有一片海。”执教七年以来，王宁老师始终坚信这个道理。
+            在语文教学中，王宁老师主要通过情感教学和感染教育让学生投入到轻松的语文学习中。“让学生爱上语文，首先要让学生体会到语文在具体生活中的魅力，最后很多学生都以学习语文为乐，”比如在班内开展书法比赛，开展趣味知识竞赛，组织诗词朗诵会，开展简单的辩论赛等活动。
+        </div>
+    </div>
+
+    <ul class="p-d-extra">
+        <li><span class="dd">执行机构：</span><span class="dt">成都云公益发展促进会</span></li>
+        <li><span class="dd">善款信息：</span><span class="dt">成都市慈善总会</span></li>
+    </ul>
+
+
+
+</div>
+
+<footer class="cart">
+    <a href="javascript:;" class="btn-addtocart">立即关注</a>
+    <a href="javascript:;" class="btn-buy">支持10元</a>
+</footer>
+
+</body>
+</html>
+<script type="text/javascript">
+    $(function(){
+        // 焦点图 flexslider插件
+        TouchSlide({
+            slideCell:"#focus",
+            titCell:".hd ul", 	//开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+            mainCell:".bd ul",
+            effect:"leftLoop",
+            autoPlay:true,		//自动播放
+            autoPage:true, 		//自动分页
+            switchLoad:"_src", 	//切换加载，真实图片路径为"_src"
+            interTime:5000,
+            delayTime:300
+        });
+    });
+</script>

@@ -1,0 +1,272 @@
+/* globe. */
+body {padding-top: 0; background-color: #145ccd; background-position: center center; background-repeat: repeat; background-attachment: fixed;  background-size: auto; transition: background-color 0.5s;}
+
+a, a:hover,button,button:hover {transition: all .3s;-o-transition: all .3s;-moz-transition: all .3s;-webkit-transition: all .3s;}
+button {outline: none; border: none; background-color: transparent;}
+
+/* a radiance effection */
+.radiance {overflow: hidden;}
+.radiance:hover {-moz-box-shadow:0px 1px 2px rgba(0,0,0,0.5); -webkit-box-shadow:0px 1px 2px rgba(0,0,0,0.5); box-shadow:0px 1px 2px rgba(0,0,0,0.5);}
+.radiance:before {content: ' '; display: block; position: absolute; width: 100%; height: 120%; left: -120%; top: -20%; background:-webkit-linear-gradient(0deg,rgba(255, 255, 255, 0),rgba(255, 255, 255, 0.2),rgba(255, 255, 255, 0)); -webkit-transform:skewx(-25deg); -webkit-transition:all .7s; transition:all .7s;}
+.radiance:hover:before {left: 120%; -webkit-transition-delay:0.5s; -moz-transition-delay:0.5s; transition-delay:0.5s}
+
+/* pure button to fit dark background */
+.btn-pure {background-color: transparent; background-color: rgba(255,255,255,0.1); color: #f1f1f1; color: rgba(255,255,255,0.9); border-color: #a1a1a1; border-color: rgba(255,255,255,0.3); text-shadow: 0 -1px 0 rgba(0,0,0,0.2);}
+.btn-pure:hover, .btn-pure:active, .btn-pure:focus {background: #999; background: rgba(0,0,0,0.1); color: #fff; border-color: #a1a1a1; border-color: rgba(255,255,255,0.6); outline: none;}
+
+/* pure form control to fit dark background */
+input.form-control-pure {color: #bbb; color: rgba(255,255,255,0.7); background: none; border-color: #a1a1a1; border-color: rgba(255,255,255,0.4);}
+input.form-control-pure:hover,
+input.form-control-pure:active,
+input.form-control-pure:focus {background: none; background: rgba(255,255,255,0.2); border-color: #fff; border-color: rgba(255,255,255,0.6); color: #fff; color: rgba(255,255,255,0.9);}
+
+/* Hide tooltip on dropdown menu show */
+body[class*='dropdown-mode-'] .s-menu-tooltip, body.mute-tooltip .s-menu-tooltip {display: none!important}
+
+/* desktop */
+#desktop {position: absolute; width: 100%; height: 100%; z-index: 0; overflow: hidden; zoom: 1; min-width: 1050px;}
+
+/* Dropdown menu */
+#desktop .dropdown-menu {border-radius: 0}
+
+/* dock position. */
+.dock-left,.dock-right,.dock-top,.dock-bottom {position: absolute;}
+.dock-left {left: 0;}
+.dock-right {right: 0;}
+.dock-top {top: 0;}
+.dock-bottom {bottom: 0;}
+
+/* bar menu. */
+.bar-menu {margin: 0; padding: 0;}
+.bar-menu > li {display: inline-block;}
+.bar-menu > li > a,.bar-menu > li > button {display: block; padding: 4px 10px; color: #ccc; color: rgba(255,255,255,0.5);}
+.bar-menu > li.active > a,.bar-menu > li.active > button,.bar-menu > li > a.active,.bar-menu > li > button.active {color: #a1a1a1; color: rgba(255,255,255,0.85); background-color: #555; background-color: rgba(255,255,255,0.20)}
+
+.bar-menu > li > a:hover,.bar-menu > li > button:hover,
+.bar-menu > li > a.open:hover,.bar-menu > li > a.active:hover {text-decoration: none; color: #fff; color: rgba(255,255,255,0.9);background-color: #666; background-color: rgba(255,255,255,0.20);}
+.bar-menu > li > a > .icon, .bar-menu > li > button > .icon {font-size: 28px; line-height: 36px;}
+.bar-menu > li > a > .icon.icon-default, .bar-menu > li > button > .icon.icon-default {font-size: 12px; display: inline-block; min-width: 28px; box-shadow: 0 1px 1px rgba(0,0,0,0.35); border-radius: 5px; background-color: #145CCD; font-weight: normal; text-shadow: 0 1px 1px rgba(0,0,0,0.15);}
+
+/* left bar. */
+#leftBar {width: 40px; height: 100%; background-color: #0a2e66; background-color: rgba(0,0,0,0.4); z-index: 40010; transition: left .3s;-o-transition: left .3s;-moz-transition: left .3s;-webkit-transition: left .3s;}
+#desktop.menu-auto #leftBar.menu-hide {left: -38px;}
+
+#apps-menu {position: absolute; bottom: 36px; top: 0; overflow: no-display; transition: height .3s;-o-transition: height .3s;-moz-transition: height .3s;-webkit-transition: height .3s;}
+#apps-menu .bar-menu > li {display: block;}
+#apps-menu .bar-menu > li button, #moreOptionBtn {text-align: center; padding:6px; height: 40px; width: 40px;}
+#apps-menu .bar-menu > li img {width: 28px; height: 28px; box-shadow: 0 1px 1px rgba(0,0,0,0.35); border-radius: 5px}
+#apps-menu .bar-menu > li > button > .icon, #moreOptionBtn > .icon { text-shadow: 0 1px 1px rgba(0,0,0,0.35); color: #f1f1f1; color: rgba(255,255,255,0.8); line-height: 28px; line-height: 28px; text-align: center;}
+#apps-menu .bar-menu > li > button:hover > .icon, #moreOptionBtn:hover > .icon {color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,0.15);}
+#apps-menu .bar-menu > li.drag-from > button {opacity: 0.3; background: #000}
+
+#moreOptionBtn {display: none}
+#moreOptionBtn:hover, #moreOptionBtn.hover {text-decoration: none; color: #fff; background-color: #666; background-color: rgba(255,255,255,0.20);}
+#moreOptionBtn > .icon {transition: all 0.2s; font-size: 24px; font-style: normal; line-height: 30px; background: #666; background: rgba(255,255,255, 0.45); display: block; width: 28px; height: 28px; border-radius: 14px}
+#apps-menu.more-option #moreOptionBtn {display: block; position: absolute; left: 0; bottom: 0}
+#apps-menu.more-option .bar-menu > li.option {display: none}
+#moreOptionBtn.active > .icon {transform: scale(1.2); background: #555; background: rgba(255,255,255, .2); }
+#moreOptionBtn.hover > .icon:before {content: '\e6e0'; position: relative; top: -2px; left: -1px}
+#moreOptionMenu {left: 39px; bottom: -1px; top: auto; padding: 10px}
+#moreOptionMenu > li {display: block; float: left;}
+
+/* bottom bar. */
+#bottomBar {height: 36px; background-color: #0a2e66; background-color: rgba(0,0,0,0.5); z-index: 50000; left: 40px; right: 0}
+#desktop.menu-auto #bottomBar {left: 2px}
+#bottomBar .bar-menu li {min-width: 50px; text-align: center; font-size: 16px; height: 36px; margin-right:4px; overflow: hidden; white-space: nowrap; background-color: #444; background-color: rgba(0,0,0,0.20); -o-transition: width 1s;-moz-transition: width 1s;-webkit-transition: width 1s;transition: width 1s;}
+#bottomBar .bar-menu li > button {line-height: 28px; font-size: 12px; font-weight: normal; margin-right: 0; width: 100%;}
+#taskbar .bar-menu li {text-align: left; min-width: 90px; max-width: 300px; position: relative;}
+#taskbar .bar-menu li .actions {position: absolute; right: 0; top: 0;}
+#taskbar .bar-menu li button { text-align: left; text-transform: uppercase}
+#taskbar .bar-menu li .actions button {line-height: 36px; color: #f1f1f1; font-size: 14px; padding: 0 10px; filter:alpha(opacity=0); -moz-opacity:0; opacity: 0;}
+#taskbar .bar-menu li:hover button {filter:alpha(opacity=100); -moz-opacity:1; opacity: 1;}
+#taskbar .bar-menu li .actions button:hover {content: #fff; background-color: rgba(0,0,0,0.2);}
+#taskbar .bar-menu li .actions button.close-win:hover{background-color: #dd1111;}
+#bottomBar .bar-menu > li > button > img {width: 20px; height: 20px; margin-right: 5px; margin-top: -2px;}
+#bottomBar .bar-menu > li > button[class*=' icon-'] {font-size: 20px;}
+#bottomBar .bar-menu > li > button > .icon {width: 20px; line-height: 20px; text-align: center; margin-right: 5px; min-width: 20px; font-size: 14px; border-radius: 4px; font-weight: normal;}
+#bottomBar .bar-menu > li > button > .icon.icon-default {width: 20px; line-height: 20px; text-align: center; margin-right: 5px; min-width: 20px; font-size: 12px; border-radius: 4px}
+#bottomBar .bar-menu > li > button > .icon.icon-default .text-extra {display: none}
+
+#bottomRightBar {position: absolute; right: 0; top: 0; border-left: 1px solid rgba(255,255,255,0.10);}
+#bottomRightBar .bar-menu li {background: none; margin-right: 0;}
+#bottomRightBar .bar-menu li a{width: 100%; height: 100%; line-height: 28px; font-size: 15px;}
+#bottomRightBar .bar-menu li .sign {font-size: 12px; color: #f1f1f1;}
+
+#version a{text-decoration: none; color: rgba(255,255,255,0.5)}
+
+/* start menu */
+#start {width: 40px; height: 36px; text-align: center; padding: 0; background: none}
+#start .avatar {width: 28px; height: 28px; line-height: 28px; border-radius: 4px; box-shadow: 0 1px 1px rgba(0,0,0,0.35); vertical-align: middle;}
+#start:hover {background-color: rgba(255,255,255,0.2);}
+#startMenu {bottom: 36px; top: inherit; left: 0}
+#startMenu .avatar {margin-right: 10px; position: absolute;}
+#startMenu li.with-avatar > a {line-height: 28px;}
+#startMenu li.with-avatar > a > strong {display: inline-block; margin-left: 35px;}
+#startMenu li {min-width: 120px;}
+#startMenu li a .label {font-weight: bold;}
+#startMenu li .pull-right {margin-left: 20px;}
+#startMenu li a {padding: 5px 15px 5px 10px}
+#startMenu li a:hover .label {background-color: #fff; color: #3280fc}
+
+/* desk container. */
+#deskContainer {position: absolute; width: 100%; height: 100%; overflow: hidden; z-index: 50;}
+
+/* taskMenu */
+#taskMenu {z-index: 999999}
+#taskMenu > li > a {padding-left: 10px;}
+
+/* window. */
+.window {position: absolute; background-color: #fff; border:1px solid #e5e6e7; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; -moz-box-shadow:0px 1px 7px rgba(0,0,0,0.3); -webkit-box-shadow:0px 1px 7px rgba(0,0,0,0.3); box-shadow:0px 1px 7px rgba(0,0,0,0.3);}
+.window-head {color: #777; -moz-user-select:none; -webkit-user-select:none;}
+.window-head img {height: 18px; width: 18px; margin-right: 5px;}
+.window-head .icon.icon-default {background-color: #888; width: 18px; height: 18px; display: inline-block; text-align: center; font-size: 12px; line-height: 18px;position: relative; top: -1px; color: #fff; border-radius: 3px; font-weight: normal;}
+.window-head .icon.icon-default .text-extra {display: none}
+.window-head .icon {display: inline-block; margin-right: 5px;}
+.window-head ul {display: block; margin: 0; padding: 0; position: absolute; right: 10px; top: 2px; overflow: hidden;}
+.window-head ul li {display: inline-block;}
+.window-head ul li button {display: block; color: #ccc; border-radius: 2px; padding: 2px 10px;}
+.window-head ul li button:hover {color: #777; background-color: #fafafa; color: rgba(255,255,255,1); background-color: rgba(0,0,0,0.4);}
+.window-head ul li button.close-win:hover {background-color: #dd1111; color: #fff;}
+
+.window-control-full .window-head {background-color: #f1f2f3; height: 30px; overflow: hidden; border-bottom: 1px solid #ccc; line-height: 26px; padding: 2px 10px; position: relative;}
+.window-control-full .window-head ul {line-height: 20px;}
+.window-control-full .window-head ul li button {color: #666}
+.window-control-full .window-head ul li button:hover {color: #333; background-color: #ccc}
+.window-control-full .window-head ul li button.close-win:hover {background-color: #dd1111; color: #fff;}
+
+.window-control-simple .window-head {position: absolute; height: 0; background:none; border-bottom: none; overflow: visible; width: 100%;}
+.window-control-simple .window-head > img,
+.window-control-simple .window-head > strong,
+.window-control-simple .window-head > .icon {display: none;}
+.window-control-simple .window-head > ul {position: absolute; right: 10px; top: 0px; z-index: 99999;}
+.window-control-simple .window-head ul li button {padding: 9px 10px 11px; border-radius: 0; font-size: 16px; line-height: 20px}
+.window-control-simple .window-head ul li button.close-win {padding:9px 10px 11px}
+
+.window-control-none .window-head {display: none}
+
+.window-active {border-color: #999; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; -moz-box-shadow:0px 1px 11px rgba(0,0,0,0.7); -webkit-box-shadow:0px 1px 11px rgba(0,0,0,0.7); box-shadow:0px 1px 11px rgba(0,0,0,0.7); -o-transition: box-shadow,border-color .3s;-moz-transition: box-shadow,border-color .3s;-webkit-transition: box-shadow,border-color .3s;transition: box-shadow,border-color .3s;}
+.window-active .window-head {background-color: #e5e6e7; color: #333; -o-transition: all .3s;-moz-transition: all .3s;-webkit-transition: all .3s;transition: all .3s;}
+
+.window-max {border:none; -moz-border-radius:0; -webkit-border-radius:0; border-radius:0; -moz-box-shadow:none; -webkit-box-shadow:none; box-shadow:none;}
+.movable,.window-movable .window-head {cursor: move;}
+.window-max .movable,.window-movable.window-max .window-head {cursor: default;}
+.window-fixed .window-head .max-win, .window-maxfixed .window-head .max-win {display: none;}
+
+.window-content {position: relative; height: 100%; overflow: auto;}
+.window-loading .window-content {background: url('images/ips/loading.gif') no-repeat center 30%;}
+
+.window-first.window-control-simple .window-head {display: none}
+.window-content iframe {position: absolute; overflow: auto; width: 100%; height: 100%; left: -9999px; top: 0; background-color: rgba(0, 0, 0, 0);}
+
+.window-cover {position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-color: rgba(0,0,0,0.075); z-index: 99999;}
+.window-active .window-cover {display: none;}
+body[class*='dropdown-mode-'] .window-active .window-cover {display: block;}
+
+/* fullscreen */
+.fullscreen {position: absolute; top: 0; left: 60px; right: 0; bottom: 36px; z-index: 10; overflow: auto; display: none;}
+.fullscreen .page-header {margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.5)}
+.fullscreen > .actions {position: fixed; right: 40px;top: 20px;}
+.fullscreen-mode .fullscreen.fullscreen-active {display: block;}
+.fullscreen-mode #deskContainer {display: none;}
+
+/* allapps */
+#allapps {background-color: rgba(0,0,0,0.25); color: #fff;}
+#allapps > header {padding: 20px 40px 0; border-bottom: 1px solid #a1a1a1; border-bottom: 1px solid rgba(255,255,255,0.2);}
+#allapps > header .nav {border: none; position: relative;}
+#allapps > header .nav > li > a {padding: 12px 15px; background: none; border-color: transparent; color: #fff; color: rgba(255,255,255,0.6);}
+#allapps > header .nav > li > a > small {display: none}
+#allapps > header .nav > li > a:hover {border-color: #a1a1a1; border-color: rgba(255,255,255,0.2); border-bottom-color: transparent; background-color:rgba(255,255,255,0.24);}
+#allapps > header .nav > li.active > a, #allapps > header .nav > li.active > a:hover {color: #fff; border-color: #a1a1a1; border-color: rgba(255,255,255,0.2); border-bottom-color: #0f4599; background: none}
+.ie-8 #allapps > header .nav > li.active > a, .ie-8 #allapps > header .nav > li.active > a:hover{border-bottom-color: #145ccd}
+#allapps > header .nav > li.active > a > small {display: inline;}
+#allapps > header .nav > li.active > a > span {font-weight: bold;}
+#allapps .muted {color:rgba(255,255,255,0.6);}
+@media (max-width: 1400px) {
+  #allapps .col-left {width: 40%}
+  #allapps .col-middle {width: 30%}
+  #allapps .col-right {width: 30%}
+}
+@media (max-width: 1100px) {
+  #allapps .col-left {width: 45%}
+  #allapps .col-middle {width: 30%}
+  #allapps .col-right {width: 25%}
+}
+
+#search {padding: 6px 30px}
+.ie-8 #search {padding-top: 3px;}
+#allapps .search-input {position: relative;}
+#allapps .search-input .icon, #cancelSearch{position: absolute; display: block; left: 9px; top: 7px; color: #f1f1f1; color: rgba(255,255,255,0.4);}
+#allapps .search-input:hover .icon, #cancelSearch:hover {color: #fff; color: rgba(255,255,255,0.6);}
+#cancelSearch {display: none; right: 3px; left: inherit; top: 3px; border-color: transparent; color: rgba(255,255,255,0.9);}
+#cancelSearch:hover {border-color: rgba(255,255,255,0.6); color: #fff}
+
+#allAppsList {padding: 20px 40px;}
+#allAppsList ul {margin: 0; padding: 0;}
+#allAppsList li {width: 18%; margin-right: 1%;  position: relative; transition: all 0.3s; overflow: hidden;}
+#allAppsList li.search-hide {width: 0; margin-right: 0;}
+#allAppsList li a {overflow: hidden; white-space: nowrap; padding: 15px 20px; font-size: 16px; text-overflow:ellipsis;}
+.ie-8 #allAppsList li a {border: 2px solid transparent;}
+.ie-8 #allAppsList li a:hover, .ie-8 #allAppsList li a.search-selected{background-color: none; border:2px solid #ccc;}
+#allAppsList li a .icon-pushpin {display: none}
+#allAppsList li a.menu-true .icon-pushpin {display: block; position: absolute; left: 12px; top: 48px; width: 20px; height: 20px;border: 1px solid #fff; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; text-align: center; line-height: 18px; background: #000; background: rgba(0,0,0,0.4); color: #fff;}
+#allAppsList li a.active:hover, #allAppsList li a.search-selected {background-color:rgba(255,255,255,0.24);}
+#allAppsList li img {width: 48px; height: 48px; margin-right: 10px; box-shadow: 0 1px 1px rgba(0,0,0,0.35); border-radius: 8px}
+#allAppsList li .app-btn > .icon {display: inline-block; width: 48px; height: 48px; line-height: 48px; text-align: center; margin-right: 10px; background-color: #555; background-color: rgba(255,255,255,.2); border-radius: 8px}
+#allAppsList li .app-btn:hover > .icon {background-color: rgba(255,255,255,.3);}
+#allAppsList li .app-btn > .icon.icon-default {font-size: 16px; margin-right: 10px; color: #FFF}
+
+@media (max-width: 1400px) {#allAppsList li {width: 24%}}
+@media (max-width: 1100px) {#allAppsList li {width: 32%}}
+
+/* home */
+#home {padding: 0; background: #fafafa}
+#home > .navbar {left: 40px;}
+#home > .navbar .navbar-brand {font-weight: normal;}
+.ie-8 #home > .navbar .navbar-brand {position: relative; top: 2px}
+#home .navbar-right {margin-right: 5px;}
+#home .navbar-right > li > a {padding-left: 10px; padding-right: 10px;}
+#home > .navbar .nav > li.divider {width: 1px; background-color: rgba(255,255,255,0.25); height: 40px}
+#home > .navbar .nav > li.with-avatar > a {padding-left: 45px; position: relative;}
+#home > .navbar .nav > li.with-avatar > a > .avatar {position: absolute; left: 10px; top: 5px}
+#home [class^='col-'] {overflow: visible;}
+#home .dashboard {padding: 65px 25px 25px; position: static; background: none}
+#home .dashboard > .row {}
+#dashboard > .actions {position: absolute; right: 25px; top: 0;}
+#dashboard > .actions > .btn {padding: 3px 7px; border-radius: 0 0 4px 4px; border-top: 0}
+#dashboard .table tr[data-url] td {cursor: pointer;}
+.dashboard .panel-heading {height: 30px}
+#home .panel-actions {margin: 0}
+#home .panel-loading .panel-body {background: url('images/ips/loading.gif') no-repeat center 30%;}
+#home .panel-body > .article-content {padding: 8px 10px;}
+#home .panel-body > .list-group {margin: 0;}
+#home .panel-body .list-group-item {border-left: 0; border-right: 0; padding: 8px;}
+#home .panel-body .list-group-item h5 {margin: 0}
+#home .panel-body .list-group-item:first-child {border-top: none;}
+#home .panel-body .list-group-item:last-child {border-bottom: none;}
+#home .panel .custom-actions {display: none; float: right; margin-top: -1px;}
+#home.custom-mode .panel .custom-actions {display: block;}
+#home.custom-mode .panel-body {filter:alpha(opacity=40); -moz-opacity:0.4; opacity: 0.4}
+#home.custom-mode .panel {cursor: move;}
+#home.custom-mode.hover .panel {filter:alpha(opacity=80); -moz-opacity:0.8; opacity: 0.8;}
+#home.custom-mode.hover .panel.hover {filter:alpha(opacity=100); -moz-opacity:0.1; opacity: 1; box-shadow: 2px 0 25px rgba(0,0,0,0.8)}
+#home.custom-mode .panel.dragging {border: 2px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); box-shadow: none!important; color:#fff;}
+#home.custom-mode .panel.dragging > * {filter:alpha(opacity=10); -moz-opacity:0.1; opacity: 0.1}
+#home.custom-mode .dragging-in:before {box-sizing: content-box; content:' '; display: block; position: absolute; left: -2px; top: -10px; width: 2px; height: 100%; background-color: rgba(255,255,255, 0.5); border: 1px solid #fff;}
+#home.custom-mode .dragging-in.dragging-col:before {display: none;}
+
+#draggingPanel {position: absolute; z-index: 42; border: 2px solid rgba(255,255,255,0.9); box-shadow: 2px 0 25px rgba(0,0,0,0.8)!important; background: rgba(255,255,255,0.5); }
+#draggingPanel > * {filter:alpha(opacity=50)!important; -moz-opacity:0.5!important; opacity: 0.5!important}
+
+/* css helper */
+.no-padding {padding: 0}
+
+/* modal */
+#modalContainer {position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: transparent; background-color: rgba(0,0,0,0.5); z-index: 50000; display: none; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endColorstr=#BF000000);}
+#modalContainer .min-win{display: none;}
+#desktop.modal-mode #modalContainer {display: block;}
+
+.progress{margin-bottom: 0;}
+
+#allEntriesBlock{padding: 10px;}
+#allEntriesBlock i.icon-default {border-radius: 3px; color: #fff; display: inline-block; font-size: 10px; height: 18px; line-height: 18px; width: 18px; text-align: center; vertical-align: middle;}
+#allEntriesBlock table td{border-bottom: none;}

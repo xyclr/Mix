@@ -1,0 +1,539 @@
+<?php
+
+/**
+ * The control file of balance module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     balance
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class order extends control {
+
+    public function index() {
+        $this->locate(inlink('browse'));
+    }
+
+    /**
+     * Browse balance.
+     * 
+     * @param string $orderBy     the order by
+     * @param int    $recTotal 
+     * @param int    $recPerPage 
+     * @param int    $pageID 
+     * @access public
+     * @return void
+     */
+    public function browse($mode = 'all', $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 10, $pageID = 1) {
+        $this->app->loadClass('pager', $static              = true);
+        $pager               = new pager($recTotal, $recPerPage, $pageID);
+        $orders              = $this->order->getList('', $orderBy, $pager);
+        $this->view->title   = $this->lang->order->browse;
+        $this->view->pager   = $pager;
+        $this->view->mode    = $mode;
+        $this->view->orderBy = $orderBy;
+        $this->view->orders  = $orders;
+        $this->display();
+    }
+    
+    /**
+     *子订单列表
+     * @author fangxuezheng
+     * @param int
+     * @param string
+     * @return mixed
+    */
+   public function childOrder($serial_id='',$orderBy = 'id_desc', $recTotal = 0, $recPerPage = 10, $pageID = 1){
+        $serial_id = $_GET['serial_id'];
+        $this->app->loadClass('pager', $static              = true);
+        $pager               = new pager($recTotal, $recPerPage, $pageID);
+        $orders              = $this->order->getOrderList($serial_id, $orderBy, $pager);
+        foreach ($orders as $k=>&$v){
+            $brand_info= $this->loadModel('sets', 'sales')->getBLandByID($v->brand);
+            $v->brand_url   =  $brand_info->avatar;
+            $v->brand_name  = $brand_info->name;
+        }
+        $this->view->title   = $this->lang->order->browse;
+        $this->view->pager   = $pager;
+        $this->view->mode    = $mode;
+        $this->view->orderBy = $orderBy;
+        $this->view->orders  = $orders;
+        $this->display();
+   }
+   
+    //取消订单
+    public function cancel($order_id) {
+        if ($_GET) {
+            $return = $this->order->update($order_id);
+            $this->send(array('result' => 'success', 'message' => "成功", 'locate' => inlink('browse')));
+        }
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
+
+    //上架
+    public function put() {
+        $this->view->id = $_GET['id'];
+        $cloth_list =  $this->order->getBySerial($_GET['id']);
+        foreach ($cloth_list as &$val){
+        	if ($val->shelf_num == ''){
+        		$val->shelfList = $this->loadModel('sets', 'sales')->getShelfListByType($val->number);
+        	}
+        }
+        if ($_POST) {
+            //获取会员卡信息
+            $result = $this->order->clothSendUpdate($this->post->order_id,5,'衣服回店');
+            if ($result)
+                $this->send(array('result' => 'success', 'message' => "成功", 'locate' => inlink('browse')));
+        }
+        $this->view->cloth_list = $cloth_list;
+        $this->view->trelliList = $this->loadModel('trellis', 'sys')->getTrellisList();
+        $this->display();
+    }
+    
+    //选择货架上架
+    public function ajaxPut(){
+        $id= $_POST['order_id'];
+        $child = $this->order->getByChildOrderID($id);
+        $shelf= $_POST['shelf'];
+        if ($_POST) {
+            $result = $this->order->clothSendUpdate($this->post->order_id,5,'衣服上架');
+            $cloth_list =  $this->order->getBySerial($result->serial);
+            $flag = true;
+            foreach ($cloth_list as $v){
+                if(!$v->shelf_num){
+                    $flag = false;
+                    break;
+                }
+            }
+            if($flag){
+                $serial_info = $this->order->getBySerialOne($result->serial);
+                $result = $this->order->childUpdate($serial_info->id,5,'衣服上架');
+            }
+            if ($result)
+                $this->send(array('result' => 'success', 'message' => "成功", 'locate' => inlink('putaway')));
+        }
+        $this->send(array('result' => 'fail', 'message' => "失败", 'locate' => inlink('putaway')));
+    }
+    //详情
+    public function detail($id, $step = 0) {
+        $data              = $this->loadModel('workshop', 'workshop')->getData($id);
+        $data->wash_way    = $this->lang->order->wash_way[$data->wash_way];
+        $data->iron        = $this->lang->order->iron[$data->iron];
+        $data->way         = $this->lang->order->way[$data->way];
+        $this->view->step  = $step;
+        $this->view->data  = $data;
+        $this->view->title = $this->lang->order->detail;
+        $this->display();
+    }
+
+    //回店上架
+    public function putaway($mode = 'all', $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 10, $pageID = 1) {
+        $this->app->loadClass('pager', $static              = true);
+        $pager               = new pager($recTotal, $recPerPage, $pageID);
+        $orders              = $this->order->getputawayList('', '3,4', $orderBy, $pager);
+        $this->view->title   = $this->lang->order->browse;
+        $this->view->pager   = $pager;
+        $this->view->mode    = $mode;
+        $this->view->orderBy = $orderBy;
+        $this->view->orders  = $orders;
+        $this->display();
+    }
+
+    //返工
+    public function putcloth() {
+        $this->view->id = $_GET['id'];
+        if ($_POST) {
+            //获取会员卡信息
+            $result = $this->order->dealBack($this->view->id);
+            if ($result)
+                header("Location:".inlink('putaway'));
+               // $this->send(array('result' => 'success', 'message' => "成功", 'locate' => inlink('browse')));
+        }
+         header("Location:".inlink('putaway'));
+    }
+    
+     //返工
+    public function putback() {
+        $this->view->id = $_GET['id'];
+        if ($_GET) {
+            //获取会员卡信息
+            $result = $this->order->childUpdate($this->view->id,4,'衣服回店');
+            if ($result)
+                 header("Location:".inlink('putaway'));
+        }
+        header("Location:".inlink('putaway'));
+    }
+    
+    //打印
+    public function webprint(){
+        $order_id = $_GET['id'];
+        $order_info = $this->order->getByID($order_id);
+        //获取店面名称
+        $deptName = $this->loadModel('user', 'sys')->getDeptAll($this->app->user->dept);
+        $this->view->deptName = $deptName;
+        $order_info->list = $this->order->getBySerial($order_info->serial);
+        $this->view->count = count($order_info->list);
+        foreach ($order_info->list as $k=>&$v){
+            $brand_info= $this->loadModel('sets', 'sales')->getBLandByID($v->brand);
+            $v->brand_url   =  $brand_info->avatar;
+            $v->brand_name  = $brand_info->name;
+        }
+        $user_info = $this->loadModel('user', 'sys')->getByUserInfo($order_info->user_id);
+        $this->view->order = $order_info;
+        $this->view->user_info = $user_info;
+        $this->view->saler_id = $this->app->user->id;
+        $this->display();
+    }
+    
+    //取衣
+    public function takedown() {
+        $this->view->id = $_GET['id'];
+//        $order_info = $this->order->getByID($_GET['id']);
+//        $this->view->order_info = $order_info;
+//        $cloth_list =  $this->order->getBySerial($order_info->serial);
+        if ($_GET) {
+            //获取会员卡信息
+            $result = $this->order->childUpdate($_GET['id'],6,'客户取衣');
+            if ($result)
+                $this->locate ("/sales/index.php?m=order&f=take");
+        }
+       //$this->display();
+    }
+    
+    //送洗
+    public function wash() {
+        $this->view->id = $_GET['id'];
+        if ($_GET) {
+            //获取会员卡信息
+            $result = $this->order->childUpdate($_GET['id'],2,'衣服送洗');
+            if ($result)
+                $this->locate ("/sales/index.php?m=order&f=sendwash");
+        }
+        $this->display();
+    }
+    
+    
+    //送洗
+    public function sendwash($mode = 'all', $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 10, $pageID = 1) {
+        $this->app->loadClass('pager', $static              = true);
+        $pager               = new pager($recTotal, $recPerPage, $pageID);
+        $orders              = $this->order->getputawayList('', 1,$orderBy, $pager);
+        $this->view->title   = $this->lang->order->browse;
+        $this->view->pager   = $pager;
+        $this->view->mode    = $mode;
+        $this->view->orderBy = $orderBy;
+        $this->view->orders  = $orders;
+        $this->display();
+    }
+
+    //取衣
+    public function take($mode = 'all', $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 10, $pageID = 1) {
+        $this->app->loadClass('pager', $static              = true);
+        $pager               = new pager($recTotal, $recPerPage, $pageID);
+        $orders              = $this->order->getputawayList('', 5, $orderBy, $pager);
+        $this->view->title   = $this->lang->order->browse;
+        $this->view->pager   = $pager;
+        $this->view->mode    = $mode;
+        $this->view->orderBy = $orderBy;
+        $this->view->orders  = $orders;
+        $this->display();
+    }
+
+    /**
+     * Browse balance.
+     * 
+     * @param string $orderBy     the order by
+     * @param int    $recTotal 
+     * @param int    $recPerPage 
+     * @param int    $pageID 
+     * @access public
+     * @return void
+     */
+    public function feedbackList($depositor = 0, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 10, $pageID = 1) {
+        $this->app->loadClass('pager', $static              = true);
+        $pager               = new pager($recTotal, $recPerPage, $pageID);
+        $orders              = $this->order->getFeedbackList('', $orderBy, $pager);
+        $this->view->title   = $this->lang->order->feedbackList;
+        $this->view->pager   = $pager;
+        $this->view->orderBy = $orderBy;
+        $this->view->orders  = $orders;
+        $this->display();
+    }
+
+    /**
+     * Create a contact.
+     * 
+     * @param  int    $depositor 
+     * @access public
+     * @return void
+     */
+    public function create($serial = 0) {
+        if ($_POST) {
+        	$rs = $this->order->continues();
+        }
+        if ($serial == 0){
+            $store_id = $this->app->user->dept;
+            $order_num = $this->order->getTotal($store_id, strtotime(date('Y-m-d')));
+            $serial = $store_id.date('Ymd').($order_num+1);
+        }
+        $brandList = $this->loadModel('sets', 'sales')->getBlandSelect();
+        //获取类型
+//        $this->view->title            = $this->lang->balance->create;
+//        $this->view->currentDepositor = $depositor;
+        $this->view->setsList = $this->loadModel('sets', 'sales')->getListName();
+        $this->view->serial = $serial;
+//         $this->view->clothModelList = $this->loadModel('cloth', 'sys')->getList(1);
+        $this->view->brandList      = $brandList;
+        //生成洗涤码
+        $this->view->order_sn       = $this->makePaySn(1);
+//        $this->view->currencyList     = $this->loadModel('common', 'sys')->getCurrencyList();
+        $this->display();
+    }
+
+    // 立即下单
+    public function confirm()
+    {
+    	if($_POST){
+	        $rs = $this->order->confirm();
+	        $this->locate('/sales/index.php?m=order&f=showConfirm&serial='.$rs['data']->serial);
+    	}else{
+    		$this->locate('/sales/index.php?m=order&f=browse');
+    	}
+    }
+    
+    public function showConfirm($serial)
+    {
+    	$data = $this->order->getSerialBySerial($serial);
+    	$this->view->data = $data;
+    	$this->view->userList = $this->loadModel('contact', 'crm')->getNameList();
+    	$this->view->title = $this->lang->order->confirm;
+    	$this->display();
+    }
+    
+    public function continues()
+    {
+    	$serial = $_POST['serial'];
+        $rs = $this->order->confirm();
+        $this->create($serial);
+    }
+    
+    public function doPay()
+    {
+    	$rs = $this->order->pay();
+    	$this->send($rs);
+    }
+    
+    /**
+     * Create a contact.
+     * 
+     * @param  int    $depositor 
+     * @access public
+     * @return void
+     */
+    public function feedback($id = 0) {
+        if ($_POST) {
+            //获取会员卡信息
+            $feedback_id = $this->order->feedback();
+            if (dao::isError())
+                $this->send(array('result' => 'fail', 'message' => dao::getError()));
+            if ($feedback_id)
+                $this->send(array('result' => 'success', 'message' => "添加成功", 'locate' => $this->server->http_referer));
+        }
+        if (!$id) {
+            $this->locate(inlink('browse'));
+        }
+        //获取类型
+//        $this->view->title            = $this->lang->balance->create;
+//        $this->view->currentDepositor = $depositor;
+        $this->view->clothModelList = $this->loadModel('cloth', 'sys')->getList(1);
+        $this->view->brandList      = $this->loadModel('cloth', 'sys')->getList(2);
+        $this->view->order_info     = $this->order->getByID($id);
+        //生成洗涤码
+        $this->view->order_sn       = $this->makePaySn(1);
+//        $this->view->currencyList     = $this->loadModel('common', 'sys')->getCurrencyList();
+        $this->display();
+    }
+
+    public function orderList() {
+        $this->display();
+    }
+
+    public function makePaySn($member_id) {
+        return mt_rand(10, 99)
+                . sprintf('%010d', time() - 946656000)
+                . sprintf('%03d', (float) microtime() * 1000)
+                . sprintf('%03d', (int) $member_id % 1000);
+    }
+
+    /**
+     * Edit a balance.
+     * 
+     * @param  int    $balanceID 
+     * @access public
+     * @return void
+     */
+    public function edit($balanceID) {
+        $balance = $this->balance->getByID($balanceID);
+        if (empty($balance))
+            die();
+        if ($_POST) {
+            $changes = $this->balance->update($balanceID);
+            if (dao::isError())
+                $this->send(array('result' => 'fail', 'message' => dao::getError()));
+
+            if ($changes) {
+                $actionID = $this->loadModel('action')->create('balance', $balanceID, 'Edited', '');
+                $this->action->logHistory($actionID, $changes);
+            }
+
+            $this->send(array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => inlink('browse')));
+        }
+
+        $this->view->title         = $this->lang->balance->edit;
+        $this->view->balance       = $balance;
+        $this->view->depositorList = $this->loadModel('depositor')->getList();
+        $this->view->currencyList  = $this->loadModel('common', 'sys')->getCurrencyList();
+
+        $this->display();
+    }
+
+    /**
+     * Delete a balance.
+     * 
+     * @param  int      $balanceID 
+     * @access public
+     * @return void
+     */
+    public function delete($balanceID) {
+        if ($this->balance->delete($balanceID))
+            $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
+    
+    /**
+     * get data to export.
+     * 
+     * @param  string $range 
+     * @param  string $mode 
+     * @param  string $orderBy 
+     * @param  int    $recTotal 
+     * @param  int    $recPerPage 
+     * @param  int    $pageID 
+     * @access public
+     * @return void
+     */
+    public function export($mode = 'all', $orderBy = 'id_desc')
+    { 
+        if($_POST)
+        {
+            $contactLang   = $this->lang->contact;
+            $contactConfig = $this->config->contact;
+
+            /* Create field lists. */
+            $fields = explode(',', $contactConfig->list->exportFields);
+            foreach($fields as $key => $fieldName)
+            {
+                $fieldName = trim($fieldName);
+                $fields[$fieldName] = isset($contactLang->$fieldName) ? $contactLang->$fieldName : $fieldName;
+                unset($fields[$key]);
+            }
+
+            $contacts = array();
+            if($mode == 'all')
+            {
+                $contactQueryCondition = $this->session->contactQueryCondition;
+                if(strpos($contactQueryCondition, 'limit') !== false) $contactQueryCondition = substr($contactQueryCondition, 0, strpos($contactQueryCondition, 'limit'));
+                $stmt = $this->dbh->query($contactQueryCondition);
+                while($row = $stmt->fetch()) $contacts[$row->id] = $row;
+            }
+
+            if($mode == 'thisPage')
+            {
+                $stmt = $this->dbh->query($this->session->contactQueryCondition);
+                while($row = $stmt->fetch()) $contacts[$row->id] = $row;
+            }
+
+            $users     = $this->loadModel('user')->getPairs('noletter');
+            $customers = $this->loadModel('customer')->getPairs();
+
+            $resumes     = $this->dao->select('*')->FROM(TABLE_RESUME)->where('deleted')->eq(0)->fetchGroup('contact');
+            $addressList = $this->dao->select('*')->FROM(TABLE_ADDRESS)->fetchGroup('objectID');
+            $areaList    = $this->loadModel('tree')->getOptionMenu('area');
+
+            foreach($contacts as $id => $contact)
+            {
+                $contact->resume = array();
+                if(!empty($resumes[$id]))
+                {
+                    foreach($resumes[$id] as $resume)
+                    {
+                        $contact->resume[] = $resume->join . $this->lang->minus . ($resume->left ? $resume->left : $this->lang->today . ' ') . $customers[$resume->customer] . $resume->dept . $resume->title;
+                    }
+                }
+            }
+
+            foreach($contacts as $contact)
+            {
+                $contact->address = array();
+                if(!empty($addressList[$contact->id]))
+                {
+                    foreach($addressList[$contact->id] as $address)
+                    {
+                        $contact->address[] = ((isset($address->area)) ? str_replace('/', ' ', zget($areaList, $address->area)) : '') . $address->location;
+                    }
+                }
+                elseif(!empty($addressList[$contact->customer]))
+                {
+                    foreach($addressList[$contact->customer] as $address)
+                    {
+                        $contact->address[] = ((isset($address->area)) ? str_replace('/', ' ', zget($areaList, $address->area)) : '') . $address->location;
+                    }
+                }
+            }
+
+            foreach($contacts as $contact)
+            {
+                if(isset($customers[$contact->customer]))              $contact->customer = $customers[$contact->customer];
+                if(isset($this->lang->genderList->{$contact->gender})) $contact->gender   = $this->lang->genderList->{$contact->gender};
+
+                if(isset($users[$contact->createdBy]))   $contact->createdBy   = $users[$contact->createdBy];
+                if(isset($users[$contact->editedBy]))    $contact->editedBy    = $users[$contact->editedBy];
+                if(isset($users[$contact->contactedBy])) $contact->contactedBy = $users[$contact->contactedBy];
+
+                $contact->createdDate   = substr($contact->createdDate, 0, 10);
+                $contact->editedDate    = substr($contact->editedDate, 0, 10);
+                $contact->contactedDate = substr($contact->contactedDate, 0, 10);
+                $contact->nextDate      = substr($contact->contactedDate, 0, 10);
+
+                if(isset($contact->resume))  $contact->resume  = join("; \n", $contact->resume);
+                if(isset($contact->address)) $contact->address = join("; \n", $contact->address);
+            }
+
+            $this->post->set('fields', $fields);
+            $this->post->set('rows', $contacts);
+            $this->post->set('kind', 'contact');
+            $this->fetch('file', 'export2CSV' , $_POST);
+        }
+
+        $this->display();
+    }
+	
+    public function editcloth($id)
+    {	
+    	if($_POST){
+    		$rs = $this->order->editcloth($id);
+    		$this->send($rs);
+    	}
+    	$order = $this->order->getOrderById($id);
+    	$brandList = $this->loadModel('sets', 'sales')->getBlandSelect();
+    	$this->view->setsList = $this->loadModel('sets', 'sales')->getListName();
+    	$this->view->serial = $order->serial;
+    	$this->view->brandList      = $brandList;    	
+    	$this->view->order = $order;
+    	$this->view->order_sn       = $order->order_sn;
+    	$this->view->title = $this->lang->editcloth;
+    	$this->display();
+    }
+}

@@ -1,0 +1,25 @@
+<?php
+/**
+ * The model file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     contact
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class depositModel extends model
+{
+  
+    
+    public function getNumberInfo($number)
+    {
+        
+        return $this->dao->select('t1.*,t2.realname')->from(TABLE_FINANCE_CARD)->alias('t1')
+            ->leftJoin(TABLE_FINANCE_RELADTION)->alias('t3')->on('t3.card_id=t1.id')->leftJoin(TABLE_CONTACT)->alias('t2')->on('t2.id=t3.uid')           
+            ->where('t1.status')->ne(2)->andWhere('t1.number')->eq($number)
+            ->fetch();
+        
+    }
+}

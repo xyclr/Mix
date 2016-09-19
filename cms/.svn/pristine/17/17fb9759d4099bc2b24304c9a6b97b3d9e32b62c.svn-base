@@ -1,0 +1,57 @@
+<?php
+/**
+ * The zh-cn file of common module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Chunsheng wang <chunsheng@cnezsoft.com>
+ * @package     common 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+$lang->app = new stdclass();
+$lang->app->name = 'FINANCE';
+
+$lang->menu->finance = new stdclass();
+// $lang->menu->finance->dashboard = '我的地盘|card|browse|';
+$lang->menu->finance->card      = '卡片|card|browse|';
+$lang->menu->finance->deposit   = '充值|deposit|create|';
+$lang->menu->finance->trade     = '交易|order|browse|';
+$lang->menu->finance->cate      = '类型|cate|browse|';
+// $lang->menu->finance->check     = '对账|depositor|check|';
+// $lang->menu->finance->depositor = '账户|depositor|browse|';
+// $lang->menu->finance->provider  = '供应商|provider|browse|';
+//$lang->menu->cash->contact   = '联系人|contact|browse|';
+// $lang->menu->finance->setting   = '设置|tree|browse|type=in|';
+
+/* Menu of depositor module. */
+$lang->depositor = new stdclass();
+
+/* Menu of trade module. */
+// $lang->card = new stdclass();
+// $lang->card->menu = new stdclass();
+// $lang->card->menu->browse   = array('link' => '所有卡片|card|browse|mode=all');
+// $lang->card->menu->in       = array('link' => '售出|trade|browse|mode=in');
+// $lang->card->menu->out      = array('link' => '未售|trade|browse|mode=out');
+// $lang->card->menu->transfer = array('link' => '转账|trade|browse|mode=transfer');
+// $lang->card->menu->inveset  = array('link' => '投资|trade|browse|mode=inveset&orderBy=depositor');
+// $lang->card->menu->report   = array('link' => '报表|trade|report|');
+
+/* Menu of trade module. */
+// $lang->provider = new stdclass();
+// $lang->provider->menu = new stdclass();
+// $lang->provider->menu->browse = array('link' => '供应商列表|provider|browse|', 'alias' => 'create,edit,view');
+
+// /* Menu of trade module. */
+// $lang->contact = new stdclass();
+// $lang->contact->menu = new stdclass();
+// $lang->contact->menu->browse = array('link' => '联系人列表|contact|browse|', 'alias' => 'create,edit,view');
+
+// /* Menu of setting module. */
+// $lang->setting = new stdclass();
+// $lang->setting->menu = new stdclass();
+// $lang->setting->menu->income    = '收入科目|tree|browse|type=in|';
+// $lang->setting->menu->expend    = '支出科目|tree|browse|type=out|';
+// $lang->setting->menu->currency  = '货币类型|setting|lang|module=common&field=currencyList';
+// $lang->setting->menu->schema    = '导入模板设置|schema|browse|';
+// $lang->setting->menu->tradePriv = '支出浏览权限设置|group|managetradepriv|';

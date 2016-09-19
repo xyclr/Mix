@@ -1,0 +1,92 @@
+.tableForm {
+	
+}
+
+.tableForm th {
+	text-align: right;
+}
+
+.tableForm td {
+	
+}
+
+.tableForm input {
+	width: 150px;
+}
+
+.tableCss {
+	background: #E2F5BC;
+	border: 1px solid #E2F5BC;
+}
+
+.tableCss th {
+	font: bold 14px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	color: #4f6b72;
+	border-right: 1px solid #E2F5BC;
+	border-bottom: 1px solid #E2F5BC;
+	border-top: 1px solid #E2F5BC;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: left;
+	padding: 6px 6px 6px 12px;
+	background: #EDF9D5;
+}
+
+.tableCss td {
+	border-right: 1px solid #E2F5BC;
+	border-bottom: 1px solid #E2F5BC;
+	background: #F8FBFB;
+	font-size: 16px;
+	padding: 6px 6px 6px 12px;
+	color: #4f6b72;
+}
+
+.logo {
+	background: url('images/log.bmp') no-repeat;
+}
+
+.info {
+	background: #FFFEE6;
+	color: #8F5700;
+	padding: 12px;
+}
+
+.tip {
+	width: 24px;
+	height: 16px;
+	float: left;
+}
+
+/**
+ * @description 设置a标签样式
+ */
+a.sysui_link:link {
+    color:blue; 
+    text-decoration:none;
+    margin-left:6px;
+}
+
+a.sysui_link:visited {
+    color:green;
+    text-decoration:none;
+    margin-left:6px;
+}
+
+a.sysui_link:active {
+    color: red; 
+    margin-left:6px;
+}
+
+a.sysui_link:hover {
+    color: blue; 
+    text-decoration:underline;
+    margin-left:6px;
+}
+
+/**
+ * 系统默认input表单样式
+ */
+input.easyui-text,input.easyui-datetimebox,input.easyui-combobox,select.easyui-combobox {
+    width: 150px;
+}
+

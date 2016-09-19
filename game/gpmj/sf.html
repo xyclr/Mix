@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+
+    var ALLTYPE = '1,2,3,4,5,6,7,8,9'.split(',');
+
+    /**
+     * 扑克牌类，只用来表示牌的基本属性，不包含游戏逻辑，所有属性只读，
+     * 因此全局只需要有 52 个实例（去掉大小王），不论有多少副牌
+     * @class Card
+     * @constructor
+     * @param {Number} point - 可能的值为 1 到 13
+     * @param {Suit} suit
+     */
+    function Card (point, suit, counter) {
+        Object.defineProperties(this, {
+            point: {
+                value: point,
+                writable: false
+            },
+            suit: {
+                value: suit,
+                writable: false
+            },
+            /**
+             * @property {Number} id - 可能的值为 0 到 107
+             */
+            id: {
+                value: (suit - 1) * 9 + (point - 1),
+                writable: false
+            },
+
+        });
+    }
+
+    Card.prototype.toString = function () {
+        return this.suitName + ' ' + this.pointName;
+    };
+
+    // 存放 108 张牌实例
+    var cards = new Array(108);
+
+    /**
+     * 返回指定 id 的实例
+     * @param {Number} id - 0 到 107
+     */
+    Card.fromId = function (id) {
+        return cards[id];
+    };
+
+
+    // 初始化所有牌
+    (function createCards () {
+        var counter = 0;
+        for (var s = 1; s <= 3; s++) {
+            for (var p = 1; p <= 9; p++) {
+                for (var k = 1; k <= 4; k++) {
+                    var card = new Card(p, s, counter);
+                    cards[counter] = card;
+                    counter = counter + 1;
+                }
+            }
+        }
+    })();
+
+    console.dir(cards);
+
+    var playerCards = [];
+
+
+
+//   (suit - 1) * 9 + (point - 1),
+    playerCards = [
+
+        {id:0,point:1,suit:1},
+        {id:0,point:2,suit:1},
+        {id:0,point:3,suit:1},
+        {id:0,point:4,suit:1},
+        {id:1,point:5,suit:1},
+        {id:2,point:6,suit:1},
+        {id:3,point:7,suit:1},
+        {id:4,point:8,suit:1},
+        {id:5,point:9,suit:1},
+
+        {id:9,point:1,suit:2},
+        {id:9,point:2,suit:2},
+        {id:9,point:3,suit:2},
+        {id:12,point:4,suit:2},
+        {id:12,point:4,suit:2},
+    ];
+
+    console.dir(playerCards);
+
+
+
+
+    console.info('缺?:' + isQue(playerCards));
+    console.info('对?:' + findPairs(playerCards));
+    console.info('胡牌?:' + isHuPai(playerCards));
+
+    function isHuPai(cards){
+
+        var ret = [].concat(cards);
+        var nPairs = findPairs(ret);
+        var isHuPai = false;
+        var curCards = [];//当前剩余的牌
+        var count = 0;//寻找将对 次数
+        var goSearch = true;
+
+        //未缺或者没有将对不能胡牌
+        if(!isQue(ret) && (nPairs.length !== 0)) return false;
+
+        nPairs.forEach(function(v){
+
+            count = 0;
+            goSearch = true;
+
+            console.info('对' + v);
+            var delArrObjTwice = function(temp){
+                var temp = [].concat(temp);
+                for(var i = 0;i< temp.length; i++) {
+                    if(count === 2) {
+                        break;
+                    }
+                    if(temp[i].id === v){
+                        temp.splice(i,1);
+                        count++;
+                        break;
+                    }
+                }
+                if(count < 2){
+                    delArrObjTwice(temp);
+                } else {
+                    curCards = [].concat(temp);
+                }
+            };
+
+            delArrObjTwice(ret);
+
+            console.dir(curCards);
+
+            //从第一张（种）牌开始往后检查，每张牌有4种可能，  1， 2，3，4。
+            var checkHuiPai = function(temp){
+                var temp = [].concat(temp);
+                var curCard = null;
+
+
+                if(temp.length === 0) {
+                    isHuPai = true;
+                    goSearch = false;
+                    console.info('胡牌');
+                    return false;
+                }
+
+
+                for(var i = 0;i< temp.length; i++) {
+
+                    curCard = temp[i];
+
+                    if(!goSearch) break;
+
+                    var cardLen = getCurCardlen(curCard, temp);
+
+                    console.info('curCard:' + curCard.id);
+                    switch (cardLen) {
+                        case 1:
+                            console.info('1');
+
+                            console.info('findShun:' + findShun(curCard,temp));
+                            if(findShun(curCard,temp)) {
+                                temp = delItemById((curCard.id+1), delItemById((curCard.id+2), delItemById((curCard.id), temp)));
+                                console.dir('temp');
+                                console.dir(temp);
+                                checkHuiPai(temp);
+                            } else {
+                                goSearch = false;
+                            }
+                            break;
+                        case 2:
+                            console.info('2');
+
+                            console.info('findShun:' + findShun(curCard,temp));
+                            if(findShun(curCard,temp)) {
+                                temp = delItemById((curCard.id+1), delItemById((curCard.id+2), delItemById((curCard.id), temp)));
+                                console.dir('temp');
+                                console.dir(temp);
+                                checkHuiPai(temp);
+                            }else {
+                                goSearch = false;
+                            }
+                            break;
+                        case 3:
+
+                                var findkeshun = findKeShun(curCard,temp);
+                                if(findkeshun.finded) {
+                                    console.info('3 ke sun');
+                                    temp = findkeshun.temp;
+                                } else {
+                                    console.info('3 ke');
+                                    temp = delItemById((curCard.id), delItemById((curCard.id), delItemById((curCard.id), temp)));
+
+                                }
+                                checkHuiPai(temp);
+                            break;
+                        case 4:
+                            console.info('4');
+
+                            if(findShun(curCard,temp)) {
+                                temp = delItemById((curCard.id+1), delItemById((curCard.id+2), delItemById((curCard.id), temp)));
+
+
+                                var findkeshun = findKeShun(curCard,temp);
+                                if(findkeshun.finded) {
+                                    console.info('3 ke sun');
+                                    temp = findkeshun.temp;
+                                } else {
+                                    console.info('3 ke');
+                                    temp = delItemById((curCard.id), delItemById((curCard.id), delItemById((curCard.id), temp)));
+
+                                }
+                                checkHuiPai(temp);
+                                //case 3
+                            }else {
+                                goSearch = false;
+                            }
+
+                            break;
+                        default: break;
+                    }
+                }
+            };
+
+            checkHuiPai(curCards);
+        });
+
+        return isHuPai;
+    }
+
+    function getCurCardlen(cur,temp){
+        var len = 0;
+
+        for(var val of temp) {
+            if(val.id === cur.id) len++;
+        }
+        return len;
+    }
+
+    function findShun(cur,arr){
+        var finded = false;
+        var temp = [].concat(arr);
+
+        if(cur.id < 7 || (cur.id < 16 && cur.id > 8) || (cur.id > 17 && cur.id < 25)) {
+            if(hasItemById((cur.id+1), temp) && hasItemById((cur.id+2), temp)) {
+                finded = true;
+            }
+        }
+        return finded;
+    }
+
+    function findKeShun(cur,arr){
+        var finded = true;
+        var temp = [].concat(arr);
+
+        if(cur.id < 7 || (cur.id < 16 && cur.id > 8) || (cur.id > 17 && cur.id < 25)) {
+
+
+            for(var i = 0; i < 3; i++) {
+                if(hasItemById((cur.id+1), temp) && hasItemById((cur.id+2), temp)) {
+                    finded = true;
+                    temp = delItemById((cur.id+2), delItemById((cur.id+1), delItemById((cur.id), temp)));
+                } else {
+                    finded = false;
+                    break;
+                }
+            }
+        }
+        return {
+            finded: finded,
+            temp: temp
+        };
+    }
+
+    function findGang(cur,arr){
+        var finded = false;
+        var temp = [].concat(arr);
+
+        if(cur.id < 7 || (cur.id < 16 && cur.id > 8) || (cur.id > 17 && cur.id < 25)) {
+            if(hasItemById((cur.id+1), temp) && hasItemById((cur.id+2), temp)) {
+                finded = true;
+            }
+        }
+        return finded;
+    }
+
+    function hasItemById(id,arr){
+        var temp = [].concat(arr);
+        var has = false;
+        for(var i = 0; i < temp.length; i++) {
+            if(temp[i].id === id) {
+                has = true;
+                break;
+            }
+        }
+        return has;
+    }
+
+    function delItemById(id, arr){
+        var temp = [].concat(arr);
+        for(var i = 0; i < temp.length; i++) {
+            if(temp[i].id === id) {
+                temp.splice(i, 1)
+                break;
+            }
+        }
+        return temp;
+    }
+
+    function findPairs(cards){
+        var ret = [].concat(cards);
+        var temp = ret;
+        var nPairs = [];
+
+        ret.forEach(function(v, i){
+            temp = ret;
+            var findCard = temp.splice(i,1);
+            temp.forEach(function(value) {
+                if(value.id === findCard[0].id) {
+                    nPairs.push(value.id);
+                    return false;
+                }
+            });
+        });
+        return unique(nPairs);
+    }
+
+    function unique(arr) {
+        var ret = [];
+        for (var i = 0; i < arr.length; i++) {
+            var item = arr[i];
+            if (ret.indexOf(item) === -1) {
+                ret.push(item);
+            }
+        }
+        return ret
+    }
+
+    function isQue(cards){
+        var ret = cards;
+        var hasType = {
+            cylinder: false,   // 筒
+            strip: false,   // 条
+            wan: false,    //万
+        };
+        ret.forEach(function(v, i){
+            if(v.suit === 1) {
+                hasType.cylinder = true;
+            } else if(v.suit === 2) {
+                hasType.strip = true;
+            } else if(v.suit === 3) {
+                hasType.wan = true;
+            } else {
+                console.warn('card suit errow');
+            }
+        });
+
+        return !(hasType.cylinder && hasType.cylinder && hasType.wan);
+    }
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

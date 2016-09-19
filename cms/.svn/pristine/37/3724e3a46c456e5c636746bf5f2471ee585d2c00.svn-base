@@ -1,0 +1,3 @@
+.table td > a {display: inline-block; cursor: pointer;}
+.table td > a:hover {text-decoration: none;}
+.table td.reviewer{padding: 5px;}

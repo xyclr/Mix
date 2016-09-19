@@ -1,0 +1,71 @@
+<?php 
+/**
+ * The edit view file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     trade 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+?>
+<?php include '../../common/view/header.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/chosen.html.php';?>
+<div class='panel'>
+  <div class='panel-heading'>
+    <strong><i class="icon-edit"></i> <?php echo $lang->sets->edit;?></strong>
+  </div>
+  <div class='panel-body'>
+    <form method='post' id='ajaxForm' class='form-inline'>
+      <table class='table table-form w-p60'>
+        <tr>
+          <th><?php echo $lang->sets->type_title;?></th>
+          <td><?php echo html::select('type', $lang->sets->type, $sets->type, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->sets->name;?></th>
+          <td><?php echo html::input('name', $sets->name, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->sets->standard;?></th>
+          <td><?php echo html::input('standard', $sets->standard, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->sets->special1;?></th>
+          <td><?php echo html::input('special1', $sets->special1, "class='form-control'");?></td>
+        </tr>
+       <tr>
+          <th><?php echo $lang->sets->special2;?></th>
+          <td><?php echo html::input('special2', $sets->special2, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->sets->iron;?></th>
+          <td><?php echo html::input('iron', $sets->iron, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->sets->group_price;?></th>
+          <td><?php echo html::input('group_price', $sets->group_price, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->sets->work_day;?></th>
+          <td><?php echo html::input('work_day', $sets->work_day, "class='form-control'");?></td>
+        </tr>
+       <tr>
+          <th><?php echo $lang->sets->keep_day;?></th>
+          <td><?php echo html::input('keep_day', $sets->keep_day, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->sets->number;?></th>
+          <td><?php echo html::input('number', $sets->number, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th></th>
+          <td><?php echo html::submitButton() . '&nbsp;&nbsp;' . html::backButton();?><div id='duplicateError' class='hide'></div></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+<?php include '../../common/view/footer.html.php';?>

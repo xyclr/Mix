@@ -1,0 +1,273 @@
+<?php
+/**
+ * The model file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     contact
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class setsModel extends model
+{
+    /**
+     * Get trade by id.
+     * 
+     * @param  int    $id 
+     * @access public
+     * @return object
+     */
+    public function getByID($id)
+    {
+        return $this->dao->select('*')->from(TABLE_CLOTH_SET)->where('id')->eq($id)->fetch();
+    }
+
+    public function getBLandByID($id)
+    {
+        $rs = $this->dao->select('*')->from(TABLE_CLOTH_BLAND)->where('id')->eq($id)->fetch();
+        $rs->avatar = 'http://'.$_SERVER['HTTP_HOST'].$rs->avatar;
+        return $rs;
+    }
+    
+    public function getShelfByID($id)
+    {
+    	return $this->dao->select('*')->from(TABLE_SHELF)->where('id')->eq($id)->fetch();
+    }
+    
+    /** 
+     * Get trade list.
+     * 
+     * @param  string  $orderBy 
+     * @param  object  $pager 
+     * @access public
+     * @return array
+     */
+    public function getList($mode, $orderBy, $pager = null)
+    {          
+    	$moduleQuery = 'setsQuery';
+    	if($this->session->$moduleQuery == false) $this->session->set($moduleQuery, ' 1 = 1');
+    	$$moduleQuery = $this->loadModel('search', 'sys')->replaceDynamic($this->session->$moduleQuery);
+        return $this->dao->select('*')->from(TABLE_CLOTH_SET)->beginIf($mode == 'bysearch')->where($$moduleQuery)->fi()->page($pager)->fetchAll('id');
+    }
+
+    public function getShelfList($mode, $orderBy, $pager = null)
+    {
+    	return $this->dao->select('*')->from(TABLE_SHELF)->where('store_id')->eq($this->app->user->dept)->page($pager)->fetchAll('id');
+    }
+    
+    public function getBlandList($mode, $orderBy, $pager = null)
+    {
+        $rs = $this->dao->select('*')->from(TABLE_CLOTH_BLAND)->page($pager)->fetchAll('id');
+        foreach ($rs as &$val){
+            $val->avatar = 'http://'.$_SERVER['HTTP_HOST'].$val->avatar;
+        }
+        return $rs;
+    }
+    
+    public function getBlandSelect()
+    {
+        $result = array();
+        $rs = $this->dao->select('*')->from(TABLE_CLOTH_BLAND)->fetchAll('id');
+        foreach ($rs as &$val){
+            $result[$val->id] = $val->name.html::image('http://'.$_SERVER['HTTP_HOST'].$val->avatar);
+        }
+        return $result;
+    }
+    
+    public function createBland()
+    {
+        $url = $this->loadModel('file')->uploadImg('avatar');
+        $bland = fixer::input('post')
+            ->add('avatar', $url)
+            ->get();
+        $this->dao->insert(TABLE_CLOTH_BLAND)
+        ->data($bland)
+        ->autoCheck()
+        ->exec();
+                
+        if(!dao::isError())
+        {
+            $blandID = $this->dao->lastInsertID();
+            $this->loadModel('action')->create('cloth_bland', $blandID, 'Created', '');
+            return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => helper::createLink('sets', 'bland'));
+        }
+        
+        return array('result' => 'fail', 'message' => dao::getError());
+    }
+    
+    public function createShelf()
+    {
+    	$shelf = fixer::input('post')->add('store_id', $this->app->user->dept)->get();
+    	$this->dao->insert(TABLE_SHELF)
+    	->data($shelf)
+    	->autoCheck()
+    	->exec();
+    
+    	if(!dao::isError())
+    	{
+    		$shelfID = $this->dao->lastInsertID();
+    		$this->loadModel('action')->create('sales_shelf', $shelfID, 'Created', '');
+    		return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => helper::createLink('sets', 'shelf'));
+    	}
+    
+    	return array('result' => 'fail', 'message' => dao::getError());
+    }
+    
+    public function editShelf($shelfID)
+    {
+    	$shelf = fixer::input('post')->get();
+    	$this->dao->update(TABLE_SHELF)
+    	->data($shelf)
+    	->where('id')->eq($shelfID)
+    	->autoCheck()
+    	->exec();
+    
+    	if(!dao::isError())
+    	{
+    		$this->loadModel('action')->create('sales_shelf', $shelfID, 'Update', '');
+    		return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => helper::createLink('sets', 'shelf'));
+    	}
+    
+    	return array('result' => 'fail', 'message' => dao::getError());
+    }
+    
+    public function updateBland($blandID)
+    {
+        $url = $this->loadModel('file')->uploadImg('avatar');
+        if ($url){
+            $bland = fixer::input('post')
+            ->add('avatar', $url)
+            ->get();
+        }else{
+            $bland = fixer::input('post')->get();
+        }
+        $this->dao->update(TABLE_CLOTH_BLAND)
+        ->data($bland)
+        ->autoCheck()
+        ->where('id')->eq($blandID)
+        ->exec();
+    
+        if(!dao::isError())
+        {
+            $this->loadModel('action')->create('cloth_bland', $blandID, 'Update', '');
+            return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => helper::createLink('sets', 'bland'));
+        }
+    
+        return array('result' => 'fail', 'message' => dao::getError());
+    }
+    /**
+     * Create a trade.
+     * 
+     * @param  string    $type   in|out
+     * @access public
+     * @return void
+     */
+    public function create()
+    {
+        $cate = fixer::input('post')
+            ->get();
+        
+        $this->dao->insert(TABLE_CLOTH_SET)
+            ->data($cate)
+            ->autoCheck()
+            ->exec();
+
+        if(!dao::isError())
+        {
+            $cateID = $this->dao->lastInsertID();
+            $this->loadModel('action')->create('cloth_setsting', $cateID, 'Created', '');
+            return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => helper::createLink('sets', 'browse'));
+        }
+        
+        return array('result' => 'fail', 'message' => dao::getError());
+
+    }
+    
+    /**
+     * Update a trade.
+     * 
+     * @param  int    $tradeID 
+     * @access public
+     * @return string|bool
+     */
+    public function update($setsID)
+    {
+        $sets = fixer::input('post')
+            ->get();
+        
+        $this->dao->update(TABLE_CLOTH_SET)
+            ->data($sets)
+            ->autoCheck()
+            ->where('id')->eq($setsID)
+            ->exec();
+
+        if(!dao::isError())
+        {
+            $setsID = $this->dao->lastInsertID();
+            $this->loadModel('action')->create('cloth_setsting', $setsID, 'Update', '');
+            return array('result' => 'success', 'message' => $this->lang->saveSuccess, 'locate' => helper::createLink('sets', 'browse'));
+        }
+        
+        return array('result' => 'fail', 'message' => dao::getError());
+    }
+
+    /**
+     * Delete a trade.
+     * 
+     * @param  int      $tradeID 
+     * @access public
+     * @return void
+     */
+    public function delete($setsID)
+    {
+        $this->dao->delete(TABLE_CLOTH_SET)->where('id')->eq($setsID)->exec();
+        return !dao::isError();
+    }
+
+    public function search($name)
+    {
+        $result = array();
+        $rs = $this->dao->select('name')->from(TABLE_CLOTH_SET)->where('name')->like('%'.$name.'%')->fetchAll();
+        if (empty($rs)){
+            return $result;
+        }
+        
+        foreach ($rs as $val){
+            $result[] = array(
+                'name' => $val->name
+            );
+        }
+        return $result;
+    }
+    
+    public function getListName()
+    {
+        $rs = $this->dao->select('id,name,type,work_day')->from(TABLE_CLOTH_SET)->fetchAll();
+        foreach ($rs as $val){
+            $result[$val->id] = $val->name.' ('.$this->lang->sets->type[$val->type].')('.$val->work_day.'天工时)';
+        }
+        return $result;
+    }
+    
+    public function deleteBland($blandID)
+    {
+        $this->dao->delete(TABLE_CLOTH_BLAND)->where('id')->eq($blandID)->exec();
+        return !dao::isError();
+    }
+    
+    public function deleteShelf($shelfID)
+    {
+    	$this->dao->delete(TABLE_SHELF)->where('id')->eq($shelfID)->exec();
+    	return !dao::isError();
+    }
+    public function getShelfListByType($type)
+    {
+    	$rs = $this->dao->select('*')->from(TABLE_SHELF)->where('store_id')->eq($this->app->user->dept)->andWhere('type')->eq($type)->andWhere('order_sn')->eq('')->fetchAll();
+    	$result = array();
+    	foreach ($rs as $val){
+    		$result[$val->id] = $val->num;
+    	}
+    	return $result;
+    }
+}

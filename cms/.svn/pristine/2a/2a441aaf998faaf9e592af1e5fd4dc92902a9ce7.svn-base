@@ -1,0 +1,43 @@
+<?php
+/**
+ * The trade module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     trade
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+if(!isset($lang->cate)) $lang->cate = new stdclass();
+$lang->cate->id          = '编号';
+$lang->cate->type_title = '卡片类型';
+$lang->cate->type = array();
+$lang->cate->type[1] = '定制卡';
+$lang->cate->type[2] = '标准卡';
+$lang->cate->type[3] = '商务卡';
+$lang->cate->kind_title = '卡片种类';
+$lang->cate->kind = array();
+$lang->cate->kind[1] = '30000';
+$lang->cate->kind[2] = '20000';
+$lang->cate->kind[3] = '10000';
+$lang->cate->kind[4] = '6000';
+$lang->cate->kind[5] = '3000';
+$lang->cate->kind[6] = '1000';
+$lang->cate->kind[7] = '600';
+$lang->cate->kind[8] = '300';
+$lang->cate->price = '卡片价格';
+$lang->cate->amount = '卡面金额';
+$lang->cate->discount = '折扣';
+$lang->cate->standard = '标准';
+$lang->cate->special1 = '特种1';
+$lang->cate->special2 = '特种2';
+$lang->cate->iron = '熨烫';
+$lang->cate->group = '团购';
+$lang->cate->group_price = '团购价格';
+$lang->cate->create = '添加';
+$lang->cate->edit = '编辑';
+$lang->cate->delete = '删除';
+$lang->cate->radio = array();
+$lang->cate->radio[0] = '不支持';
+$lang->cate->radio[1] = '支持';

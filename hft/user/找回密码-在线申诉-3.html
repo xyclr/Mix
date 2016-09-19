@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>在线申诉</title>
+<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="bookmark" href="/favicon.ico">
+<link href="../css/base.css" rel="stylesheet" type="text/css">
+<link href="../css/reg.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<!--m-nav-3-->
+<div class="m-nav-3">
+    <div class="wraper"><h3 class="f-ib">找回密码</h3><span>通过您的手机号码以确认用户真实性，绝不会产生任何费用</span></div>
+</div>
+<!--case-->
+<div id="case-reg">
+    <div class="wraper">
+        <div class="content">
+            <div class="tit"><h3>您正在找回账号13412453311的密码</h3><a href="#">[更改号码]</a></div>
+            <div class="u-reg-stp">
+                <div class="item">
+                    <em>
+                        01
+                    </em>
+                    选择找回方式
+                </div>
+                <i class="arr">
+
+                </i>
+                <div class="item">
+                    <em>
+                        02
+                    </em>
+                    进行安全验证
+                </div>
+                <i class="arr">
+
+                </i>
+                <div class="item  cur">
+                    <em>
+                        03
+                    </em>
+                    找回密码成功
+                </div>
+                <div class="f-cb"></div>
+            </div>
+            <dl class="reg-form-3" style="">
+                <dt class="tit2">
+                    <i class="ok f-ib"></i><h3 class="c-green f-fs24 f-fwn f-ib">您好！您的申诉已经提交成功！!</h3>
+                </dt>
+                <dt class="c-gray2">
+                    我们将在1个工作日提内处理您的申诉，申诉结果将发到您申诉的邮箱中
+                </dt>
+                <dt>
+                    <a href="" class="c-blue-2 f-fs14 f-tdu">进入首页</a>
+                </dt>
+            </dl>
+        </div>
+    </div>
+    <div class="f-cb"></div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/common.js"></script>
+<script type="text/javascript">
+    $.fn.hft_dropList = function(options) {
+        //下拉菜单
+        var defaults = {
+            handler : ".m-dropList-a",
+            menu : "m-dropList-menu",
+            event :"click"
+        };
+        var opts = $.extend(defaults, options);
+        var target=$(this),
+                $handler=target.find(opts.handler),
+                $menu=target.find(opts.menu);
+        target.bind(opts.event,function(){
+            $(".dropDown").removeClass('open');
+            if(target.hasClass('open')){
+                target.removeClass('open');
+            }
+            else{
+                $(this).addClass('open');
+            }
+            return false;
+        });
+        target.find("a").on("click",function(){
+            var _this = $(this),
+                    val = _this.text();
+            _this.parents(".m-dropList-menu").siblings().html(val);
+        })
+        $("body").click(function(){target.removeClass('open');});
+    };
+    //调用
+    $('.m-dropList').hft_dropList();
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<?php
+/**
+ * The trade module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     trade
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+
+$lang->sets->id          = '编号';
+$lang->sets->shelf = '格架系列';
+$lang->sets->num = '格架编号';
+$lang->sets->type_title = '类型';
+$lang->sets->type = array();
+$lang->sets->type[1] = '外套类';
+$lang->sets->type[2] = '裤子类';
+$lang->sets->type[3] = '裙子类';
+$lang->sets->type[4] = '上衣类';
+$lang->sets->type[5] = '小件类';
+$lang->sets->type[6] = '卧卫类';
+$lang->sets->type[7] = '家居类';
+$lang->sets->type[8] = '皮上衣类';
+$lang->sets->type[9] = '皮包类';
+$lang->sets->name = '衣物名称';
+$lang->sets->standard = '普通';
+$lang->sets->special1 = '特种1';
+$lang->sets->special2 = '特种2';
+$lang->sets->iron = '熨烫';
+$lang->sets->work_day = '交活天数';
+$lang->sets->keep_day = '保管天数';
+$lang->sets->number = '格架系列';
+$lang->sets->group_price = '团购价格';
+$lang->sets->create = '添加';
+$lang->sets->edit = '编辑';
+$lang->sets->delete = '删除';
+$lang->sets->radio = array();
+$lang->sets->radio[0] = '不支持';
+$lang->sets->radio[1] = '支持';
+$lang->sets->bland = '品牌';
+$lang->sets->avatar = '头像';
+$lang->sets->shelf_num = array();
+$lang->sets->shelf_num['99A'] = '99A';
+$lang->sets->shelf_num['99B'] = '99B';
+$lang->sets->shelf_num['99C'] = '99C';
+$lang->sets->shelf_num['99D'] = '99D';
+$lang->sets->shelf_num['99E'] = '99E';
+$lang->sets->shelf_num['3A'] = '3A';
+$lang->sets->shelf_num['7C'] = '7C';

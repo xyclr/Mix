@@ -1,0 +1,18 @@
+<?php
+/**
+ * The balance module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     balance
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+
+$lang->order->id        = '编号';
+$lang->order->name  = '店铺名称';
+$lang->order->rechargeMoney     = '预存额';
+$lang->order->orderMoney      = '营业额';
+$lang->order->cardMoney      = '刷卡额';
+$lang->order->detail      = '详情';

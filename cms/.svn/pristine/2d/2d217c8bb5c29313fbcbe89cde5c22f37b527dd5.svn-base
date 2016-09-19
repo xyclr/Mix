@@ -1,0 +1,103 @@
+<?php
+/**
+ * The control file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     trade
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class trellis extends control
+{
+    /** 
+     * The index page, locate to the browse page.
+     * 
+     * @access public
+     * @return void
+     */
+    public function index()
+    {
+        $this->locate(inlink('browse'));
+    }
+
+	public function browse($mode = 'all', $orderBy = 'number_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    {   
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+
+        $trellis = $this->trellis->getAll($mode, $orderBy, $pager);
+        $this->view->title     = $this->lang->trellis->list;
+        $this->view->mode      = $mode;
+        $this->view->trellis  = $trellis;
+        $this->view->pager     = $pager;
+        $this->view->orderBy   = $orderBy;
+        $this->display();
+    }   
+    
+    
+    public function create()
+    {
+        if($_POST)
+        {
+            $return = $this->trellis->create();
+            $this->send($return);
+        }
+        
+        unset($this->lang->trellis->menu);
+        
+        $store = $this->loadModel('order', 'finance')->getStoreList();
+        if (!empty($store)){
+        	foreach ($store as $val){
+        		$storeList[$val->id] = $val->name;
+        		$store_id[] = $val->id;
+        	}
+        }
+        $is_store_member = false;
+        $member_dept = $this->app->user->dept;
+        if (in_array($member_dept, $store_id)){
+        	$is_store_member = true;
+        }
+        $this->view->title         = $this->lang->trellis->create;
+        $this->view->store         = $storeList;
+        $this->view->is_store_member = $is_store_member;
+        $this->display();
+    }
+    
+    public function delete($trellisID)
+    {
+    	if($this->trellis->delete($trellisID)) $this->send(array('result' => 'success'));
+    	$this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
+    
+    public function edit($trellisID)
+    {
+    	if($_POST)
+    	{
+    		$return = $this->trellis->edit($trellisID);
+    		$this->send($return);
+    	}
+    	$trellis = $this->trellis->getById($trellisID);
+    	
+    	
+    	$store = $this->loadModel('order', 'finance')->getStoreList();
+    	if (!empty($store)){
+    		foreach ($store as $val){
+    			$storeList[$val->id] = $val->name;
+    			$store_id[] = $val->id;
+    		}
+    	}
+    	$is_store_member = false;
+    	$member_dept = $this->app->user->dept;
+    	if (in_array($member_dept, $store_id)){
+    		$is_store_member = true;
+    	}
+    	$this->view->trellis  = $trellis;
+    	$this->view->title     = $this->lang->trellis->edit;
+    	$this->view->is_store_member = $is_store_member;
+    	$this->view->store         = $storeList;
+    	$this->display();
+    }
+    
+}

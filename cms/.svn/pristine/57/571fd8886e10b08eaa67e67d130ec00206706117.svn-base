@@ -1,0 +1,47 @@
+.page {clear: left!important; padding: 0}
+
+.cards.cards-user {margin: 0; padding: 10px; position: relative;}
+.col-card {width: 33%; float: left; padding: 10px}
+
+.card-user {overflow: hidden;}
+.card-user > .card-heading {border-bottom: 1px solid #e5e5e5; text-shadow: 1px 1px 20px rgba(255,255,255,0.85); background: #b2d9e4;  background: #f5f5f5}
+.card-user.gender-f > .card-heading {background: #f6b9b2; background: #f5f5f5}
+.card-user.gender-f > .card-heading > .avatar:before {background: #fe6553;}
+.card-user > .card-heading {position: relative; padding: 0; height: 100px;}
+.card-user > .card-heading > img.bg
+{
+  display: none;
+  position: absolute; left: -30%; top: -220%; width: 150%; max-width: inherit; z-index: 1;
+  transition: all .5s ease-out;
+  -webkit-filter: blur(15px); /* Chrome, Opera */
+  -moz-filter: blur(15px);
+  -ms-filter: blur(15px);
+  -o-filter: blur(15px);
+  filter: blur(15px);
+  filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=15, MakeShadow=false); /* IE6~IE9 */
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){.card-user > .card-heading > img.bg {display: none}}
+noindex:-o-prefocus, .card-user > .card-heading > img.bg{display: none}
+@-moz-document url-prefix(){.card-user > .card-heading > img.bg {display: none}}
+.card-user > .card-heading > .cover {position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 2; background: #fff; opacity: 0.4; filter: alpha(opacity=40) }
+.card-user > .card-heading > .avatar {position: absolute; left: 30px; top: 25px; display: block; border-radius: 50%; z-index: 3; border: 1px solid #ddd; border-color: rgba(255,255,255,0.25); box-shadow: 1px 1px 20px rgba(255,255,255,0.25);}
+.card-user > .card-heading > .title {position: absolute; z-index: 4; left: 100px; padding: 15px 0; color: #000}
+.card-user > .card-heading > .title > h4.user-realname {font-size: 18px; margin: 12px 0 7px}
+.card-user > .card-heading > .title > .user-info {color: #444;}
+.card-user > .card-heading > .action {position: absolute; z-index: 4; right: 25px; top: 30px;}
+.card-user > .card-heading > .action > .btn-vcard {padding: 0; display: block; border-radius: 5px; color: #666; width: 40px; height: 40px; line-height: 40px; text-align: center; border: 1px solid #ddd; border-color: rgba(0,0,0,0.15); background: transparent; z-index: 11}
+.card-user > .card-heading > .action > .btn-vcard:hover {background: rgba(255,255,255,1); color: #333; text-decoration: none; border-color: rgba(0,0,0,0.25);}
+.card-user > .card-heading > .action > .btn-vcard > .icon-qrcode:before {font-size: 28px; line-height: 40px;}
+
+.card-user > .card-content {height: 112px}
+
+.contact-info {padding-left: 20px;}
+.contact-info > dd {line-height: 22px;}
+.contact-info > dd > .icon {margin-right: 5px; color: #555}
+
+.card-user > .vcard {position: absolute; height: 100%; width: 265px; left: 120px; top: -100%; top: -100%\0; z-index: 10; opacity: 0; box-shadow: 1px 0 5px rgba(0,0,0,0.24)}
+@media not screen and (1){.card-user > .vcard {top: -100%;}}
+.card-user > .vcard:before {display: block; content: ' '; display: block; width: 0; height: 0; border: 11px solid transparent; position: absolute; right: -22px; top: 40px; border-left-color: #ddd;}
+.card-user > .vcard > img {max-width: 200px; max-height: 200px; margin-top: 7px; border-radius: 10px; cursor: pointer;}
+.card-user > .vcard > .icon-remove {width: 20px; height: 20px; cursor: pointer; position: absolute; display: block; line-height: 20px; right: 10px; top: 10px; color: #eee}
+.card-user.show > .vcard {left: 0; top: 0; -webkit-transform: scale(1); -ms-transform: scale(1); transform: scale(1); opacity: 1;background: #fff}

@@ -1,0 +1,244 @@
+
+<?php include '../../common/view/header.html.php'; ?>
+<?php js::import($jsRoot . 'jquerycode/jquery-barcode.js'); ?>
+<div style="positon:relative;right:0px;">
+    <input type=button name=button_print value="打印" id="printbtn"> 
+</div>
+<div id="printarea">
+    <OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height=0 id=wb name=wb width=0></OBJECT> 
+    <table>
+        <tr align="center">
+            <td width="18%"></td>
+            <td width="18%"></td>
+            <td><?php echo $deptName->name; ?></td>
+            <td width="18%"></td>
+            <td width="18%"></td>
+        </tr>
+        <tr align="center">
+            <td width="18%"></td>
+            <td width="18%"></td>
+            <td>洗衣单</td>
+            <td width="18%"></td>
+            <td width="18%"></td>
+        </tr>
+    </table>
+     ------------------------------------------------------------------------------------<br />
+    <table>
+        <tr align="center">
+             <td width="28%"></td>
+            <td colspan="5">流水号：<?php echo $order->serial; ?></td>
+            <td width="18%"></td>
+        </tr>
+    </table>
+     <div id="barcodeTarget" style="margin-left:60px;">22</div><br/>
+    </table>
+     <script type="text/javascript">
+    
+      function generateBarcode(){
+        var value = "<?php echo $order->serial; ?>";
+        var btype = 'codabar';
+        var renderer = 'css';
+        
+	var quietZone = false;
+        if ($("#quietzone").is(':checked') || $("#quietzone").attr('checked')){
+          quietZone = true;
+        }
+		
+        var settings = {
+          output:renderer,
+          bgColor: '#FFFFFF',
+          color: '#000000',
+          barWidth: 1.8,
+          barHeight: 45,
+          moduleSize: 10,
+          posX: 10,
+          posY: 210,
+          addQuietZone: 1
+        };
+        if ($("#rectangular").is(':checked') || $("#rectangular").attr('checked')){
+          value = {code:value, rect: true};
+        }
+        if (renderer == 'canvas'){
+          clearCanvas();
+          $("#barcodeTarget").hide();
+          $("#canvasTarget").show().barcode(value, btype, settings);
+        } else {
+          $("#canvasTarget").hide();
+          $("#barcodeTarget").html("").show().barcode(value, btype, settings);
+        }
+      }
+      function clearCanvas(){
+        var canvas = $('#canvasTarget').get(0);
+        var ctx = canvas.getContext('2d');
+        ctx.lineWidth = 1;
+        ctx.lineCap = 'butt';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle  = '#000000';
+        ctx.clearRect (0, 0, canvas.width, canvas.height);
+        ctx.strokeRect (0, 0, canvas.width, canvas.height);
+      }
+      generateBarcode();
+    </script>
+    <table width="300px">
+        <tr>
+            <td colspan="5">打印日期：<?php echo date('Y年m月d日      H:i:s');?></td>
+        </tr>
+        <tr>
+            <td colspan="5">取衣日期：<?php echo date('Y年m月d日',$order->delivery_time);?></td></td>
+        </tr>
+        <tr>
+            <td >编号</td><td style="padding-left:10px" width="18%">名称</td><td style="padding-left:10px" width="18%">颜色</td><td style="padding-left:15px" width="18%">品牌</td>
+            <td style="padding-left:15px" width="18%">价格</td>
+        </tr>
+        <?php foreach ($order->list as $k => $v) { 
+            $total += $v->good_amount;
+            ?>
+            <tr>
+                <td><?php echo $v->id ?></td>
+                <td style="padding-left:10px"><?php echo $v->t_name; ?></td>
+                <td style="padding-left:10px"><?php echo $v->color; ?></td>
+                <td style="padding-left:15px"><?php echo $v->brand_name; ?></td>
+                <td style="padding-left:15px"><?php echo $v->good_amount; ?></td>
+            </tr>
+        <?php } ?>
+            <tr>
+                <td colspan="5">备注：<?php foreach ($order->list as $k => $v) { ?> <?php echo $v->remark; ?><?php } ?></td>
+            </tr>
+            <tr>
+                <td colspan="5">合计：衣物<?php echo $count; ?>件</td>
+            </tr>
+    </table>
+    ------------------------------------------------------------------------------------<br />
+    <table>
+        <tr align="center">
+            <td colspan="2">总金额：<?php echo $total;?>元</td>
+            <td colspan="3" style="padding-left:15px">实付金额：<?php echo $order->pay_amount;?>元</td>
+        </tr>
+    </table>
+    ------------------------------------------------------------------------------------<br />
+    <table>
+        <tr align="center">
+            <td>客户电话：<?php echo $user_info->mobile ? $user_info->mobile : '无';?></td>
+            <td style="padding-left:15px">店员编号：<?php echo $saler_id;?></td>
+        </tr>
+        <tr align="left">
+            <td colspan="2">客户姓名：<?php echo $user_info->realname ? $user_info->realname : '无';?></td>
+        </tr>
+    </table>
+    ------------------------------------------------------------------------------------<br />
+    谢谢您的惠顾，欢迎您再次光临！<br />
+    请保留小票<br />
+    <br /><br /><br />
+    ------------------------------------------------------------------------------------<br />
+    <br />
+    <OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height=0 id=wb name=wb width=0></OBJECT> 
+    <table>
+        <tr align="center">
+            <td width="18%"></td>
+            <td width="18%"></td>
+            <td colspan="5"><?php echo $deptName->name; ?></td>
+            <td width="18%"></td>
+            <td width="18%"></td>
+        </tr>
+        <tr align="center">
+            <td width="18%"></td>
+            <td width="18%"></td>
+            <td colspan="5">留底单</td>
+            <td width="18%"></td>
+            <td width="18%"></td>
+        </tr>
+    </table>
+     ------------------------------------------------------------------------------------<br />
+     <table>
+        <tr align="center">
+             <td width="28%"></td>
+            <td colspan="5">流水号：<?php echo $order->serial; ?></td>
+            <td width="18%"></td>
+        </tr>
+    </table>
+    <table width="300px">
+        <tr>
+            <td colspan="5">打印日期：<?php echo date('Y年m月d日      H:i:s');?></td>
+        </tr>
+        <tr>
+            <td colspan="5">取衣日期：<?php echo date('Y年m月d日',$order->delivery_time);?></td></td>
+        </tr>
+        <tr>
+            <td >编号</td><td style="padding-left:10px" width="18%">名称</td><td style="padding-left:10px" width="18%">颜色</td><td style="padding-left:15px" width="18%">品牌</td>
+            <td style="padding-left:15px" width="18%">价格</td>
+        </tr>
+        <?php foreach ($order->list as $k => $v) { 
+            $total_1 += $v->good_amount;
+            ?>
+            <tr>
+                <td><?php echo $v->id ?></td>
+                <td style="padding-left:10px"><?php echo $v->t_name; ?></td>
+                <td style="padding-left:10px"><?php echo $v->color; ?></td>
+                <td style="padding-left:15px"><?php echo $v->brand_name; ?></td>
+                <td style="padding-left:15px"><?php echo $v->good_amount; ?></td>
+            </tr>
+        <?php } ?>
+            <tr>
+                <td colspan="5">备注：<?php foreach ($order->list as $k => $v) { ?> <?php echo $v->remark; ?><?php } ?></td>
+            </tr>
+            <tr>
+                <td colspan="5">合计：衣物<?php echo $count; ?>件</td>
+            </tr>
+    </table>
+    ------------------------------------------------------------------------------------<br />
+    <table>
+        <tr align="center">
+            <td colspan="2">总金额：<?php echo $total_1;?>元</td>
+            <td colspan="3" style="padding-left:15px">实付金额：<?php echo $order->pay_amount;?>元</td>
+        </tr>
+    </table>
+    ------------------------------------------------------------------------------------<br />
+    <table>
+        <tr align="center">
+            <td>客户电话：<?php echo $user_info->mobile ? $user_info->mobile : '无';?></td>
+            <td style="padding-left:15px">店员编号：<?php echo $saler_id;?></td>
+        </tr>
+        <tr align="left">
+            <td colspan="2">客户姓名：<?php echo $user_info->realname ? $user_info->realname : '无';?></td>
+        </tr>
+    </table>
+    ------------------------------------------------------------------------------------<br />
+    谢谢您的惠顾，欢迎您再次光临！<br />
+    请保留小票&nbsp;&nbsp;<br />
+
+</div>
+<?php include '../../common/view/footer.html.php'; ?>
+<script>
+    $(function () {
+        $("#type").on("change", function () {
+            var va = $(this).val();
+            if (va == 2) {
+                $(".jsComplain").css('display', 'none');
+            }
+            if (va == 1) {
+                $(".jsComplain").css('display', '');
+            }
+        });
+    })
+</script>
+<?php js::import($jsRoot . 'jquery.poshytip.min.js'); ?>
+<?php js::import($jsRoot . 'jquery.printarea.js'); ?>
+<script></script>
+<script>
+    $(function () {
+        $("#printbtn").click(function () {
+            $("#printarea").printArea();
+        });
+    });
+
+//打印提示
+    $('#printbtn').poshytip({
+        className: 'tip-yellowsimple',
+        showTimeout: 1,
+        alignTo: 'target',
+        alignX: 'center',
+        alignY: 'bottom',
+        offsetY: 5,
+        allowTipHover: false
+    });
+</script>

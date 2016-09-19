@@ -1,0 +1,21 @@
+<?php
+$config->installed    = true;
+$config->debug        = false;
+$config->requestType  = 'GET';
+$config->debug  = true;
+$config->db->host     = '127.0.0.1';
+$config->db->port     = '3306';
+$config->db->name     = 'ranzhi';
+$config->db->user     = 'root';
+$config->db->password = 'Ysl09108118';
+
+
+$config->serial->status->new = 0; // 新订单
+$config->serial->status->pay = 1; // 支付
+$config->serial->status->to_factory = 2; // 配送到工厂
+$config->serial->status->in_factory = 3; // 在工厂
+$config->serial->status->back = 4; // 回店面
+$config->serial->status->put = 5; // 上架
+$config->serial->status->take = 6; // 结束
+
+$config->order->status->work = 1; // 操作

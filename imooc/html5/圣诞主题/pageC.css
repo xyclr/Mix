@@ -1,0 +1,15 @@
+.page-c {
+    width  : 100%;
+    height : 100%;
+    background-image: url("http://img.mukewang.com/565d0b280001788014410901.png");
+    position: absolute;
+    z-index: 30;
+}
+
+
+#snowflake{
+    position:absolute;
+    left:0;
+    top:0;
+    z-index: 999999;
+}

@@ -1,0 +1,6 @@
+label{font-weight: normal; margin-right: 8px; vertical-align: middle;}
+label input[type='radio']{margin: 6px 2px 0 0;}
+.input-group-addon label.checkbox{display: inline-block; padding-top: 3px;}
+#duplicateError {display: inline-block;}
+#duplicateError .alert{padding: 3px 10px; margin-bottom: 0; text-align: left;}
+#duplicateError .close{right: 0; top: 5px; margin-left: 20px;} 

@@ -1,0 +1,13 @@
+label.checkbox input[type='checkbox']{margin:0;}
+.side {left: 20px; position: absolute; width: 160px; transition: all 0.3s ease 0s;}
+.side-handle {background: #fff none repeat scroll 0 0; border: 1px solid #d5d5d5; color: #666; cursor: pointer; line-height: 34px; padding: 0; position: absolute; right: 0; text-align: center; top: 0; transition: all 0.3s ease 0s; width: 15px; z-index: 99; }
+.side-handle:hover {background: #e5e5e5 none repeat scroll 0 0; color: #141414; }
+.side-body {overflow: hidden;}
+.main{transition: all 0.3s ease 0s; margin-left: 180px; margin-right: 0;}
+.side-body .panel {min-width: 160px;}
+.hide-side .side {border: 0 none; width: 0;}
+.hide-side .side .side-handle {right: -10px;}
+.with-side.hide-side .main, .with-side.hide-side .side + form, .with-side .side + table {margin-left: 0;}
+.side-body .tree .active{font-weight: bold;}
+.side-body .tree li{margin-right: 0; padding-right: 0;}
+.table-footer{transition: all 0.3s ease 0s;}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base : '/seajs/st/build'
+        });
+
+        //两种方式都ok
+//        seajs.use(['./build/a'],function(a){ //基于页面路径
+//            console.info(a);
+//        })
+
+
+        seajs.use(['a'],function(a){
+            console.info(a);
+        })
+    </script>
+</head>
+<body>
+xxx
+</body>
+</html>

@@ -1,0 +1,3 @@
+#duplicateError {display: inline-block;}
+#duplicateError .alert{padding: 3px 10px; margin-bottom: 0; text-align: left;}
+#duplicateError .close{right: 0; top: 5px; margin-left: 20px;} 

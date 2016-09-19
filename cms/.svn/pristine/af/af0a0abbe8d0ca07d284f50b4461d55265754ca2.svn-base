@@ -1,0 +1,8 @@
+.panel-actions.pull-right {margin-top: -2px;}
+.panel-actions.pull-right > .btn {position: relative; top: -1px; margin-top: 0;}
+
+#taskList tr.heading td, #taskList tr.heading:hover td {background: #eee; cursor: pointer;}
+.text-muted strong{color: #333;}
+
+.tr-child, .tr-child > td {padding: 0;}
+.tr-child > td > table {padding: 5px; background-color: #fff; border: 2px solid #DDDDDD;}

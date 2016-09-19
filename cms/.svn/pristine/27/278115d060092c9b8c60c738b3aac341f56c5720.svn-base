@@ -1,0 +1,69 @@
+<?php
+/**
+ * The balance module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     balance
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+$lang->iron->id        = '编号';
+$lang->iron->order_sn = '洗涤条码号';
+$lang->iron->name  = '衣物名称';
+$lang->iron->color     = '衣物颜色';
+$lang->iron->brand      = '衣物品牌';
+$lang->iron->cloth_flaw      = '衣物瑕疵';
+$lang->iron->wash_effect      = '洗后效果';
+$lang->iron->delivery_time      = '交货时间';
+$lang->iron->wash_way_show         = '洗涤方式';
+$lang->iron->wash_way[1]      = '水洗';
+$lang->iron->wash_way[2]      = '干洗';
+$lang->iron->wash_way[3]      = '湿洗';
+$lang->iron->wash_way[4]      = '单去渍';
+$lang->iron->iron_show      = '熨烫方式';
+$lang->iron->iron[1]      = '无裤线';
+$lang->iron->iron[2]      = '单烫';
+$lang->iron->quality[1]      = '折叠';
+$lang->iron->remark      = '备注';
+$lang->iron->add_time      = '下单时间';
+$lang->iron->member      = '会员卡号';
+$lang->iron->cloth_model      = '洗衣模型';
+$lang->iron->payment_code      = '支付方式';
+$lang->iron->payment_time      = '支付时间';
+$lang->iron->good_amount      = '洗衣价格';
+$lang->iron->order_amount      = '订单实际价格';
+$lang->iron->pd_amount      = '会员卡支付金额';
+$lang->iron->order_state      = '订单状态';
+$lang->iron->way_show      = '提取方式';
+$lang->iron->way[1]      = '自提';
+$lang->iron->way[2]      = '配送';
+$lang->iron->finish_time      = '取衣时间';
+$lang->iron->admin_user      = '店员ID';
+$lang->iron->store_id      = '店面';
+$lang->iron->dispatch      = '调度';
+$lang->iron->detail      = '详情';
+$lang->iron->wash      = '洗涤';
+$lang->iron->way_1      = '提取方式';
+$lang->iron->iron_1      = '熨烫方式';
+$lang->iron->wash_way_1         = '洗涤方式';
+
+$lang->iron->error         = array();
+$lang->iron->error[4] = '异常';
+$lang->iron->error[5] = '事故';
+$lang->iron->iron = '熨烫';
+$lang->iron->setDispatch = array();
+$lang->iron->setDispatch[2] = '洗涤';
+$lang->iron->setDispatch[3] = '熨烫';
+$lang->iron->setDispatch[4] = '质检';
+
+$lang->iron->title = new stdclass();
+$lang->iron->title->dispatch = '调度';
+$lang->iron->title->wash      = '洗涤';
+$lang->iron->title->iron = '熨烫';
+$lang->iron->title->check = '质检';
+$lang->iron->title->distribution = '配送';
+$lang->iron->title->wash_group   = '洗涤组';
+$lang->iron->title->iron_group = '熨烫组';
+$lang->iron->title->check_group = '调度组';

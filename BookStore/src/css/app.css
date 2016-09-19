@@ -1,0 +1,11 @@
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+.gridStyle {
+    border: 1px solid rgb(212, 212, 212);
+    height: 300px
+}
+.list-group-item.active {
+    background: blue;
+    color:#fff;
+}

@@ -1,0 +1,54 @@
+
+
+
+<?php include '../../common/view/header.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/color.html.php';?>
+    <form method='post' id='ajaxForm' class='form-inline'>
+  <table class='table table-form w-p60'>
+   <tr>
+      <th class='w-70px'>流水号：</th>
+      <td>
+        <?php echo $order_info->serial;?>
+          <?php echo html::hidden('order_sn',$order_info->serial, "class='form-control'");?>
+      </td>
+    </tr>
+    <tr>
+      <th class='w-70px'>反馈类型</th>
+      <td>
+       <?php echo html::select('type', $lang->order->feedback_1, '', "class='form-control'");?>
+      </td>
+    </tr>
+    <tr class="jsComplain">
+      <th class='w-70px'><?php echo $lang->order->complain;?></th>
+      <td>
+       <?php echo html::select('complain_type', $lang->order->complain_1, '', "class='form-control'");?>
+      </td>
+    </tr>
+    <tr>
+      <th class='w-70px'><?php echo $lang->order->content;?></th>
+      <td>
+        <?php echo html::textarea('content', '', "class='form-control'");?>
+      </td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><?php echo html::submitButton();?></td>
+    </tr>
+  </table>
+</form>
+<?php include '../../common/view/footer.html.php';?>
+<script>
+       $(function(){
+           $("#type").on("change",function(){
+               var va = $(this).val();
+               if(va == 2){
+                   $(".jsComplain").css('display','none');
+               }
+               if(va == 1){
+                   $(".jsComplain").css('display','');
+               }
+           });
+       })
+</script>
+

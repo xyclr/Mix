@@ -1,0 +1,68 @@
+﻿@charset "utf-8";
+
+*{ word-wrap:break-word; outline:none; }
+body{ background:#FFF;}
+body, td, input, textarea, select, button{ color:#555; font:12px "Microsoft Yahei", "Lucida Grande", Verdana, Lucida, Helvetica, Arial, 'Simsun', sans-serif; }
+body, ul, ol, li,  dl, dt , dd, p, h1, h2, h3, h4, h5, h6, form, fieldset { margin:0; padding:0; }
+ul , ol , li { list-style-image: none; list-style-type: none; }
+h1, h2, h3, h4, h5, h6{ font-size:12px; }
+a{color:#fff; text-decoration:none; }
+a:hover{color:#000000; text-decoration:none; }
+a img{ border:none; }
+a {blr:expression(this.onFocus=this.blur())}
+em, cite, th{ font-style:normal; font-weight:normal; }
+table{ border-collapse:collapse; }
+th{ text-align:left; }
+label, .pointer { cursor:pointer; }
+.trace { background: white; margin: 6px; font-size: 14px; border:1px dashed silver; padding:8px}
+.trace fieldset { margin:5px;}
+.trace fieldset legend {color:gray;font-weight:bold}
+.trace fieldset div {overflow:auto;height:300px;text-align:left;}
+
+
+
+
+/* Base
+---------------------------------------------------------------------*/
+
+h1, h2, h3, h4, h5, h6 { color:#4D5762; position:relative; word-spacing:-0.1em;}
+h4, h5, h6 { font-weight:bold;}
+h1, h2 { line-height:28px; margin-bottom:18px;}
+h1, h2, h3, h4 { margin-top:18px;}
+h3, h4, h6 { line-height:18px; margin-bottom:10px;}
+h1 { font-size:18px;}
+h2 { font-size:16px;}
+h3 { font-size:15px; color:#ff940a; margin-bottom:10px;}
+h4 { font-size:16px;}
+h5 { font-size:13px; color:#FF940A;}
+h6 { font-size:12px;}
+
+
+.red {color: red;}
+.blue { color: #06C;}
+.orange { color: #F60;}
+.bold {font-weight: bold; color: #545454}
+
+/*表单元素样式*/
+
+input[type="text"], input[type="password"], textarea, select, .type-file-text , .editable, .editable-tarea { color: #333333; background:#FAFAFA none repeat scroll 0 0 ;  border-style: solid; border-width: 1px; border-color: #ABADB3 #E2E3EA #E2E3EA #ABADB3;}
+input[type="text"], input[type="password"], textarea, select, .type-file-text , .editable, .editable2, .editable-tarea, .editable-tarea2 { padding: 2px 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; resize: none;}
+input[type="text"]:focus, input[type="text"]:hover, input[type="text"]:active, input[type="password"]:focus, input[type="password"]:hover, input[type="password"]:active, textarea:hover, textarea:focus, textarea:active { color: #33464F; background-color: #fff; border: 1px solid ; border-color:#fdaf36 /*#CBE9F3 #CBE9F3 #71CBEF*/;-moz-box-shadow:0 0 5px rgba(255, 159, 8, 0.5); -webkit-box-shadow: 0 0 5px rgba(255, 159, 8, 0.5); box-shadow: 0 0 5px rgba(255, 159, 8, 0.5);}
+
+/*登录*/
+.login {background: url("images/login-bg.png")  #475c86 top center no-repeat}
+.login .logo {background: url("../images/sky/logo.png") no-repeat;width:174px;height:60px;display: block;float:left;}
+.login-box {width:380px;height: 363px;position: absolute;left:50%;top:50%;margin:-200px 0 0 -240px;padding:0 50px;background: #d8e5ff; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px;}
+.login-box .hd {height:50px;margin-bottom:10px; border-bottom: #50658e solid 2px;}
+.login-box .hd h3 {line-height:50px;font-size:27px;color:#ffa42d;font-weight: normal; text-align: center;}
+.login-box .bd {width:380px; margin-top: 20px;}
+.login-box .bd .ipt-txt {width:332px;height:40px;line-height:40px;padding-left:40px; font-size: 14px;}
+.login-box .form-item {margin-bottom:15px;float:left;width:100%;position: relative;}
+.login-box .form-item label {display: block;width:20px;height:22px;position: absolute;top:12px;left:10px;background: url("images/login-ico.png")}
+.login-box .item-name label {background-position: 0 -5px;}
+.login-box .item-pwd label {background-position: 0px -36px;}
+.login-box .item-yzm label {background-position: 0px -66px;}
+.login-box .btn-submit { margin:5px 0 0 0;width: 380px;height: 50px;font-weight: normal;font-size:18px; background-color: #ffa42d; color: #fff; border: 0; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; cursor: pointer;}
+.login-box .btn-submit:hover{background-color: #fcac44;}
+.login-box .item-yzm .ipt-txt{width: 180px;}
+.login-box .item-yzm .yzm-img,.login-box .item-yzm .yzm-img img{width: 140px; height: 46px; float: right;}

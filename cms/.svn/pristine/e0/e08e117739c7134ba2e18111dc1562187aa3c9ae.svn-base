@@ -1,0 +1,70 @@
+<?php
+//生产车间
+class check extends control {
+
+
+    public function index(){
+        $this->locate(inlink('browse'));
+    }
+    
+    public function browse($mode = 'check', $orderBy = 'id', $recTotal = 0, $recPerPage = 10, $pageID = 1){
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $data = $this->check->getDispatchList($mode, $pager);
+        $this->view->datas = $data;
+        $this->view->mode = $mode;
+        $this->view->pager = $pager;
+        $this->view->title   = $this->lang->check->wash;
+        $this->display();
+    }
+    
+   
+    //确认衣物
+    public function confirm($id) {
+    	$this->check->changeStatus($id, 5);
+    	$this->locate("/workshop/index.php?m=check&f=browse");
+    }
+
+    //返厂
+    public function recur($id) {
+    	$this->wash->setIsChange($id, 0);
+    	$this->wash->setIsRecur($id, 1);
+    	$this->locate("/workshop/index.php?m=wash&f=detail&id={$id}");
+    }
+    
+    //详情
+    public function detail($id, $step = 0) {
+    	$data = $this->check->getData($id);
+    	$data->wash_way = $this->lang->check->wash_way[$data->wash_way];
+    	$data->iron = $this->lang->check->iron[$data->iron];
+    	$data->way = $this->lang->check->way[$data->way];
+        $this->view->step = $step;
+    	$this->view->data = $data;
+    	$this->view->title   = $this->lang->check->detail;
+    	$this->display();
+    }
+
+    public function edit ($id, $act = ''){
+        if($_POST){
+        }
+    	$data = $this->check->getData($id);
+        $this->view->clothModelList = $this->loadModel('cloth', 'sys')->getList(1);
+        $this->view->currencyList     = $this->loadModel('common', 'sys')->getCurrencyList();
+        $this->view->brandList      = $this->loadModel('cloth', 'sys')->getList(2);
+    	$this->view->title   = $this->lang->check->detail;
+    	$this->view->data = $data;
+        $this->display();
+    }
+
+    public function error()
+    {
+        $this->view->id = $_GET['id'];
+        if ($_POST) {
+            //获取会员卡信息
+            $result = $this->check->dealBack($this->view->id);
+            if ($result)
+                $this->send(array('result' => 'success', 'message' => "成功", 'locate' => inlink('browse')));
+        }
+        $this->display();
+    }
+}

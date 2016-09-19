@@ -1,0 +1,105 @@
+<?php include '../../../sys/common/view/header.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/color.html.php';?>
+
+<div class='panel'>
+    <div class='panel-heading'>
+        <strong><i class='icon-building'></i> <?php echo $this->lang->workshop->detail;?></strong>
+    </div>
+
+    <div class='panel-body'>
+    <table class='table table-form w-p60'>
+        <tr>
+            <th class='w-90px'><?php echo $lang->workshop->order_sn;?></th>
+            <td>
+            <?php echo $data->order_sn;?>
+            </td>
+        </tr>
+        <tr>
+            <th class='w-70px'><?php echo $lang->workshop->member;?></th>
+            <td>
+            <?php echo $data->member;?>
+            </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->name;?></th>
+          <td>
+            <?php echo $data->name;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->color;?></th>
+          <td>
+            <a href="javascript:void(0)"  style="width:20px;display:block;height:10px;background: <?php echo $data->color;?>"></a>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->brand;?></th>
+          <td>
+           <?php echo $data->brand;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->cloth_model;?></th>
+          <td>
+           <?php echo $data->cloth_model;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->cloth_flaw;?></th>
+          <td>
+            <?php echo $data->cloth_flaw;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->delivery_time;?></th>
+          <td><?php echo $data->delivery_time;?></td>
+        </tr>
+         <tr>
+          <th class='w-70px'><?php echo $lang->workshop->wash_way_1;?></th>
+          <td><?php echo $data->wash_way;?></td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->iron_1;?></th>
+          <td><?php echo $data->iron;?></td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->way_1;?></th>
+          <td><?php echo $data->way;?></td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->remark;?></th>
+          <td><?php echo $data->remark;?></td>
+        </tr>
+        <tr>
+          <td colspan="99">
+        <?php 
+            if($data->is_dispatch == workshopModel::WAIT){
+                echo html::commonButton("放入调度", 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=workshop&f=indispatch&id={$data->id}\"'");
+            }else{
+                if($data->dispatch_step == 0){
+                    echo html::commonButton("调度直接洗涤", 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=workshop&f=dodispatch&id={$data->id}&mode=2\"'");
+                    echo html::commonButton("调度等待洗涤", 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=workshop&f=dodispatch&id={$data->id}&mode=1\"'");
+                } elseif($data->is_change == 0) {
+                    echo html::commonButton("确认衣物", 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=workshop&f=confirm&id={$data->id}\"'");
+                    echo html::commonButton("更改衣物", 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=workshop&f=edit&id={$data->id}\"'");
+                }else{
+                    foreach($lang->workshop->setDispatch as $_k => $_v){
+                        echo html::commonButton($_v, 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=workshop&f=dodispatch&id={$data->id}&mode={$_k}\"'");
+                    }
+                    echo html::commonButton("返厂", 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=workshop&f=recur&id={$data->id}&mode=-1\"'");
+                    //echo html::commonButton("衣物捡漏", 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=dispatch&f=error&id={$data->id}\"' \"data-toggle='modal'\"");
+                    commonModel::printLink('dispatch', 'error', "id=$data->id", '衣物捡漏',"class='btn btn-default' data-toggle='modal'");
+				}
+            }
+        ?>
+          </td>
+        </tr>
+    </table>
+    </div>
+
+    <div class='panel-heading'> </div>
+</div>
+
+<?php include '../../../sys/common/view/footer.html.php';?>
+

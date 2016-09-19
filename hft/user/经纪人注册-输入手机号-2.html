@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>经纪人注册</title>
+<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="bookmark" href="/favicon.ico">
+<link href="../css/base.css" rel="stylesheet" type="text/css">
+<link href="../css/reg.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<!--m-nav-pro-->
+<div class="m-nav-2 m-nav-2-reg">
+    <ul class="wraper">
+        <li class="cur"><a href=""><i class="sprt icon_1"></i>经纪人注册</a></li>
+        <li class="f-bgn"><a href=""><i class="sprt icon_2"></i>企业注册</a></li>
+    </ul>
+</div>
+<!--case-->
+<div id="case-reg">
+    <div class="wraper">
+        <div class="content">
+            <div class="tit"><h3>您注册的账号是13412453311</h3><a href="#">[更改号码]</a></div>
+            <div class="u-reg-stp">
+                <div class="item">
+                    <em>
+                        01
+                    </em>
+                    验证手机号码
+                </div>
+                <i class="arr">
+
+                </i>
+                <div class="item  cur">
+                    <em>
+                        02
+                    </em>
+                    填写用户信息
+                </div>
+                <i class="arr">
+
+                </i>
+                <div class="item">
+                    <em>
+                        03
+                    </em>
+                    注册成功
+                </div>
+                <div class="f-cb"></div>
+            </div>
+            <form method="post" class="reg-form-1" style="width:auto;margin:40px 0px 0px 100px;">
+                <dl>
+                    <dt>
+                        <label for="name"><small>*</small>真实姓名</label>
+                        <input type="tel" name="name" id="name" class="nor2" value="真实姓名更方便客户与您取得联系" required="" />
+
+                    </dt>
+                    <dt>
+                        <label><small>*</small>服务区域</label>
+                        <div class="m-dropList">
+                            <a class="m-dropList-a" href="#" data="请选择省份" id="prov">请选择省份</a>
+                            <div class="m-dropList-menu">
+                                <ul>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="m-dropList">
+                            <a class="m-dropList-a" href="#" data="请选择城市" id="city">请选择城市</a>
+                            <div class="m-dropList-menu">
+                                <ul>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="m-dropList">
+                            <a class="m-dropList-a" href="#" data="请选择地区" id="area">请选择地区</a>
+                            <div class="m-dropList-menu">
+                                <ul>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="m-dropList">
+                            <a class="m-dropList-a" href="#" data="请选择片区" id="region">X</a>
+                            <div class="m-dropList-menu">
+                                <ul>
+                                </ul>
+                            </div>
+                        </div>
+                    </dt>
+                    <dt>
+                        <label for="password" style="padding-left:32px"><small>*</small>密码</label>
+                        <input type="password" name="password" id="password" class="nor2 val-pas" value="" required="">
+                        <span class="c-gray f-fs12">
+                            6-20位密码(区分大小写)
+                        </span>
+                        <span class="err2" style="display:none;">
+                        密码输入错误
+                        </span>
+                    </dt>
+                    <dt class="mb40">
+                        <label for="repassword" ><small>*</small>确认密码</label>
+                        <input type="password" name="repassword" id="repassword" class="nor2 val-repas" value="" required="">
+                        <span class="c-gray f-fs12">
+                           请再次输入密码
+                        </span>
+                        <span class="err2" style="display:none;">
+                        密码输入不一致
+                        </span>
+                    </dt>
+                    <dt>
+                        <button type="submit" class="btn-sub btn-sub">下一步</button>
+                    </dt>
+                </dl>
+            </form>
+        </div>
+    </div>
+    <div class="f-cb"></div>
+</div>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/user.js"></script>
+<script type="text/javascript">
+    $.fn.hft_dropList = function(options) {
+        //下拉菜单
+        var defaults = {
+            handler : ".m-dropList-a",
+            menu : "m-dropList-menu",
+            event :"click"
+        };
+        var opts = $.extend(defaults, options);
+        var target=$(this),
+                $handler=target.find(opts.handler),
+                $menu=target.find(opts.menu);
+        target.bind(opts.event,function(){
+            $(".dropDown").removeClass('open');
+            if(target.hasClass('open')){
+                target.removeClass('open');
+            }
+            else{
+                $(this).addClass('open');
+            }
+            return false;
+        });
+        target.find("a").live("click",function(){
+                var _this = $(this),
+                    val = _this.text();
+            _this.parents(".m-dropList-menu").siblings().html(val);
+            target.removeClass('open');
+            return false;
+        })
+        $("body").click(function(){target.removeClass('open');});
+    };
+    //调用
+    $('.m-dropList').hft_dropList();
+</script>
+</body>
+</html>

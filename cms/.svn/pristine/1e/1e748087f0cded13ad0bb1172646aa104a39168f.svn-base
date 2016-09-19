@@ -1,0 +1,136 @@
+<?php
+//生产车间
+class workshop extends control {
+
+
+    public function index(){
+        $this->locate(inlink('dispatch'));
+    }
+    
+    //调度
+    public function dispatch($mode = 0, $orderBy = 'id', $recTotal = 0, $recPerPage = 10, $pageID = 1){
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $data = $this->workshop->getIsDispatchList(1, $pager);
+        $this->view->datas = $data;
+        $this->view->pager = $pager;
+        $this->view->title   = $this->lang->workshop->dispatch;
+        $this->display();
+    }
+
+    //调度
+    public function wait($mode = 0, $orderBy = 'id', $recTotal = 0, $recPerPage = 10, $pageID = 1){
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $data = $this->workshop->getIsDispatchList(0, $pager);
+        $this->view->datas = $data;
+        $this->view->pager = $pager;
+        $this->view->title   = $this->lang->workshop->dispatch;
+        $this->display('', 'dispatch');
+    }
+
+    //洗涤
+    public function wash($mode = 2, $orderBy = 'id', $recTotal = 0, $recPerPage = 10, $pageID = 1){
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $data = $this->workshop->getDispatchList($pager, $mode);
+        $this->view->datas = $data;
+        $this->view->pager = $pager;
+        $this->view->title   = $this->lang->workshop->dispatch;
+        $this->display();
+    }
+
+    //熨烫
+    public function iron($mode = 3, $orderBy = 'id', $recTotal = 0, $recPerPage = 10, $pageID = 1){
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $data = $this->workshop->getDispatchList($pager, $mode);
+        $this->view->datas = $data;
+        $this->view->pager = $pager;
+        $this->view->title   = $this->lang->workshop->dispatch;
+        $this->display();
+    }
+
+    //质检
+    public function check($mode = 4, $orderBy = 'id', $recTotal = 0, $recPerPage = 10, $pageID = 1){
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $data = $this->workshop->getDispatchList($pager, $mode);
+        $this->view->datas = $data;
+        $this->view->pager = $pager;
+        $this->view->title   = $this->lang->workshop->dispatch;
+        $this->display();
+    }
+
+    //配送
+    public function send($mode = 5, $orderBy = 'id', $recTotal = 0, $recPerPage = 10, $pageID = 1){
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $data = $this->workshop->getDispatchList($pager, $mode);
+        $this->view->datas = $data;
+        $this->view->pager = $pager;
+        $this->view->title   = $this->lang->workshop->dispatch;
+        $this->display();
+    }
+    
+    //调度
+    public function dodispatch($id, $mode = 1) {
+        if($mode != 1){
+    	    $this->workshop->setIsChange($id, 0);
+        }
+        $this->workshop->changeStatus($id, $mode);
+    	$this->locate("/workshop/index.php?m=workshop&f=detail&id={$id}&step={$mode}");
+    }
+
+    //加入调度
+    public function indispatch($id, $mode = 1) {
+        $this->workshop->setIsDispatch($id, 1);
+    	$this->locate("/workshop/index.php?m=dispatch&f=browse&mode=dispatch");
+    }
+
+    //确认衣物
+    public function confirm($id) {
+    	$this->workshop->setIsChange($id, 1);
+    	$this->locate("/workshop/index.php?m=workshop&f=detail&id={$id}");
+    }
+
+    //返厂
+    public function recur($id) {
+    	$this->workshop->setIsChange($id, 0);
+    	$this->workshop->setIsRecur($id, 1);
+    	$this->locate("/workshop/index.php?m=workshop&f=detail&id={$id}");
+    }
+    
+    //详情
+    public function detail($id, $step = 0) {
+    	$data = $this->workshop->getData($id);
+    	$data->wash_way = $this->lang->workshop->wash_way[$data->wash_way];
+    	$data->iron = $this->lang->workshop->iron[$data->iron];
+    	$data->way = $this->lang->workshop->way[$data->way];
+        $this->view->step = $step;
+    	$this->view->data = $data;
+    	$this->view->title   = $this->lang->workshop->detail;
+    	$this->display();
+    }
+
+    public function edit ($id, $act = ''){
+        if($_POST){
+        }
+    	$data = $this->workshop->getData($id);
+        $this->view->clothModelList = $this->loadModel('cloth', 'sys')->getList(1);
+        $this->view->currencyList     = $this->loadModel('common', 'sys')->getCurrencyList();
+        $this->view->brandList      = $this->loadModel('cloth', 'sys')->getList(2);
+    	$this->view->title   = $this->lang->workshop->detail;
+    	$this->view->data = $data;
+        $this->display();
+    }
+
+
+    //delete
+    public function delete($balanceID) {
+        if ($this->balance->delete($balanceID))
+            $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
+
+}

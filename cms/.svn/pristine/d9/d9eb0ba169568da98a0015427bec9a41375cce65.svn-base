@@ -1,0 +1,83 @@
+<?php include '../../../sys/common/view/header.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/color.html.php';?>
+
+<div class='panel'>
+    <div class='panel-heading'>
+        <strong><i class='icon-building'></i>更改衣物</strong>
+    </div>
+
+    <div class='panel-body'>
+    <form method='post' id='ajaxForm' class='form-inline'>
+    <table class='table table-form w-p60'>
+        <tr>
+            <th class='w-90px'><?php echo $lang->workshop->order_sn;?></th>
+            <td>
+            <?php echo $data->order_sn;?>
+            </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->name;?></th>
+          <td>
+            <?php echo html::input('name', $data->name, "class='form-control'");?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->color;?></th>
+          <td>
+            <a href="javascript:void(0)"  style="width:25px;display:block;height:10px;background: <?php echo $data->color;?>"></a>
+            <a href="javascript:void(0)" id="img"></a> (点击方框选取颜色)
+            <?php echo html::hidden('color', '', "class='color'");?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->brand;?></th>
+          <td>
+           <?php echo html::select('brand', $brandList, $data->brand, "class='form-control'");?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->cloth_model;?></th>
+          <td>
+           <?php echo html::select('cloth_model', $clothModelList, $data->cloth_model, "class='form-control'");?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'><?php echo $lang->workshop->cloth_flaw;?></th>
+          <td>
+            <?php echo html::input('cloth_flaw', $data->cloth_flaw, "class='form-control'");?>
+          </td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->workshop->delivery_time;?></th>
+          <td><?php echo $data->delivery_time;?></td>
+        </tr>
+         <tr>
+          <th><?php echo $lang->workshop->wash_way_1;?></th>
+          <td><?php echo html::select('wash_way', $lang->workshop->wash_way, $data->wash_way, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->workshop->iron_1;?></th>
+          <td><?php echo html::select('iron', $lang->workshop->iron, $data->iron, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->workshop->way_1;?></th>
+          <td><?php echo html::select('way', $lang->workshop->way, $data->way, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th><?php echo $lang->workshop->remark;?></th>
+          <td><?php echo html::textarea('remark',  $data->remark, "class='form-control'");?></td>
+        </tr>
+        <tr>
+          <th></th>
+          <td><?php echo html::submitButton("确认更改");?></td>
+        </tr>
+    </table>
+    </form>
+    </div>
+
+    <div class='panel-heading'> </div>
+</div>
+
+<?php include '../../../sys/common/view/footer.html.php';?>
+

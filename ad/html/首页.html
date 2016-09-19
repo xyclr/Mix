@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content=""/>
+    <meta name="description" content="" />
+    <title>甘肃移动二维码广告商城</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+   <div class="g-header">
+       <div class="w g-header-main">
+           <a href="#" class="m-logo"></a>
+           <strong>甘肃移动二维码广告商城</strong>
+       </div>
+   </div>
+
+   <div class="g-nav">
+       <div class="w g-nav-main">
+           <ul>
+               <li><a href="#" class="active">首页</a></li>
+               <li><a href="#">订单</a></li>
+               <li><a href="#">数据统计</a></li>
+               <li><a href="#">账户中心</a></li>
+           </ul>
+           <div class="g-nav-tools"><a href="#">请登录</a></div>
+       </div>
+   </div>
+
+    <div class="w">
+        <div class="m-filter mt10">
+            <div class="dt">筛选营业厅：</div>
+            <div class="dd">
+                <div class="filter-box">
+                    <div class="filter-item">
+                        <span class="lab">地区：</span>
+                    <span class="info">
+                        <select name="" class="slt"><option value="">选择地方</option><option value="">aa</option><option value="">bb</option></select>
+                    </span>
+                    </div>
+                    <div class="filter-item">
+                        <span class="lab">区县：</span>
+                    <span class="info">
+                        <select name="" class="slt"><option value="">选择区县</option><option value="">aa</option><option value="">bb</option></select>
+                    </span>
+                    </div>
+                    <div class="filter-item">
+                        <span class="lab">投放日期：</span>
+                    <span class="info">
+                        <span class="time-box">
+                            <input type="text" class="ipt" value="2015-11-01" />
+                            <s></s>
+                        </span>
+
+                        <span class="line"></span>
+                        <span class="time-box">
+                            <input type="text" class="ipt" value="2015-11-01" />
+                            <s></s>
+                        </span>
+                    </span>
+                    </div>
+                    <div class="filter-item">
+                        <span class="lab">价位（元/天）：</span>
+                         <span class="info">
+                            <input type="text" class="ipt"  style="width: 60px" />
+                            <span class="line"></span>
+                            <input type="text" class="ipt"  style="width: 60px"  />
+                        </span>
+                    </div>
+                    <div class="filter-item last">
+                        <span class="lab">营业厅名称：</span>
+                    <span class="info">
+                        <input type="text" class="ipt" style="width: 60px;" />
+                    </span>
+                    </div>
+                </div>
+
+
+                <div class="f-cb"></div>
+                <div class="btn-box">
+                    <a href="#">筛选</a>
+                    <a href="#">重置</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-filter">
+            <div class="list-filter-order">
+                <span class="tit">排序：</span>
+                <a href="#" class="active">销量 <s></s></a>
+                <!--<a href="#" class="active up">销量 <s></s></a>-->
+                <a href="#">价格<s></s></a>
+            </div>
+            <script>
+                $(function(){
+                    $(".list-filter-order a").click(function(){
+                        var me = $(this);
+                        if(!me.hasClass("active")) {
+                            me.addClass("active");
+                            me.siblings("a").removeClass("active");
+                        } else {
+                            me.toggleClass("up");
+                        }
+                    })
+                })
+            </script>
+
+            <div class="list-total">
+                1000个营业厅
+            </div>
+        </div>
+
+        <div class="p-list mt10">
+            <ul>
+                <li>
+                    <div class="p-thumb"><a href="#"><img src="../css/i/thumb-02.jpg" alt=""/></a></div>
+                    <div class="p-price">
+                        ¥200元/天
+                    </div>
+                    <a href="#" class="p-name">
+                       兰州市裕华东路营业厅
+                    </a>
+                </li>
+                <li>
+                    <div class="p-thumb"><a href="#"><img src="../css/i/thumb-02.jpg" alt=""/></a></div>
+                    <div class="p-price">
+                        ¥200元/天
+                    </div>
+                    <a href="#" class="p-name">
+                        兰州市裕华东路营业厅
+                    </a>
+                </li>
+                <li>
+                    <div class="p-thumb"><a href="#"><img src="../css/i/thumb-02.jpg" alt=""/></a></div>
+                    <div class="p-price">
+                        ¥200元/天
+                    </div>
+                    <a href="#" class="p-name">
+                        兰州市裕华东路营业厅
+                    </a>
+                </li>
+                <li>
+                    <div class="p-thumb"><a href="#"><img src="../css/i/thumb-02.jpg" alt=""/></a></div>
+                    <div class="p-price">
+                        ¥200元/天
+                    </div>
+                    <a href="#" class="p-name">
+                        兰州市裕华东路营业厅
+                    </a>
+                </li>
+                <li class="last">
+                    <div class="p-thumb"><a href="#"><img src="../css/i/thumb-02.jpg" alt=""/></a></div>
+                    <div class="p-price">
+                        ¥200元/天
+                    </div>
+                    <a href="#" class="p-name">
+                        兰州市裕华东路营业厅
+                    </a>
+                </li>
+                <li>
+                    <div class="p-thumb"><a href="#"><img src="../css/i/thumb-02.jpg" alt=""/></a></div>
+                    <div class="p-price">
+                        ¥200元/天
+                    </div>
+                    <a href="#" class="p-name">
+                        兰州市裕华东路营业厅
+                    </a>
+                </li>
+                <li>
+                    <div class="p-thumb"><a href="#"><img src="../css/i/thumb-02.jpg" alt=""/></a></div>
+                    <div class="p-price">
+                        ¥200元/天
+                    </div>
+                    <a href="#" class="p-name">
+                        兰州市裕华东路营业厅
+                    </a>
+                </li>
+                <li>
+                    <div class="p-thumb"><a href="#"><img src="../css/i/thumb-02.jpg" alt=""/></a></div>
+                    <div class="p-price">
+                        ¥200元/天
+                    </div>
+                    <a href="#" class="p-name">
+                        兰州市裕华东路营业厅
+                    </a>
+                </li>
+                <li>
+                    <div class="p-thumb"><a href="#"><img src="../css/i/thumb-02.jpg" alt=""/></a></div>
+                    <div class="p-price">
+                        ¥200元/天
+                    </div>
+                    <a href="#" class="p-name">
+                        兰州市裕华东路营业厅
+                    </a>
+                </li>
+                <li class="last">
+                    <div class="p-thumb"><a href="#"><img src="../css/i/thumb-02.jpg" alt=""/></a></div>
+                    <div class="p-price">
+                        ¥200元/天
+                    </div>
+                    <a href="#" class="p-name">
+                        兰州市裕华东路营业厅
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="m-pager">
+            <div class="m-pager-cnt">
+                <span class="total">7/14</span>
+                <span class="prev itm disable"><s></s></span>
+                <!--<span class="prev itm"><s></s></span>-->
+                <span class="itm active">1</span>
+                <span class="itm mid">...</span>
+                <span class="itm">2</span>
+                <span class="itm">3</span>
+                <span class="itm">4</span>
+                <span class="itm">5</span>
+                <span class="itm">6</span>
+                <span class="itm">7</span>
+                <span class="itm">8</span>
+                <span class="itm">9</span>
+                <span class="itm">10</span>
+                <span class="itm">11</span>
+                <span class="itm">12</span>
+                <span class="itm">13</span>
+                <span class="itm">14</span>
+                <span class="next itm"><s></s></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

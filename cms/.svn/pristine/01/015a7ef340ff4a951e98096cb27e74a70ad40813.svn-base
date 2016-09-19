@@ -1,0 +1,38 @@
+<?php
+/**
+ * The chosen view of common module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Chunsheng Wang <chunsheng@cnezsoft.com>
+ * @package     common 
+ * @version     $Id: chosen.html.php 2513 2015-01-27 02:32:06Z chujilu $
+ * @link        http://www.ranzhico.com
+ */
+
+if($extView = $this->getExtViewFile(__FILE__)){include $extView; return helper::cd();}
+css::import($jsRoot . 'jquery/bigcolor/min.css');
+js::import($jsRoot . 'jquery/bigcolor/bigcolor.min.js');
+?>
+<style type="text/css">
+.demo{width:400px; margin:20px auto}
+.demo p{padding-bottom:10px}
+#img{width:25px;height:25px;display:block; border:1px solid #d3d3d3;}
+.ku{width:25px;height:25px;display:block; border:1px solid #d3d3d3; float:left; margin-right:10px}
+.clear{clear:both}
+</style>
+<script>
+$(document).ready(function()
+{
+    $("#c1").bigColorpicker("c1");
+	$("#btn").bigColorpicker("c2");
+	$("#img").bigColorpicker(function(el,color){
+		$(el).css("background-color",color);
+                $(".color").val(color);
+	});
+	$(".ku").bigColorpicker(function(el,color){
+		$(el).css("background-color",color);
+	});
+	$("#c5").bigColorpicker("c5","L",3);
+});
+</script>

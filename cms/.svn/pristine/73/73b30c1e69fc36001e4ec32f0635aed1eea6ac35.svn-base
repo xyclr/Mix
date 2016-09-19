@@ -1,0 +1,51 @@
+<?php 
+/**
+ * The browse view file of contact module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     contact 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+?>
+<?php include '../../common/view/header.html.php';?>
+<?php js::set('mode', $mode);?>
+<li id='bysearchTab'><?php echo html::a('#', "<i class='icon-search icon'></i>" . $lang->search->common)?></li>
+<div id='menuActions'>
+ 
+  <?php commonModel::printLink('cloth', 'create', '', "<i class='icon-plus'></i> {$lang->cloth->create}", "class='btn btn-primary'")?>
+</div>
+<div class='panel'>
+  <table class='table table-hover table-striped tablesorter table-data table-fixed' id='contactList'>
+    <thead>
+      <tr class='text-center'>
+        <?php $vars = "mode={$mode}&orderBy=%s&recTotal={$pager->recTotal}&recPerPage={$pager->recPerPage}&pageID={$pager->pageID}";?>
+        <th class='w-60px'> <?php commonModel::printOrderLink('id', $orderBy, $vars, $lang->cloth->id);?></th>
+        <th><?php commonModel::printOrderLink('name', $orderBy, $vars, $lang->cloth->name);?></th>
+        <th><?php commonModel::printOrderLink('type', $orderBy, $vars, $lang->cloth->type);?></th>
+        <th><?php echo $lang->actions;?></th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php foreach($clothes as $cloth):?>
+    <tr class='text-center'>
+      <td><?php echo $cloth->id;?></td>
+      <td><?php echo $cloth->name;?></td>
+      <td><?php echo $lang->cloth->typeList[$cloth->type];?></td>
+      <td class='operate'>
+        <?php
+        commonModel::printLink('cloth', 'edit', "clothID=$cloth->id", $lang->edit);
+        echo "<div class='dropdown'><a data-toggle='dropdown' href='javascript:;'>" . $this->lang->more . "<span class='caret'></span> </a><ul class='dropdown-menu pull-right'>";
+        commonModel::printLink('cloth', 'delete', "clothID=$cloth->id", $lang->delete, "class='reloadDeleter'", '', '', 'li');
+        echo '</ul></div>';
+        ?>
+      </td>
+    </tr>
+    <?php endforeach;?>
+    </tbody>
+  </table>
+  <div class='table-footer'><?php $pager->show();?></div>
+</div>
+<?php include '../../common/view/footer.html.php';?>

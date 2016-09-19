@@ -1,0 +1,19 @@
+$(function()
+{
+    $('#newCustomer').change(function()
+    {
+        if($(this).prop('checked')) 
+        {
+            $(this).parents('.input-group').find('select').hide();
+            $('#customer_chosen').hide();
+            $(this).parents('.input-group').find('input[type=text][id=name]').show().focus();
+            $('.customerInfo').removeClass('hidden');
+        }
+        else
+        {
+            $('#customer_chosen').show();
+            $(this).parents('.input-group').find('input[type=text][id=name]').hide();
+            $('.customerInfo').addClass('hidden');
+        }
+    })
+})

@@ -1,0 +1,145 @@
+<%- include header %>
+<body class=" pace-done">
+<div class="pace  pace-inactive">
+	<div class="pace-progress" data-progress-text="100%" data-progress="99"
+		 style="-webkit-transform: translate3d(100%, 0px, 0px); transform: translate3d(100%, 0px, 0px);">
+		<div class="pace-progress-inner"></div>
+	</div>
+	<div class="pace-activity"></div>
+</div>
+
+<div id="wrapper">
+	<%- include nav %>
+	<div id="page-wrapper" class="gray-bg dashbard-1">
+		<div class="row border-bottom">
+			<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+				<div class="navbar-header">
+					<a class="navbar-minimalize minimalize-styl-2 btn btn-primary "
+					   href="http://webapplayers.com/inspinia_admin-v2.1/#"><i class="fa fa-bars"></i> </a>
+
+					<form role="search" class="navbar-form-custom"
+						  action="http://webapplayers.com/inspinia_admin-v2.1/search_results.html">
+						<div class="form-group">
+							<input type="text" placeholder="Search for something..." class="form-control"
+								   name="top-search" id="top-search">
+						</div>
+					</form>
+				</div>
+				<ul class="nav navbar-top-links navbar-right">
+					<li>
+						<span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+					</li>
+
+					<li>
+						<a href="/logout">
+							<i class="fa fa-sign-out"></i> Log out
+						</a>
+					</li>
+					<li>
+						<a class="right-sidebar-toggle">
+							<i class="fa fa-tasks"></i>
+						</a>
+					</li>
+				</ul>
+
+			</nav>
+		</div>
+
+		<div class="row wrapper border-bottom white-bg page-heading">
+			<div class="col-lg-10">
+				<h2>卡券</h2>
+				<ol class="breadcrumb">
+					<li>
+						<a href="./">首页</a>
+					</li>
+					<li class="active">
+						<strong>卡券内容</strong>
+					</li>
+				</ol>
+			</div>
+			<div class="col-lg-2">
+			</div>
+		</div>
+
+		<div class="wrapper wrapper-content  animated fadeInRight article">
+			<div class="row">
+				<div class="col-lg-10 col-lg-offset-1">
+					<div class="ibox">
+						<div class="ibox-content">
+							<div class="pull-right">
+								<a class="btn btn-primary btn-xs" href="/cedit/<%= post._id %>" > <i class="fa fa-edit"></i> 编辑</a>
+								<a class="btn btn-warning btn-xs"  href="/cremove/<%= post._id %>" > <i class="fa fa-del"></i> 删除</a>
+							</div>
+							<div class="text-center article-title">
+								<h1>
+									<%- post.title %>
+								</h1>
+								<style>
+									.info-table {border:1px solid #ddd;margin: 20px auto;}
+									.info-table td {border:1px solid #ddd;padding:5px 10px;}
+									.info-table td strong {width:100px;text-align: right;}
+								</style>
+								<table class="info-table">
+									<tr>
+										<td align="right"><strong>整体效果</strong>： </td>
+										<td>
+											<div class="cart-item" style="text-align: center;width:200px;overflow: hidden">
+												<div class="card" style="border:1px solid #ddd;border-radius: 5px;width:200px;height:100px;padding:20px;overflow: hidden">
+													<span class="price" style="float:left;font-size:20px;line-height:60px;">￥ <%= post.price %> </span>
+													<img src="<%- post.thumb %>"  class="card-logo" alt="" style="float:right;width:60px;height:60px;border-radius: 60px;"/>
+												</div>
+												<p style="margin-top:5px;font-size:12px;"><%- post.title %></p>
+											</div>
+
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><strong>点数</strong>： </td>
+										<td><span class="text-muted"><%= post.point %> </span> </td>
+									</tr>
+									<tr>
+										<td align="right"><strong>面值</strong>： </td>
+										<td><span class="text-muted"><%= post.price %> </span> </td>
+									</tr>
+									<tr>
+										<td align="right"><strong>卡券库存数量</strong>： </td>
+										<td><span class="text-muted"><%= post.num %> </span> </td>
+									</tr>
+									<tr>
+										<td align="right"><strong>卡券使用时间</strong>： </td>
+										<td><span class="text-muted"><%- post.dtime[0] %> - <%- post.dtime[1] %> </span> </td>
+									</tr>
+									<tr>
+										<td align="right"><strong>缩略图</strong>： </td>
+										<td><img src="<%- post.thumb %>" alt="" width="100"/> </td>
+									</tr>
+								</table>
+							</div>
+							<div class="">
+								<p><%- post.detail %></p>
+							</div>
+							<hr>
+							<div class="row" style="display:none;">
+								<div class="col-md-6">
+									<h5>Tags:</h5>
+									<button class="btn btn-primary btn-xs" type="button">Model</button>
+									<button class="btn btn-white btn-xs" type="button">Publishing</button>
+								</div>
+								<div class="col-md-6">
+									<div class="small text-right">
+										<h5>Stats:</h5>
+										<div> <i class="fa fa-comments-o"> </i> 56 comments </div>
+										<i class="fa fa-eye"> </i> 144 views
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+<%- include footer %>

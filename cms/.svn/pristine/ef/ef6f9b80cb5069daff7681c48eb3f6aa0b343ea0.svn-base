@@ -1,0 +1,15 @@
+<?php
+$config->sets->require = new stdclass();
+$config->sets->require->create = 'type, name';
+$config->sets->require->edit   = 'type, name';
+
+
+global $lang, $app;
+$app->loadLang('sets', 'sales');
+$config->sets->search['module'] = 'sets';
+
+$config->sets->search['fields']['type']   = $lang->sets->type_title;
+$config->sets->search['fields']['name'] = $lang->sets->name;
+
+$config->sets->search['params']['type']   = array('operator' => '=',  'control' => 'select', 'values' => $lang->sets->type);
+$config->sets->search['params']['name'] = array('operator' => 'include',  'control' => 'input',  'values' => '');

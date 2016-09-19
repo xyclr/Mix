@@ -1,0 +1,94 @@
+@charset "utf-8";
+.about-banner{width: 100%;height: 184px; background: url("../images/about/banner_bg.png") repeat #56afeb;}
+.about-banner .container{width: 100%; height: 184px; background:url("../images/about/banner_bg_main.png") top center no-repeat;}
+.about-banner .container .wraper{position: relative;}
+.about-banner .container .title{display:block;position: absolute; text-indent: -9999em;}
+.title.t_dsj{width: 420px;height: 72px; background: url("../images/about/title_dsj.png") no-repeat; top: 36px; left: -6px;}
+.about_container{width: 100%; height: auto; position: relative; background: #efefef; overflow: hidden; padding-bottom:36px;}
+.about_container .location{height: 30px; padding: 8px 0; line-height: 32px;font-size: 12px; color: #777777;}
+.about_container .page{width: 100%;height: auto;background: url("../images/about/bg_page.png") repeat-y #ffffff; overflow: hidden; min-height:460px;}
+.page .slider{width:254px; float: left; overflow: hidden;}
+.page .content{width:666px; float: left; padding: 20px; overflow: hidden;}
+.page .slider ul{padding:20px 0 10px 22px;}
+.page .slider li{display:block; height: 50px;border-bottom: 1px solid #e6e6e6; padding-right: 30px; background:url("../images/about/about_icons.png") 0 0 no-repeat; }
+.page .slider li a{display: block;line-height: 30px; padding: 10px 0 10px 32px;font-size: 14px; color: #666; position: relative;}
+.slider li a .ico{display: block; width: 30px;height: 30px; background:url("../images/about/about_icons.png") no-repeat; position: absolute; left: 0;top:10px  }
+.slider li a .ico.gsjj{background-position: 0 -100px;}
+.slider li a .ico.dsj{background-position:0 -130px;}
+.slider li a .ico.tdfc{background-position:0 -160px;}
+.slider li a .ico.mtbd{background-position:0 -190px;}
+.slider li a .ico.gfgg{background-position:0 -220px;}
+.slider li a .ico.jrwm{background-position:0 -250px;}
+.page .slider li.cur{background-position: 0 -50px; background-color: #fff; box-shadow:  0 0 10px rgba(150,150,150,.3); margin-top: -1px;}
+.page .slider li.cur a{color: #ff8800; font-weight: 700;}
+.page .slider li:hover a{color: #ff8800;}
+.slider li.cur a .ico.gsjj{background-position:-30px -100px;}
+.slider li.cur a .ico.dsj{background-position:-30px -130px;}
+.slider li.cur a .ico.tdfc{background-position:-30px -160px;}
+.slider li.cur a .ico.mtbd{background-position:-30px -190px;}
+.slider li.cur a .ico.gfgg{background-position:-30px -220px;}
+.slider li.cur a .ico.jrwm{background-position:-30px -250px;}
+.content h1.title{height:35px; padding-bottom:25px; background: url("../images/about/tbg.png") left bottom repeat-x; line-height: 35px; color: #cacaca;font-weight:200;}
+.content h1.title strong{font-size:20px;font-weight: 800; color: #777777; padding-right:8px;}
+.content h1.title small{font-size:14px;font-weight:200; color: #cacaca; padding-left:8px;}
+.content .article{padding:20px 20px 100px 20px; line-height:26px; color: #333; font-size: 12px; font-family: SimSun,'宋体';}
+.content .article h3{color: #666666; font-size: 14px; font-weight:800; padding:10px 0 10px 0; line-height: 30px;}
+.content .article p.line{ padding-bottom: 10px; border-bottom: 1px solid #e8e8e8;}
+.content .article p{ text-indent: 24px; font-family: SimSun,'宋体';}
+.content .article a.span{font-size: 16px; font-family:"Microsoft YaHei","微软雅黑"!important;font-weight: 800; color:#3498db; text-decoration: underline;}
+.content .timeline{padding:20px 0 30px 0; position: relative;}
+.timeline .lines{width: 2px; height:100%;background: #eeeeee;position: absolute; left:60px;}
+.timeline .year{height: 30px; background: #fff; margin:0; padding: 10px 0 10px 40px; line-height: 30px; font-size:16px; color: #333333; position: relative; z-index: 9;}
+.timeline .item{display: block; height: auto; position: relative; overflow: hidden; margin: 20px 0;}
+.timeline .item .con{width:565px; height: auto; padding:10px; border:1px solid #ebebeb;background: #fbfbfb; float: right; border-radius: 4px; position: relative;min-height:24px; line-height: 24px; color:#555555; font-size: 12px;font-family: SimSun,'宋体';}
+.timeline .item .con .corner{display:block;width: 10px;height: 16px; background: url("../images/about/about_icons.png") -60px -100px no-repeat; position: absolute; left: -10px; top: 16px;}
+.timeline .item .point{display:block;width: 10px;height: 10px; background: url("../images/about/about_icons.png") -60px -130px no-repeat; position:absolute;top:20px;left:56px;z-index: 10;zoom: 1;}
+.timeline .item .time{display:block; position: absolute;top:10px;left:20px; line-height: 30px;z-index:8;}
+/*核心团队*/
+.leader{height: 230px;padding: 20px 0; border-bottom: 1px solid #f3f3f3;}
+.leader ul{width:580px;margin:0px auto;}
+.leader li{display: block;width: 160px; height:230px;float: left; margin-left: 50px; overflow: hidden; text-align: center;}
+.leader li.first,.leader li:first-child{ margin-left: 0;}
+.leader li img{display: block;width: 160px;height: 160px;}
+.leader li .txt{display: block;width: 160px;height:60px; margin-top: 10px;}
+.leader li .txt h3,.leader li .txt p,.ourteam h3,.ourteam p{ margin:0; padding:0; text-indent: 0!important; text-align: center;font-family:"Microsoft YaHei","微软雅黑"!important; font-size: 14px;}
+.leader li .txt h3{font-size:20px !important; color: #333333; font-weight: 200;}
+.ourteam{padding: 20px 0; border-bottom: 1px solid #f3f3f3;}
+.ourteam h3{ text-align: left; font-size: 14px; line-height: 26px;}
+.ourteam h3 .border{width: 4px;height: 15px;background: #3498db; float: left; margin-top: 6px;}
+.ourteam h3 strong{ padding-left: 10px;}
+.ourteam p{text-align: left; font-size: 12px;color: #555555;}
+.ourteam img{display: block; margin:15px 0;}
+/*媒体报道*/
+.media{}
+.media ul{border-left:1px dashed #ddd;border-top:1px dashed #ddd; height: auto; position: relative; overflow: hidden;}
+.media li{display: block; float:left;border:1px dashed #ddd; width:103px; height:36px; border-left: none; background: #fff; margin-top: -1px; overflow: hidden; text-align: center; vertical-align: middle;}
+.media li img{display:block; height: 24px; margin:6px auto;}
+.media a.opt{display: block;}
+.media a.opt .ico{display:block; width: 30px; height: 30px; background: url("../images/about/about_icons.png") -200px -130px no-repeat; margin:3px auto;}
+.media a.opt.cur .ico{ background-position: -200px -100px;}
+.timeline .item .time{display:block; position: absolute;top:10px;left:20px; line-height: 30px;z-index:8;}
+/*官方公告annc*/
+.annc-swap {padding:10px; }
+.annc-swap li {clear:both;width:626px:height:112px;padding:20px 10px;border-bottom:1px solid #eee;}
+.annc-swap li .tit {width:100%;position:relative;}
+.annc-swap li .tit a {font-weight:normal;color:#333;font-size:16px;height:18px;line-height:16px;border-left:4px solid #3498db;padding-left:10px;}
+.annc-swap li .tit span {position:absolute;right:0px;top:0px;color:#a5a5a5;}
+.annc-swap li p {color:#999;line-height:22px;padding-left:14px;margin-top:10px;}
+.annc-swap li:hover {background:#f9f8f7;}
+.annc-swap li a:hover  {color:#ff8800;text-decoration:underline;border-left:4px solid #ff8800;}
+/*招聘*/
+.recruit-swap{width:100%;padding-top:10px;}
+.fold{overflow:hidden;position: relative;}
+.fold .tit{border-bottom:1px dashed #e7eaec;padding:0px 15px;cursor:pointer;height:68px;line-height:68px;background:url(../images/about/plus.png) no-repeat 638px 26px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+.fold .tit h3 {height:64px;color:#000;font-size:16px;display:inline-block;*zoom:1;*display:inline;margin-right:5px;}
+.fold .tit i {color:#f80;font-size:14px;margin-right:5px;}
+.fold .tit span {font-size:12px;color:#999;}
+.fold .tit.active{color: #3b6acc;background:url(../images/about/min.png) no-repeat  638px 26px;}
+.fold .tit:hover {background-color:#f9f8f7;}
+.fold div.con {border-bottom:1px dashed #e7eaec;padding:10px 20px;background: #fff; height: auto;position: relative; overflow: hidden;display: none;}
+.fold div.con h4 {font-size:14px;color:#666;line-height:40px;margin-top:10px;}
+.fold div.con p {color:#888;line-height:24px;}
+.recruit-info {border-bottom:1px dashed #e7eaec;padding-bottom:20px;}
+.recruit-info h3 {font-size:18px;color:#3498db;font-weight:bold;margin-top:40px; cursor: pointer;}
+.recruit-info p {font-size:14px;color:#999;line-height:40px;}

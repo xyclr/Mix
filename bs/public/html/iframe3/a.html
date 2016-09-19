@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<!--<iframe src="http://127.0.0.1:3030/html/iframe3/data.html" frameborder="0"></iframe>-->
+<script type="text/javascript">
+    var state = 0,
+            iframe = document.createElement('iframe'),
+            loadfn = function() {
+                if (state === 1) {
+                    var data = iframe.contentWindow.name;    // 读取数据
+                    console.dir(data);    //弹出'I was there!'
+                } else if (state === 0) {
+                    state = 1;
+                    iframe.contentWindow.location = "http://127.0.0.1:3000/html/iframe3/proxy.html";    // 设置的代理文件
+                }
+            };
+    iframe.src = 'http://127.0.0.1:3030/html/iframe3/data.html';
+    if (iframe.attachEvent) {
+        iframe.attachEvent('onload', loadfn);
+    } else {
+        iframe.onload  = loadfn;
+    }
+    document.body.appendChild(iframe);
+</script>
+
+<!--<script type="text/javascript">
+    iframe.contentWindow.document.write('');
+    iframe.contentWindow.close();
+    document.body.removeChild(iframe);
+</script>-->
+</body>
+</html>

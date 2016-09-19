@@ -1,0 +1,23 @@
+<?php
+/**
+ * The trade module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     trade
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+if(!isset($lang->card)) $lang->card = new stdclass();
+$lang->cloth->id          = '编号';
+
+$lang->cloth->create      = '新建';
+$lang->cloth->edit        = '编辑';
+$lang->cloth->list        = '列表';
+$lang->cloth->name        = '名称';
+$lang->cloth->delete      = '删除';
+$lang->cloth->type        = '数据类型';
+$lang->cloth->typeList[1] = '衣物模型';
+$lang->cloth->typeList[2] = '衣物品牌';
+$lang->cloth->typeList[3] = '衣物类别';

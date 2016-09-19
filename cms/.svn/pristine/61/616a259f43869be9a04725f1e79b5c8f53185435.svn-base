@@ -1,0 +1,23 @@
+<?php
+/**
+ * The zh-cn file of common module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Chunsheng wang <chunsheng@cnezsoft.com>
+ * @package     common 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+$lang->app = new stdclass();
+$lang->app->name = 'WORKSHOP';
+
+$lang->menu->workshop = new stdclass();
+$lang->menu->workshop->dispatch      = '调度|dispatch|browse|';
+$lang->menu->workshop->wash      = '洗涤|wash|browse|';
+$lang->menu->workshop->iron      = '熨烫|iron|browse|';
+$lang->menu->workshop->check      = '质检|check|browse|';
+$lang->menu->workshop->send      = '配送|workshop|send|';
+//$lang->menu->workshop->wash_group      = '洗涤组|workshop|wash_group|';
+//$lang->menu->workshop->iron_group      = '熨烫组|workshop|iron_group|';
+//$lang->menu->workshop->check_group      = '调度组|workshop|check_group|';

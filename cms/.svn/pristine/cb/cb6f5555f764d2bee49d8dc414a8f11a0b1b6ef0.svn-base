@@ -1,0 +1,57 @@
+
+
+
+<?php include '../../../sys/common/view/header.modal.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<div class='panel-body'>
+    <form method='post' id='ajaxForm' class='form-inline' action="<?php echo $this->createLink('sales.order', 'put')?>">
+   <table class='table table-form table-condensed'>
+       <tr>
+           <th class='w-120px text-left' align="center">衣服名称</th>
+          <th class='w-120px text-left'>衣物货架</th>
+           <th class='w-90px text-left'>操作</th>
+       </tr>
+       <?php if($cloth_list){?>
+       <?php foreach($cloth_list as $k=>$v){?>
+       <tr>
+            <td class='text-left'><?php echo $v->t_name;?></td>
+            <?php if($v->shelf_num){?>
+            <td class='test-left' id = "shelf_num"><?php echo $v->shelf_num?></td>
+            <?php }else{?>
+            <td class='text-left'><?php echo html::select('shelf_num',$v->shelfList, '', "class='form-control'");?></td>
+            <?php }?>
+            <td class='text-left'><a href="javascript:;" data-id="<?php echo $v->id;?>" class="jsPut">上架</a></td>
+       </tr>
+      <?php }?>
+       <?php }else{?>
+           <tr>
+               <td class='text-center' rowspan="3">无</td>
+            </tr>
+       <?php }?>
+  </table>
+</form>
+</div>
+<?php include '../../common/view/footer.html.php';?>
+<script type="text/javascript">
+    $(function(){
+       $(".jsPut").on("click",function(){
+         var id = $(this).attr("data-id");
+         var shelf = $("#shelf_num").val();
+         $.ajax({
+				type: "POST",
+				dataType: "json",
+				data:{order_id:id,shelf_num:shelf},
+				url: "/sales/index.php?m=order&f=ajaxPut",
+				success: function(res) {
+					if(res.result == 'success'){
+                                            alert(res.message);
+                                            window.location.href=res.locate;
+                                        }else{
+                                            
+                                        }
+				}
+		   });
+       });
+    })
+</script>
+

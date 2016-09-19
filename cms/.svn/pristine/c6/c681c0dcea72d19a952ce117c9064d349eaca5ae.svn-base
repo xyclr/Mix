@@ -1,0 +1,5 @@
+.with-side .side{left: 20px; position: absolute; transition: all 0.3s ease 0s; width: 140px;}
+.with-side .side .menu.affix{top:100px; margin-left:0;}
+.with-side .main{margin-left: 160px; margin-right: 0; transition: all 0.3s ease 0s;}
+.pass {color: green;}
+.no-padding {padding: 0;}

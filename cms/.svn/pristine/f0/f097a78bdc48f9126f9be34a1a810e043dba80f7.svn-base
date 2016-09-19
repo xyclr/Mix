@@ -1,0 +1,176 @@
+<?php
+/**
+ * The model file of balance module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     contact
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class dataModel extends model
+{
+    /**
+     * Get balance by id.
+     * 
+     * @param  int    $id 
+     * @access public
+     * @return object
+     */
+    public function getByID($id)
+    {
+        return $this->dao->select('*')->from(TABLE_SORDER)->where('id')->eq($id)->limit(1)->fetch();
+    }
+
+    /** 
+     * Get balance list.
+     * 
+     * @param  int    $depositor 
+     * @param  string  $orderBy 
+     * @param  object  $pager 
+     * @access public
+     * @return array
+     */
+    public function getList($store_id='', $orderBy = 'id_desc', $pager = null)
+    {
+        return $this->dao->select('*')->from(TABLE_SERIAL)
+            ->where('store_id')->eq($this->app->user->dept)
+            //->orWhere('is_change')->eq(1)
+            ->orderBy($orderBy)
+            ->page($pager)
+            ->fetchAll('id');
+    }
+    
+     /** 
+     * Get balance list.
+     * 
+     * @param  int    $depositor 
+     * @param  string  $orderBy 
+     * @param  object  $pager 
+     * @access public
+     * @return array
+     */
+    public function getFeedbackList($store_id='', $orderBy = 'id_desc', $pager = null)
+    {
+        return $this->dao->select('*')->from(TABLE_SFEEDBACK)
+            ->orderBy($orderBy)
+            ->page($pager)
+            ->fetchAll('id');
+    }
+    /**
+     * Get latest balances.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getLatest()
+    {
+        return $this->dao->select('depositor, date, money, currency')
+            ->from(TABLE_BALANCE)
+            ->orderBy('date')
+            ->fetchGroup('currency', 'depositor');
+    }
+
+    /**
+     * Get date otions of all balances.
+     * 
+     * @param  int    $depositorID 
+     * @access public
+     * @return void
+     */
+    public function getDateOptions($depositorID = 0)
+    {
+        return $this->dao->select('date')->from(TABLE_BALANCE)
+            ->beginIF($depositorID)->where('depositor')->in($depositorID)->fi()
+            ->orderBy('date_desc')
+            ->fetchPairs('date', 'date');
+    }
+
+    /**
+     * Create a balance.
+     * 
+     * @param  object    $balance 
+     * @access public
+     * @return int|bool
+     */
+    public function create() {
+        
+        $order_info = fixer::input('post')->add('add_time', time())
+                ->add('admin_user', $this->app->user->id)
+                ->add('member', intval($this->post->member))
+                ->add('delivery_time', strtotime($this->post->delivery_time))
+                ->add('store_id', $this->app->user->dept)
+                ->get();
+        $rs = $this->dao->insert(TABLE_SORDER)->data($order_info)->autoCheck()->exec();
+        $orderID = $this->dao->lastInsertID();
+         if(dao::isError()) return false;
+        return $orderID;
+    }
+
+    /**
+     * Create a balance.
+     * 
+     * @param  object    $balance 
+     * @access public
+     * @return int|bool
+     */
+    public function feedback() {
+        $feedback_info = fixer::input('post')->add('add_time', time())
+                ->add('admin_id', $this->app->user->id)
+                ->get();
+        $rs = $this->dao->insert(TABLE_SFEEDBACK)->data($feedback_info)->autoCheck()->exec();
+        $orderID = $this->dao->lastInsertID();
+         if(dao::isError()) return false;
+        return $orderID;
+    }
+    /**
+     * Update a balance.
+     * 
+     * @param  int    $balanceID 
+     * @access public
+     * @return string|bool
+     */
+    public function update($order_id)
+    {
+        $orderInfo = $this->getByID($order_id);
+        $paramsUpdate = array('order_state'=>0);
+        $params = array(
+            'log_time' => time(),
+            'order_id' => $order_id,
+            'log_msg' => '取消订单',
+            'log_orderstate' => 0,
+            'log_user' => $this->app->user->id
+        );
+        $rs = $this->dao->insert(TABLE_SORDERLOG)->data($params)->autoCheck()->exec();
+        $this->dao->update(TABLE_SORDER)->data($paramsUpdate)->autoCheck()->where('id')->eq($order_id)->exec();
+        if(!dao::isError()) return true;
+
+        return false;
+    }
+    
+    public function updateOrderStatus($order_id){
+       $orderInfo = $this->getByID($order_id);
+       if($orderInfo->order_state == '1' ){
+            return $this->dao->update(TABLE_SORDER)->set('order_state')->eq(2)->autoCheck()->where('id')->eq($order_id)->exec();
+       }
+       return false;
+    }
+    
+    /**
+     * Delete a balance.
+     * 
+     * @param  int      $balanceID 
+     * @access public
+     * @return void
+     */
+    public function delete($balanceID, $null = null)
+    {
+        $balance = $this->getByID($balanceID);
+        if(!$balance) return false;
+
+        $this->dao->delete()->from(TABLE_BALANCE)->where('id')->eq($balanceID)->exec();
+
+        return !dao::isError();
+    }
+}

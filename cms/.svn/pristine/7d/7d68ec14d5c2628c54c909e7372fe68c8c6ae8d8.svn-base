@@ -1,0 +1,40 @@
+<?php 
+/**
+ * The create view file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     trade 
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+?>
+<?php include '../../common/view/header.html.php';?>
+<div class='panel'>
+  <div class='panel-heading'>
+    <strong><i class="icon-plus"></i> <?php echo $lang->trellis->create;?></strong>
+  </div>
+  <div class='panel-body'>
+    <form method='post' id='ajaxForm' class='form-inline'>
+      <table class='table table-form w-p60'>
+        <tr>
+          <th><?php echo $lang->trellis->number;?></th>
+          <td><?php echo html::input('number', '', "class='form-control'");?></td>
+        </tr>
+        <?php if ($is_store_member == false){?>
+        <tr>
+          <th><?php echo $lang->trellis->store;?></th>
+          <td><?php echo html::select('store_id', $store, $member_dept, "class='form-control'");?></td>
+        </tr>
+        <?php }?>
+        <tr>
+          <th></th>
+          <td><?php echo html::submitButton() . '&nbsp;&nbsp;' . html::backButton();?><div id='duplicateError' class='hide'></div></td>
+        </tr>      
+      </table>
+    </form>
+    
+  </div>
+</div>
+<?php include '../../common/view/footer.html.php';?>

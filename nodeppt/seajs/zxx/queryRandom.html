@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>地址增加随机查询</title>
+</head>
+
+<body>
+<div id="show"></div>
+<script src="http://www.zhangxinxu.com/sp/seajs/dist/sea.js"></script>
+<script>
+seajs.use("./queryRandom", function(queryRandom) {
+	document.getElementById("show").innerHTML = queryRandom.queryRandom(location.href);
+});
+</script>
+</body>
+</html>

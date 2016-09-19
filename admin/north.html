@@ -1,0 +1,27 @@
+<style>
+    #css3menu li{ float:left; list-style-type:none;}
+    #css3menu li a{	color:#fff; padding-right:20px;}
+    #css3menu li a.active{color:yellow;}
+    #css3menu li a:hover,#css3menu li a.m-btn-plain-active {background: transparent;border:none;padding:1px 20px 1px 1px;}
+    #css3menu .m-btn-downarrow {}
+</style>
+<div style="position:absolute; padding-left:10px; float:left;bottom: 20px;color:#fff;">
+    <strong style="font-size:24px;">统一身份标识管理平台</strong>
+    <span style="margin-left:20px;">欢迎您，admin！</span>
+</div>
+<div style="position: absolute; right: 0px; bottom: 15px; ">
+    <ul id="css3menu" style="list-type:none; float:left;">
+        <li><a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_kzmbMenu">控制面板</a>
+        </li>
+        <li> <a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_zfwMenu">自服务</a>
+        </li>
+        <li> <a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_zxMenu">注销</a>
+        </li>
+    </ul>
+</div>
+<div id="layout_north_pfMenu" style="width: 120px; display: none;">
+    <div onclick="sy.changeTheme('default');">default</div>
+    <div onclick="sy.changeTheme('gray');">gray</div>
+    <div onclick="sy.changeTheme('metro');">metro</div>
+    <div onclick="sy.changeTheme('bootstrap');">bootstrap</div>
+</div>

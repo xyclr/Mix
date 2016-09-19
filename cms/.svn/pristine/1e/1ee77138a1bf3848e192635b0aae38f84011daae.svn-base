@@ -1,0 +1,104 @@
+<?php
+/**
+ * The control file of trade module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     trade
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class cate extends control
+{
+    /** 
+     * The index page, locate to the browse page.
+     * 
+     * @access public
+     * @return void
+     */
+    public function index()
+    {
+        $this->locate(inlink('browse'));
+    }
+
+    /**
+     * Browse trade.
+     * 
+     * @param string $orderBy     the order by
+     * @param int    $recTotal 
+     * @param int    $recPerPage 
+     * @param int    $pageID 
+     * @access public
+     * @return void
+     */
+    public function browse($mode = 'all',  $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1)
+    {   
+        $this->app->loadClass('pager', $static = true);
+        $pager = new pager($recTotal, $recPerPage, $pageID);
+        $cates = $this->cate->getList($mode, $orderBy, $pager);
+        $this->view->title   = $this->lang->cate->browse;
+        $this->view->cates  = $cates;
+        $this->view->mode    = $mode;
+        $this->view->pager   = $pager;
+        $this->view->orderBy = $orderBy;
+
+        $this->display();
+    }   
+
+    /**
+     * Create a contact.
+     * 
+     * @param  string $type 
+     * @access public
+     * @return void
+     */
+    public function create()
+    {
+        if($_POST)
+        {
+            $return = $this->cate->create(); 
+            $this->send($return);
+        }
+
+        unset($this->lang->cate->menu);
+        $this->view->title         = $this->lang->cate->create;
+        $this->display();
+    }
+
+    /**
+     * Edit a trade.
+     * 
+     * @param  int    $tradeID 
+     * @access public
+     * @return void
+     */
+    public function edit($cateID)
+    {
+        if($_POST)
+        {
+            $return = $this->cate->update($cateID); 
+            $this->send($return);
+        }
+
+        $cate = $this->cate->getByID($cateID);
+        $this->view->title         = $this->lang->cate->edit;
+        $this->view->cate          = $cate;
+        $this->display();
+    }
+
+
+    /**
+     * Delete a trade.
+     * 
+     * @param  int      $tradeID 
+     * @access public
+     * @return void
+     */
+    public function delete($cardID)
+    {
+        if($this->card->delete($cardID)) $this->send(array('result' => 'success'));
+        $this->send(array('result' => 'fail', 'message' => dao::getError()));
+    }
+
+}

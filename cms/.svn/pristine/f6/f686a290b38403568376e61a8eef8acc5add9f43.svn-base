@@ -1,0 +1,4 @@
+i.btn {font-family: ZenIcon;}
+#detailBox .row {margin-top: 5px; margin-bottom: 5px;}
+#currency {border-top-left-radius: 4px; border-bottom-left-radius: 4px;}
+#detailBox .table-detail td, #detailBox .table-detail th {padding-left: 5px;}

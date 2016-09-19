@@ -1,0 +1,13 @@
+.panel-body > .comments-list { margin: -10px -10px 0;}
+.comment{padding: 10px;}
+.comment > .avatar {margin-top: 2px;}
+.comment .comment {padding-left: 0;}
+.comment>.content>.text {padding-top: 0;}
+.comment .text-muted {color: #aaa}
+.comment>.content>.actions {padding-top: 6px;}
+.comment:hover {background-color: #fafafa;}
+.comment>.comments-list>.comment:hover {background-color: #fff}
+
+.pager { margin: 0; display: block; }
+.pager > .page { margin: 5px 0 -5px; font-size: 12px; text-align: right; color: #999;}
+.signed-user-info{padding: 6px 2px}

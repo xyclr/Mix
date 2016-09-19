@@ -1,0 +1,19 @@
+{
+  "author": "xyclr <xyclr@163.com> (http://www.ndesig.com)",
+  "name": "application-name",
+  "version": "0.0.1",
+  "description": "a blog form xyclr",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "ccap": "*",
+    "connect-flash": "*",
+    "connect-mongo": "0.8.0",
+    "ejs": "*",
+    "express": "3.17.8",
+    "fs-extra": "^0.18.4",
+    "mongodb": "*",
+    "mongoose": "*"
+  }
+}

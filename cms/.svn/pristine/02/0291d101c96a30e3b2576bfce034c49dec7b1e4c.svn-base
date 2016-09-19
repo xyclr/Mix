@@ -1,0 +1,5 @@
+.panel-body > .alert {border-left: 0; border-right: 0; border-top: 0; border-radius: 0; margin: -15px -15px 20px -15px;}
+.panel-body ul {padding-left: 20px;}
+.panel-body .table {margin-bottom: 0;}
+.alert .table th {padding-bottom: 0;}
+.alert .table td > ul {color: #666;}

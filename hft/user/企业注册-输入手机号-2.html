@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>企业注册</title>
+<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="bookmark" href="/favicon.ico">
+<link href="../css/base.css" rel="stylesheet" type="text/css">
+<link href="../css/reg.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<!--m-nav-pro-->
+<div class="m-nav-2 m-nav-2-reg">
+    <ul class="wraper">
+        <li class=""><a href=""><i class="sprt icon_1"></i>经纪人注册</a></li>
+        <li class="f-bgn cur"><a href=""><i class="sprt icon_2"></i>企业注册</a></li>
+    </ul>
+</div>
+<!--case-->
+<div id="case-reg">
+    <div class="wraper">
+        <div class="content">
+            <div class="tit"><h3>您注册的账号是13412453311</h3><a href="#">[更改号码]</a></div>
+            <div class="u-reg-stp">
+                <div class="item">
+                    <em>
+                        01
+                    </em>
+                    验证手机号码
+                </div>
+                <i class="arr">
+
+                </i>
+                <div class="item  cur">
+                    <em>
+                        02
+                    </em>
+                    填写用户信息
+                </div>
+                <i class="arr">
+
+                </i>
+                <div class="item">
+                    <em>
+                        03
+                    </em>
+                    注册成功
+                </div>
+                <div class="f-cb"></div>
+            </div>
+            <form method="post" class="reg-form-1" style="width:auto;margin:40px 0px 0px 250px;">
+                <dl>
+                    <dt>
+                        <label><small>*</small>所在城市</label>
+                        <div class="m-dropList">
+                            <a class="m-dropList-a" href="#" data="请选择省份">请选择省份</a>
+                            <div class="m-dropList-menu">
+                                <ul>
+                                    <li><a href="#">菜单一</a></li>
+                                    <li><a href="#">菜单二</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="m-dropList">
+                            <a class="m-dropList-a" href="#" data="请选择城市">请选择城市</a>
+                            <div class="m-dropList-menu">
+                                <ul>
+                                    <li><a href="#">菜单一</a></li>
+                                    <li><a href="#">菜单二</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </dt>
+                    <dt>
+                        <label for="name" ><small>*</small>公司名称</label>
+                    <input type="text" name="name" id="name" class="nor2" value="请准确填写公司和店名全称" required="">
+                    </dt>
+                    <dt>
+                        <label for="name2" style="padding-left:14px"><small>*</small>负责人</label>
+                        <input type="text" name="name2" id="name2" class="nor2" value="请输入负责人姓名" required="">
+                    </dt>
+
+                    <dt>
+                        <button type="submit" class="btn-sub btn-sub" style="margin-left:30px;">下一步</button>
+                    </dt>
+                </dl>
+            </form>
+        </div>
+    </div>
+    <div class="f-cb"></div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/common.js"></script>
+<script type="text/javascript">
+    $.fn.hft_dropList = function(options) {
+        //下拉菜单
+        var defaults = {
+            handler : ".m-dropList-a",
+            menu : "m-dropList-menu",
+            event :"click"
+        };
+        var opts = $.extend(defaults, options);
+        var target=$(this),
+                $handler=target.find(opts.handler),
+                $menu=target.find(opts.menu);
+        target.bind(opts.event,function(){
+            $(".dropDown").removeClass('open');
+            if(target.hasClass('open')){
+                target.removeClass('open');
+            }
+            else{
+                $(this).addClass('open');
+            }
+            return false;
+        });
+        target.find("a").on("click",function(){
+                var _this = $(this),
+                    val = _this.text();
+            _this.parents(".m-dropList-menu").siblings().html(val);
+        })
+        $("body").click(function(){target.removeClass('open');});
+    };
+    //调用
+    $('.m-dropList').hft_dropList();
+</script>
+</body>
+</html>

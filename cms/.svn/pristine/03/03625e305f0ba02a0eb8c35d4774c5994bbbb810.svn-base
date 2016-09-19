@@ -1,0 +1,19 @@
+<?php
+/**
+ * The contact module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Tingting Dai <daitingting@xirangit.com>
+ * @package     contact
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+if(!isset($lang->feedback)) $lang->feedback = new stdclass();
+$lang->feedback->id            = '编号';
+$lang->feedback->realname      = '真实姓名';
+$lang->feedback->title      = '标题';
+$lang->feedback->content        = '内容';
+$lang->feedback->createdAt      = '反馈时间';
+$lang->feedback->contact      = '客户';
+$lang->feedback->create       = '添加';

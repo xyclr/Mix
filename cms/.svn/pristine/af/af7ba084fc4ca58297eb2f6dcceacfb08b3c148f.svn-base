@@ -1,0 +1,253 @@
+<?php
+/**
+ * The model file of balance module of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     contact
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+class ironModel extends model {
+    private $table_name = '`sales_order`';
+    private $dispatch_step = '`dispatch_step`';
+    private $is_dispatch = '`is_dispatch`';
+    private $id = '`id`';
+    const CONFIRM = 1;
+
+
+    const WAIT = 0;
+    const DISPATCH = 1;
+    const WASH = 2;
+    const IRON = 3;
+    const CHECK = 4;
+    const SEND = 5;
+
+//获取待调度中列表
+    public function getIsDispatchList($mode = 0, $pager = null, $param = 'id'){
+        switch ($mode) {
+            case 'wait':
+                $mode = self::WAIT;
+                break;
+            case 'dispatch':
+                $mode = self::DISPATCH;
+                break;
+            case 'wash':
+                $mode = self::WASH;
+                break;
+            case 'iron':
+                $mode = self::IRON;
+                break;
+            case 'check':
+                $mode = self::CHECK;
+                break;
+            case 'send':
+                $mode = self::SEND;
+                break;
+        }
+        
+        
+        $idList =  $this->dao->select($param)->from($this->table_name)->where($this->is_dispatch)->eq($mode)->page($pager)->fetchAll();
+        print_r($idList);exit;
+        return $this->getList($idList);
+    }
+
+    //获取调度中列表
+    public function getDispatchList($mode = 'iron', $pager = null, $orderBy = 'id', $param = 'id'){
+        switch ($mode) {
+            case 'wait':
+                $mode = self::WAIT;
+                break;
+            case 'dispatch':
+                $mode = self::DISPATCH;
+                break;
+            case 'wash':
+                $mode = self::WASH;
+                break;
+            case 'iron':
+                $mode = self::IRON;
+                break;
+            case 'check':
+                $mode = self::CHECK;
+                break;
+            case 'send':
+                $mode = self::SEND;
+                break;
+        }
+        $idList = $this->dao->select($param)->from($this->table_name)->where($this->dispatch_step)->eq($mode)->page($pager)->fetchAll();
+        return $this->getList($idList);
+    }
+
+    //获取订单
+    public function getData($id){
+        $rs = $this->dao->select('*')->from($this->table_name)->where($this->id)->eq($id)->fetch();
+        if (empty($rs)){
+        	return array();
+        }
+        $cloth_brand = $this->dao->select('name')->from(TABLE_CLOTH_BLAND)->where('id')->eq($rs->brand)->fetch();
+        $rs->brand = $cloth_brand->name;
+        $cloth_model = $this->dao->select('name')->from(TABLE_CLOTH_SET)->where('id')->eq($rs->name)->fetch();
+        $rs->name = $cloth_model->name;
+        
+        // 事故与异常
+        $error = $this->dao->select('*')->from(TABLE_SORDERLOG)->where('order_id')->eq($id)->fetchAll();
+        if (!empty($error)){
+            $rs->error = $error;
+        }
+        return $rs;
+    }
+
+    public function getList($ids){
+        $ret = array();
+        if(is_array($ids)){
+            foreach($ids as $val){
+                $ret[$val->id] = $this->getData($val->id);
+            }
+        } elseif (is_numeric($ids)){
+            $ret = $this->getDate($ids);
+        } else {
+            $ret = array();
+        }
+        return $ret;
+    }
+
+	
+
+    //调度公用
+    private function getDispatchStepList($pager, $value, $param = '*' ){
+        return $this->dao->select($param)->from($this->table_name)->where($this->dispatch_step)->eq($value)->page($pager)->fetchAll();
+    }
+
+    /**
+     * Get latest balances.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getLatest()
+    {
+        return $this->dao->select('depositor, date, money, currency')
+            ->from(TABLE_BALANCE)
+            ->orderBy('date')
+            ->fetchGroup('currency', 'depositor');
+    }
+
+    /**
+     * Get date otions of all balances.
+     * 
+     * @param  int    $depositorID 
+     * @access public
+     * @return void
+     */
+    public function getDateOptions($depositorID = 0)
+    {
+        return $this->dao->select('date')->from(TABLE_BALANCE)
+            ->beginIF($depositorID)->where('depositor')->in($depositorID)->fi()
+            ->orderBy('date_desc')
+            ->fetchPairs('date', 'date');
+    }
+
+    /**
+     * Create a balance.
+     * 
+     * @param  object    $balance 
+     * @access public
+     * @return int|bool
+     */
+    public function create() {
+        $order_info = fixer::input('post')->add('add_time', time())
+                ->add('admin_user', $this->app->user->id)
+                ->add('member', intval($this->post->member))
+                ->add('delivery_time', strtotime($this->post->delivery_time))
+                ->get();
+        $rs = $this->dao->insert(TABLE_SORDER)->data($order_info)->autoCheck()->exec();
+        $orderID = $this->dao->lastInsertID();
+         if(dao::isError()) return false;
+        return $orderID;
+    }
+
+    /**
+     * Update a balance.
+     * 
+     * @param  int    $balanceID 
+     * @access public
+     * @return string|bool
+     */
+    public function update($balanceID)
+    {
+        $oldBalance = $this->getByID($balanceID);
+
+        $depositor = $this->loadModel('depositor')->getByID($this->post->depositor);
+
+        $balance = fixer::input('post')
+            ->add('currency', $depositor->currency)
+            ->add('editedBy', $this->app->user->account)
+            ->add('editedDate', helper::now())
+            ->removeIF($this->post->type == 'cash', 'public')
+            ->get();
+
+        $this->dao->delete()->from(TABLE_BALANCE)->where('depositor')->eq($balance->depositor)->andWhere('date')->eq($balance->date)->andWhere('id')->ne($balanceID)->exec();
+
+        $this->dao->update(TABLE_BALANCE)->data($balance)->autoCheck()->where('id')->eq($balanceID)->exec();
+
+        if(!dao::isError()) return commonModel::createChanges($oldBalance, $balance);
+
+        return false;
+    }
+
+    /**
+     * Delete a balance.
+     * 
+     * @param  int      $balanceID 
+     * @access public
+     * @return void
+     */
+    public function delete($balanceID, $null = null)
+    {
+        $balance = $this->getByID($balanceID);
+        if(!$balance) return false;
+
+        $this->dao->delete()->from(TABLE_BALANCE)->where('id')->eq($balanceID)->exec();
+
+        return !dao::isError();
+    }
+    
+  	public function changeStatus($id, $status = 0) {
+  		return $this->dao->update($this->table_name)->data(array('dispatch_step' => $status))->autoCheck()->where('id')->eq($id)->exec();
+  	}
+
+  	public function setIsChange($id, $status = 0) {
+  		return $this->dao->update($this->table_name)->data(array('is_change' => $status))->autoCheck()->where('id')->eq($id)->exec();
+  	}
+
+  	public function setIsDispatch($id, $status = 0) {
+  		return $this->dao->update($this->table_name)->data(array('is_dispatch' => $status))->autoCheck()->where('id')->eq($id)->exec();
+  	}
+
+  	public function setIsRecur($id, $status = 0) {
+  		return $this->dao->update($this->table_name)->data(array('is_recur' => $status))->autoCheck()->where('id')->eq($id)->exec();
+  	}
+  	
+  	/**
+  	 * Create a balance.
+  	 *
+  	 * @param  object    $balance
+  	 * @access public
+  	 * @return int|bool
+  	 */
+  	public function dealBack() {
+  	    $order_log = fixer::input('post')
+  	    ->add('log_user', $this->app->user->realname)
+  	    ->add('log_role', $this->app->user->role)
+  	    ->add('log_time', time())
+  	    ->add('log_orderstate', 3)
+  	    ->add('log_order_step', 2)
+  	    ->get();
+  	    $rs        = $this->dao->insert(TABLE_SORDERLOG)->data($order_log)->autoCheck()->exec();
+  	    if (!dao::isError())
+  	        return true;
+  	
+  	    return false;
+  	}
+}

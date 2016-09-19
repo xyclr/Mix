@@ -1,0 +1,3 @@
+.page-content.with-menu{margin: 0 0 0 160px;}
+.group-item{display: inline; margin-right: 20px;}
+.leftmenu > .nav > li > a{padding: 0 15px;}

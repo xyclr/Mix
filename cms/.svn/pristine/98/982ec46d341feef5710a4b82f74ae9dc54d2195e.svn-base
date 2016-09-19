@@ -1,0 +1,21 @@
+form .pri.active:before {font-family: ZenIcon; content: '\e60d'; display: inline-block;}
+form .pri.pri-1.active:before, form .pri.pri-2.active:before, form .pri.pri-3.active:before, form .pri.pri-4.active:before {margin-right: 5px;}
+form .pri {width: 48px;}
+
+.label.task-status-doing {color: #D2322D}
+.label.task-status-done {color: #229F24}
+.label.task-status-waiting {color: #E48600}
+.label.task-status-cancel {color: #333}
+
+.taskMenu {width: 200px}
+.taskMenu + .page-content {margin-left: 220px;}
+
+#dropMenu {min-width: 200px;}
+#defaultMenu, #finishedMenu, #suspendMenu {min-width: 168px;}
+#groupBar .btn-group{margin-right: 15px;}
+
+#currentItem {margin-right: 1px;}
+
+.children {background: #f0f0f0;}
+.modal-team .table-form {margin: auto; width: 90%;}
+.modal-team .modal-content {padding: 5px;}

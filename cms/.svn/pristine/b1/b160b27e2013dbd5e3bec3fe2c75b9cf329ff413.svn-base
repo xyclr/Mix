@@ -1,0 +1,20 @@
+.dl-horizontal{margin: 5px 0;}
+.dl-horizontal dt{width: 80px;}
+.dl-horizontal dd{margin-left: 90px;}
+
+.card-depositor {background-color: #fafafa; height: 200px}
+.card-depositor > .card-heading {border-bottom: 1px solid #e5e5e5; position: relative;}
+.card-depositor > .card-heading > .info {position: absolute; right: 10px; top: 10px}
+.card-depositor > .card-heading > .subtitle > .cell:before {content: '-'; display: inline-block; margin: 0 7px 0 5px; color: #aaa}
+.card-depositor > .card-heading > .subtitle > .cell:first-child:before {display: none}
+.card-depositor > .card-caption {background: #fff; border-bottom: 1px solid #e5e5e5; padding: 8px 0; height: 91px}
+.card-depositor.card > .card-actions {padding: 8px 10px; position: absolute; bottom: 0; left: 0; width: 100%}
+
+.card-depositor > .card-heading.cash {background: #FFF4E5;}
+.card-depositor > .card-heading.cash > .info > .label {background: #E48600;}
+.card-depositor > .card-heading.online {background: #E5FFE6;}
+.card-depositor > .card-heading.online > .info > .label {background: #229F24;}
+.card-depositor > .card-heading.bank {background: #E5F9FF;}
+.card-depositor > .card-heading.bank > .info > .label {background: #39B3D7;}
+
+.label-balance{ position:absolute; right:20px; bottom:60px; font-size:16px; font-weight:600;}

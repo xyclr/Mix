@@ -1,0 +1,4 @@
+.input-group {margin-bottom:10px;}
+.input-group-btn {padding-left:10px;}
+.icon-plus-sign {cursor:pointer;}
+.icon-minus-sign {cursor:pointer;}

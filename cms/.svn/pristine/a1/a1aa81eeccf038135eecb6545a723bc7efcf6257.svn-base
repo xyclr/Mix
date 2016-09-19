@@ -1,0 +1,61 @@
+<?php
+/**
+ * The balance module zh-cn file of RanZhi.
+ *
+ * @copyright   Copyright 2009-2015 青岛易软天创网络科技有限公司(QingDao Nature Easy Soft Network Technology Co,LTD, www.cnezsoft.com)
+ * @license     ZPL (http://zpl.pub/page/zplv11.html)
+ * @author      Xiying Guan <guanxiying@xirangit.com>
+ * @package     balance
+ * @version     $Id$
+ * @link        http://www.ranzhico.com
+ */
+
+$lang->data->common    = '余额';
+$lang->data->id        = '编号';
+$lang->data->depositor = '卡号';
+$lang->data->data_sn = '洗涤码';
+$lang->data->name  = '衣物名称';
+$lang->data->color     = '衣物颜色';
+$lang->data->member      = '会员卡号';
+$lang->data->brand      = '衣物品牌';
+$lang->data->cloth_model      = '衣物模型';
+$lang->data->cloth_flaw      = '衣物瑕疵';
+$lang->data->wash_effect      = '洗后效果';
+$lang->data->delivery_time      = '交货时间';
+$lang->data->add_time      = '下单时间';
+$lang->data->wash_way_1         = '洗涤方式';
+$lang->data->wash_way[1]      = '水洗';
+$lang->data->wash_way[2]      = '干洗';
+$lang->data->wash_way[3]      = '湿洗';
+$lang->data->wash_way[4]      = '单去渍';
+$lang->data->iron_1      = '熨烫方式';
+$lang->data->iron[1]      = '无裤线';
+$lang->data->iron[2]      = '单烫';
+$lang->data->way_1      = '提取方式';
+$lang->data->way[1]      = '自提';
+$lang->data->way[2]      = '配送';
+$lang->data->remark      = '备注';
+$lang->data->money      = '支付金额';
+$lang->data->create = '登记余额';
+$lang->data->browse = '订单列表';
+$lang->data->feedbackList = '反馈列表';
+$lang->data->edit   = '编辑';
+$lang->data->feedback   = '客人反馈';
+$lang->data->delete = '删除';
+$lang->data->cancel = '取消订单';
+$lang->data->data_state_1  ='订单状态';
+$lang->data->data_state[0] = '已取消';
+$lang->data->data_state[1] = '待付款';
+$lang->data->data_state[2] = '已付款';
+$lang->data->data_state[3] = '衣物送洗';
+$lang->data->data_state[4] = '回店上架';
+$lang->data->data_state[5] = '衣物返工';
+$lang->data->data_state[6] = '已取衣';
+$lang->data->data_state[7] = '撤单及退款';
+
+$lang->data->feedback_1[1]   = '客户投诉';
+$lang->data->feedback_1[2]   = '客户建议';
+$lang->data->complain  ='投诉类型';
+$lang->data->content  ='反馈内容';
+$lang->data->complain_1[1]   = '服务质量';
+$lang->data->complain_1[2]   = '洗涤质量、事故';

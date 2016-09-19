@@ -1,0 +1,56 @@
+<?php include '../../../sys/common/view/header.modal.html.php'; ?>
+<div class='panel'>
+    <div id="menu">
+        <ul class="nav">
+            <!--<li class="active"><a href="/workshop/index.php?m=dispatch&amp;f=browse&amp;mode=wait">待入车间衣物</a> </li>-->
+            <li><a href="/workshop/index.php?m=dispatch&amp;f=browse&amp;mode=wait">待入车间衣物</a> </li>
+            <li><a href="/workshop/index.php?m=dispatch&amp;f=browse&amp;mode=dispatch">待确认车间衣物</a> </li>
+            <li><a href="/workshop/index.php?m=dispatch&amp;f=browse&amp;mode=isok">可操作调度衣物</a> </li>
+            <li><a href="/workshop/index.php?m=dispatch&amp;f=browse&amp;mode=error">异常漏检衣物</a> </li>
+        </ul>
+    </div>
+
+    <div class='panel-heading'>
+        <strong><i class='icon-building'></i> <?php echo $lang->entry->create;?></strong>
+    </div>
+    <div class='panel-body'>
+        <table class='table table-hover table-striped tablesorter table-data table-fixed' id='contactList'>
+            <thead>
+                <tr class='text-center'>
+                    <th class='w-40px'>编号</th>
+                    <th class='w-40px'>流水号</th>
+                    <th class='w-40px'>会员卡号</th>
+                    <th class='w-40px'>下单时间</th>
+                    <th class='w-40px'>订单价钱</th>
+                    <th class='w-40px'>实付</th>
+                    <th class='w-40px'>订单状态</th>
+                    <th class='w-40px'>操作人</th>
+                    <th class='w-40px'>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($datas as $val): ?>
+                <tr class='text-center'>
+                    <td><?php echo $val->id; ?></td>
+                    <td><?php echo $val->serial; ?></td>
+                    <td><?php echo $val->order_sn; ?></td>
+                    <td><?php echo date('Y-m-d H:i:s',$val->add_time); ?></td>
+                    <td><?php echo $val->amount; ?></td>
+                    <td><?php echo $val->pay_amount; ?></td>
+                    <td><?php echo $val->status; ?></td>
+                    <td><?php echo $val->realname; ?></td>
+                    <td><?php commonModel::printLink('dispatch', 'detail', "id={$val->id}&mode={$mode}", "<i class='icon-plus'></i>{$lang->dispatch->detail}"); ?></td>
+                    <!--  
+                    <td><?php commonModel::printLink('dispatch', 'create', "id={$val->id}&mode={$mode}", "<i class='icon-plus'></i>{$lang->dispatch->dispatch}"); ?></td>
+                	-->
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <div class='table-footer'><?php $pager->show(); ?></div>
+    </div>
+    <div class='panel-heading'> </div>
+</div>
+
+
+<?php include '../../../sys/common/view/footer.html.php';?>

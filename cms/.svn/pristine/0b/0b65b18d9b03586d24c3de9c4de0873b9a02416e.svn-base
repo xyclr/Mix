@@ -1,0 +1,101 @@
+<?php include '../../../sys/common/view/header.html.php';?>
+<?php include '../../../sys/common/view/datepicker.html.php';?>
+<?php include '../../../sys/common/view/color.html.php';?>
+
+<div class='panel'>
+    <div class='panel-heading'>
+        <strong><i class='icon-building'></i> <?php echo $this->lang->dispatch->$mode; ?><?php echo $this->lang->dispatch->detail;?></strong>
+    </div>
+
+    <div class='panel-body'>
+    <table class='table table-form'>
+        <tr>
+            <th class='w-90px'>流水号</th>
+            <td>
+            <?php echo $serialData->serial;?>
+            </td>
+        </tr>
+        <tr>
+          <th class='w-70px'>订单时间</th>
+          <td>
+            <?php echo date('Y-m-d H:i:s',$val->add_time);?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'>订单价钱</th>
+          <td>
+            <?php echo $serialData->amount;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'>实付</th>
+          <td>
+            <?php echo $serialData->pay_amount;?>
+          </td>
+        </tr>
+        <tr>
+          <th class='w-70px'>订单状态</th>
+          <td>
+           <?php echo $serialData->status;?>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="99">
+            <table class='table table-hover table-striped tablesorter table-data'>
+                    <tr class='text-center'>
+                        <th class='w-40px'>编号</th>
+                        <th class='w-40px'>洗涤条码号</th>
+                        <th class='w-40px'>衣物品牌</th>
+                        <th class='w-40px'>衣物名称</th>
+                        <th class='w-40px'>衣物颜色</th>
+                        <th class='w-40px'>洗涤方式</th>
+                        <th class='w-40px'>熨烫方式</th>
+                        <th class='w-40px'>提取方式</th>
+                        <th class='w-40px'>操作</th>
+                    </tr>
+                    <?php foreach ($orderData as $val): ?>
+                    <tr class='text-center'>
+                        <td><?php echo $val->id; ?></td>
+                        <td><?php echo $val->order_sn; ?></td>
+                        <td><?php echo $val->brand; ?></td>
+                        <td><?php echo $val->name; ?></td>
+                        <td><a href="javascript:void(0)"  style="width:20px;display:block;height:10px;background: <?php echo $val->color;?>"></a></td>
+                        <td><?php echo $lang->workshop->wash_way[$val->wash_way]; ?></td>
+                        <td><?php echo $lang->workshop->iron[$val->iron]; ?></td>
+                        <td><?php echo $lang->workshop->way[$val->way]; ?></td>
+                        <td>
+                            <a class="btn btn-default" href="/workshop/index.php?m=dispatch&amp;f=browse&amp;mode=wait&id=<?php echo $orders->id;?>">洗涤</a>
+                            <a class="btn btn-default" href="/sales/index.php?m=order&f=webprint&id=<?php echo $orders->id;?>">干洗</a>
+                            <a class="btn btn-default" href="/sales/index.php?m=order&f=webprint&id=<?php echo $orders->id;?>">特殊洗</a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="99">
+        <?php 
+            if($mode == 'wait'){
+                echo html::commonButton("放入车间调度", 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=dispatch&f=indispatch&id={$serialData->id}\"'");
+            }else{
+                if($serialData->status == '5'){
+                    echo '已经确认订单，可以进行调度操作, 确认员：';
+                
+                } else {
+                    echo html::commonButton("确认衣物", 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=dispatch&f=dodispatch&id={$serialData->id}\"'");
+//                     echo html::commonButton("衣物漏检", 'btn btn-default', "onclick='javascript:window.location.href=\"/workshop/index.php?m=dispatch&f=dodispatch&id={$serialData->id}&mode=1\"'");
+                    commonModel::printLink('dispatch', 'error', "id={$serialData->id}", '衣物捡漏',"class='btn btn-default' data-toggle='modal'");
+                }
+            }
+        ?>
+          </td>
+        </tr>
+    </table>
+    </div>
+
+    <div class='panel-heading'> </div>
+</div>
+
+<?php include '../../../sys/common/view/footer.html.php';?>
+

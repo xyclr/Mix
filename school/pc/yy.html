@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/pc.css"/>
+    <script src="../js/jquery-2.1.1.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="info">
+                <img src="../images/info.png" alt=""/>
+
+                <!--用户类型-->
+                <div class="user-type">
+                    <div class="item checked">
+                        <s></s>
+                        <input type="radio" checked name="user-type" id="user-type-1"/><label for="user-type-1">新号码</label>
+                    </div>
+                    <div class="item">
+                        <s></s>
+                        <input type="radio" name="user-type" id="user-type-2"/><label for="user-type-2">沿用老号码</label>
+                    </div>
+                </div>
+
+                <!--选择套餐-->
+                <div class="select-rule">
+                    选套餐<br/><br/>
+                    <img src="../images/table.jpg" alt=""/>
+
+                    <div class="radio-box">
+                        <div class="item">
+                            <input type="radio" value="18" name="rule-type"/>
+                            <span class="icon-radio icon-radio-checked"></span>
+                        </div>
+                        <div class="item">
+                            <input type="radio" value="28" name="rule-type"/>
+                            <span class="icon-radio"></span>
+                        </div>
+                        <div class="item">
+                            <input type="radio" value="38" name="rule-type"/>
+                            <span class="icon-radio"></span>
+                        </div>
+                        <div class="item">
+                            <input type="radio" value="58" name="rule-type"/>
+                            <span class="icon-radio"></span>
+                        </div>
+                        <div class="item">
+                            <input type="radio" value="88" name="rule-type"/>
+                            <span class="icon-radio"></span>
+                        </div>
+                        <div class="item" style="margin-top:68px;">
+                            <input type="radio" value="50" name="rule-type"/>
+                            <span class="icon-radio"></span>
+                        </div>
+                    </div>
+
+                    <p class="notice">
+                        注：1、套餐档次只能选一档<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、沿用老号码客户须确认是第一次订购4G统一套餐或曾订购4G统一套餐但价位档次比当前所选套餐低。
+                    </p>
+                </div>
+
+                <img src="../images/line.png" alt=""/>
+
+                <!--登记信息-->
+                <form action="">
+                    <div class="form-dj">
+                        <h3>登记个人信息</h3>
+                        <div class="form-item">
+                            <div class="form-label">
+                                姓名:
+                            </div>
+                            <div class="form-info">
+                                <input type="text" class="form-ipt form-ipt-long"/>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <div class="form-label">
+                                身份证号码:
+                            </div>
+                            <div class="form-info">
+                                <input type="text" class="form-ipt form-ipt-long"/>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <div class="form-label">
+                                所在大学:
+                            </div>
+                            <div class="form-info">
+                                <select name="p" class="form-select">
+                                    <option value="">四川省</option>
+                                    <option value="">四川省</option>
+                                    <option value="">四川省</option>
+                                    <option value="">四川省</option>
+                                    <option value="">四川省</option>
+                                </select>
+                                省&nbsp;&nbsp;
+                                <select name="s" class="form-select">
+                                    <option value="">成都市</option>
+                                    <option value="">成都市</option>
+                                    <option value="">成都市</option>
+                                    <option value="">成都市</option>
+                                    <option value="">成都市</option>
+                                </select>
+                                市
+                                <br/>
+                                <input type="text" style="margin-top:13px;" class="form-ipt form-ipt-long"/>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <div class="form-label">
+                                常用联系地址:
+                            </div>
+                            <div class="form-info">
+                                <input type="text" class="form-ipt form-ipt-long"/>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <div class="form-label">
+                                现有移动手机号码:
+                            </div>
+                            <div class="form-info">
+                                <input type="text" class="form-ipt form-ipt-long"/>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <div class="form-label" style="line-height: 50px;">
+                                输入验证码:
+                            </div>
+                            <div class="form-info">
+                                <input type="text" style="width: 280px;" class="form-ipt form-ipt-long"/>
+                                <a href="javascript:void(0)" class="btn-get-code">点击获取验证码</a>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <input type="checkbox" id="agree"/><label for="agree">同意中国移动后续以短信或电话方式与您联系</label>
+                        </div>
+                        <div class="form-item form-btn-box">
+                            <button class="btn-submit">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="tips" style="display: none">
+        <div class="tips-info">
+            用户手机号不可为空
+        </div>
+        <div class="btn-box">
+            <a href="javascript:void(0)" class="btn-ok">确定</a>
+            <a href="javascript:void(0)" class="btn-back">返回</a>
+        </div>
+    </div>
+    <div class="mask" style="display: none"></div>
+    <script>
+        $(function(){
+            $(".radio-box .item").click(function(){
+                var me = $(this);
+                me.find('.icon-radio')
+                        .addClass('icon-radio-checked')
+                        .parents('.item')
+                        .siblings()
+                        .find('.icon-radio')
+                        .removeClass('icon-radio-checked');
+            });
+
+
+            $('.tips .btn-ok,.tips .btn-back').click(function(){
+                $(this).parents('.tips').hide();
+                $('.mask').hide();
+                return false;
+            });
+
+            $(".user-type .item").click(function(){
+                var me = $(this);
+                me.addClass('checked')
+                        .siblings()
+                        .removeClass('checked');
+            });
+        })
+    </script>
+</body>
+</html>

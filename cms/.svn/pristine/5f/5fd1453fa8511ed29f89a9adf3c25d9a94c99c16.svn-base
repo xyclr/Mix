@@ -1,0 +1,13 @@
+form .avatar {display: block; margin-left: 22px; width: 60px; height: 60px; border: 1px solid #ccc; border-radius: 4px; position: relative; cursor: pointer; z-index: 10;}
+form .avatar-empty:before {color: #aaa; font-family: ZenIcon; font-size: 52px; content: '\e608'; display: block; position: absolute; top: -8px; left: 8px; z-index: 11; cursor: pointer;}
+form .avatar img {width: 100%}
+form .avatar span {width: 100%; text-align: center; padding: 2px; overflow: hidden; bottom: 0; background-color: #ebf2f9; background-color: rgba(255,255,255,0.5); display: block; position: absolute; z-index: 12;}
+form .avatar-avatar span {opacity: 0.5}
+form .avatar-avatar:hover span {opacity: 1; background: rgba(255,255,255,0.85);}
+form .avatar input {position: absolute; width: 60px; height: 60px; top: 0; left: 0; opacity: 0; filter:alpha(opacity=0); z-index: 15; cursor: pointer;}
+form #desc {margin-bottom: 0; transition : all 0.5s;}
+.vcard{width: 200px; margin: 0 auto;}
+dl.contact-info{margin:0;}
+#duplicateError {display: inline-block;}
+#duplicateError .alert{padding: 3px 10px; margin-bottom: 0; text-align: left;}
+#duplicateError .close{right: 0; top: 5px; margin-left: 20px;} 

@@ -1,0 +1,8 @@
+#recordTable {overflow-y: auto; margin-left: -10px;margin-right: -10px; border-top: 1px solid #ddd; min-height:300px;}
+#recordTable > .table {width: auto;}
+#recordTable > .table > thead > tr > th {max-width: 200px; min-width: 100px; vertical-align: top;}
+#recordTable > .table > thead > tr > th .chosen-drop {width: auto; min-width: 120px}
+#recordTable > .table > tbody > tr:first-child > td {font-weight: bold;}
+#recordBox .panel-body {padding-bottom: 0;}
+#recordBox .panel-body > .table-form {margin-bottom: 10px;}
+#recordTable > .table-data-col > tbody > tr:first-child > td {font-weight: normal;}
