@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimal-ui">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="css/reset.css">
+    <style type="text/css">
+        html {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            text-align: left;
+            width: 100%;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, .05);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            background: #e9dfc7;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<style>
+    body {
+        font-size: 14px;
+        color: #262626;
+        font-family: STHeiti-Light, 'Hiragino Sans GB', 'Microsoft Yahei', Arial;
+    }
+
+    .header {
+        background: #ff7a18;
+        border-bottom: 1px solid #cd530e;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 20px;
+        color: #fff;
+
+    }
+    .bi-arrow-left {
+        float:left;
+        padding-left:8px;
+    }
+
+    .global-flex {
+        width: auto;
+        display: -webkit-box;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-box-pack: justify;
+        -webkit-box-align: stretch;
+        -webkit-box-lines: single;
+        display: -webkit-flex;
+        -webkit-flex-direction: row;
+        -webkit-justify-content: space-between;
+        -webkit-align-items: strecth;
+        -webkit-align-content: flex-start;
+        -webkit-flex-wrap: nowrap;
+    }
+    .global-flex-1 {
+        -webkit-box-orient: horizontal;
+        -webkit-box-align: center;
+        -webkit-box-pack: center;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 auto;
+    }
+
+    #bookInfo .book-intro {
+        padding: 20px;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: flex;
+        background: #fff;
+    }
+
+    #bookInfo .book-intro img {
+        width: 84px;
+        height: 120px;
+        margin-right: 12px;
+    }
+    #bookInfo .book-intro .book-name {
+        font-size: 22px;
+        line-height: 24px;
+        margin-bottom: 12px;
+        max-width: 200px;
+    }
+    #bookInfo .book-intro p {
+        font-size: 14px;
+        height: 18px;
+        line-height: 18px;
+        margin-bottom: 8px;
+    }
+    #bookInfo .book-action {
+        padding: 0 8px 8px;
+        background: #fff;
+    }
+    #bookInfo .book-action a {
+        display: block;
+        height: 30px;
+        line-height: 30px;
+        background: #f57c47;
+        color: #fff;
+        text-align: center;
+    }
+    #bookInfo .description {
+        border-bottom: solid 1px #eae3d3;
+        font-size: 16px;
+        position: relative;
+        padding: 12px;
+        background: #fffdf9;
+    }
+
+    #bookInfo .description p {
+        line-height: 23px;
+        padding: 12px 0 20px;
+        color: #777;
+    }
+    #chapterInfo .chapter-info {
+        border-bottom: solid 1px #cfc4af;
+        background: #fff;
+        padding:8px;
+    }
+    #chapterInfo .chapter-catalog {
+        height: 30px;
+        line-height: 30px;
+        font-size: 16px;
+    }
+    #chapterInfo .chapter-catalog-wrap {
+        padding: 0 8px;
+    }
+    #chapterInfo .chapter-ul-selected {
+        display: block;
+    }
+    #chapterInfo .chapter-info-list li {
+        height: 46px;
+        line-height: 46px;
+        font-size: 16px;
+        border-bottom: solid 1px #f6f5f2;
+        position: relative;
+    }
+    #chapterInfo .chapter-info-list li a {
+        display: block;
+        height: 46px;
+        width: 100%;
+    }
+</style>
+
+<div class="page">
+    <div class="page-choice">
+        <header class="header">
+            <span class="bi-arrow-left J-back">&lt;</span>
+            小说书城
+        </header>
+        <div id="middle" class="container">
+
+            <div id="detail" class="detail" style="width: 320px;">
+
+                <div id="detailInfo" class="">
+                    <!-- 小说的基本数据 -->
+                    <div id="bookInfo">
+                        <div class="global-flex book-intro">
+                            <img src="http://gocache.3g.cn/bookimage/bookpic/12/307612/307612_210_280.jpg">
+                            <div class="global-flex-1">
+                                <h2 class="global-cut book-name J-title">--</h2>
+                                <p>作者：<span class="J-author">--</span></p>
+                            </div>
+                        </div>
+                        <div class="book-action">
+                            <a class="">开始阅读</a>
+                        </div>
+
+                        <div class="detail-block description">
+                            <h3>内容简介</h3>
+
+                            <p class="invoke short-description J-description">
+    --
+                            </p>
+
+                        </div>
+
+                    </div>
+                    <!-- 小说的目录列表 -->
+                    <div id="chapterInfo">
+                        <div class="detail-block chapter-info">
+                            <div class="chapter-catalog">
+                                <span class="global-left">目录：</span>
+                            </div>
+                            <div lass="chapter-catalog-wrap">
+
+                                <ul class="chapter-info-list J-chapter "> </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="lib/zepto.min.js"></script>
+    <script>
+        window.jQuery = $;
+    </script>
+    <script>
+
+        var paramsId = window.location.href.split('?')[1].split('=')[1];
+        $.ajax({
+            url: '../server/data/' + paramsId + '/info.json',
+            method: 'get',
+            success: function (data) {
+
+                console.info(data);
+                $('.J-title').text(data.info.title);
+                $('.J-author').text(data.info.author);
+                $('.J-description').text(data.info.intro);
+
+                var html = '';
+
+                $.each(data.chapters, function (key,val) {
+                    html += '<li ><a href="./reader.html?id=' + paramsId  + '&catid=' + val.id + '">' + val.title + '</a></li>'
+                });
+
+                $('.book-action a').attr('href',"./reader.html?id=" + paramsId  + "&catid=0");
+
+                $('.J-chapter').html(html);
+            }
+        });
+
+        $('body').on('click', '.J-back', function(){
+            window.history.back('-1');
+        })
+    </script>
+</body>
+</html>
