@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="./vue.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+<div id="app">
+
+    <table>
+        <tr><th class="text-right" @click="sortBy('id')">序号</th>
+            <th class="text-right" @click="sortBy('name')">书名</th>
+            <th class="text-right" @click="sortBy('author')">作者</th>
+            <th class="text-right" @click="sortBy('price')">价格</th></tr>
+        <tr v-cloak v-for="book in books | orderBy sortparam">
+            <td>{{book.id}}</td><td>
+            <td>{{book.name}}</td><td>
+            <td>{{book.author}}</td><td>
+            <td>{{book.price}}</td><td><button v-on:click="remove(book)">删除</button></td>
+        </tr>
+    </table>
+
+
+    <div id="add-book">
+        <legend>添加书籍</legend>
+        <div class="form-group">
+            <label for="">书名</label>
+            <input type="text" class="form-control" v-model="book.name">
+        </div>
+        <div class="form-group">
+            <label for="">作者</label>
+            <input type="text" class="form-control" v-model="book.author">
+        </div>
+        <div class="form-group">
+            <label for="">价格</label>
+            <input type="text" class="form-control" v-model="book.price">
+        </div>
+        <button class="btn btn-primary btn-block" v-on:click="addBook()">添加</button>
+    </div>
+<br/>
+    总价:{{sum}}
+
+
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        methods: {
+            addBook: function() {
+                //计算书的id
+                this.book.id = this.books.length + 1;
+                this.books.push(this.book);
+                //将input中的数据重置
+                this.book = '';
+            },
+            remove: function(book){
+                this.books.$remove(book)
+            },
+            sortBy: function(sortparam) {
+                this.sortparam = sortparam;
+            }
+        },
+        computed: {
+            sum: function() {
+                var result = 0;
+                for (var i = 0; i < this.books.length; i++) {
+                    result = Number(this.books[i].price) + result;
+                };
+                return result;
+            }
+        },
+        data: {
+            sortparam: '',
+            book: {
+                id: 0,
+                author: '',
+                name: '',
+                price: ''
+            },
+            books: [{
+                id: 1,
+                author: '曹雪芹',
+                name: '红楼梦',
+                price: 32.0
+            }, {
+                id: 2,
+                author: '施耐庵',
+                name: '水浒传',
+                price: 30.0
+            }, {
+                id: '3',
+                author: '罗贯中',
+                name: '三国演义',
+                price: 24.0
+            }, {
+                id: 4,
+                author: '吴承恩',
+                name: '西游记',
+                price: 20.0
+            }]
+        }
+    })
+</script>
+</body>
+</html>

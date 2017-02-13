@@ -1,0 +1,23 @@
+{
+  "name": "Baby",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start"
+  },
+  "dependencies": {
+    "lodash": "^4.17.2",
+    "mockjs": "^1.0.1-beta3",
+    "query-string": "^4.2.3",
+    "react": "^0.14.8",
+    "react-native": "^0.25.1",
+    "react-native-button": "^1.7.1",
+    "react-native-image-picker": "^0.24.1",
+    "react-native-permissions": "^0.2.5",
+    "react-native-progress": "^3.2.0",
+    "react-native-sk-countdown": "^1.0.1",
+    "react-native-tab-navigator": "^0.3.0",
+    "react-native-vector-icons": "^2.0.2",
+    "react-native-video": "^0.9.0"
+  }
+}
